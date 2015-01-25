@@ -1,4 +1,5 @@
-# TestApp1
+# Dice Wars
 
-Testing android + gradle + calabash + git setup
-attempt 1
+Inspired by Dice Wars game, this is an app for Android which will be my first attempt at doing something cool. Enjoy.
+
+Jack Mueller

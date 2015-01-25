@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                tools:context=".TitleActivity"
+                tools:context=".ModeSelectActivity"
                 android:id="@+id/root">
 
 
@@ -10,8 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Dice Wars"
-        android:id="@+id/title"
+        android:text="Mode Select"
+        android:id="@+id/modeTitle"
         android:textColor="#ff00ff25"
         android:layout_marginTop="35dp"
         android:layout_alignParentTop="true"
@@ -21,33 +21,35 @@
 <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start"
-        android:id="@+id/goToGameMode"
+        android:text="Versus Computer"
+        android:id="@+id/goToGameConfig"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:width="200dp"
-        android:onClick="goToGameMode"/>
-        
+        android:onClick="goToGameConfig"/>
+    
 <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Options"
-        android:id="@+id/goToOptions"
+        android:text="Open Room"
+        android:id="@+id/goToOpenRoom"
         android:width="200dp"
-        android:onClick="goToOptions"
-        android:layout_below="@+id/goToGameMode"
-        android:layout_alignStart="@+id/goToGameMode"
-        android:layout_marginTop="50dp"/>
+        android:onClick="goToOpenRoom"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/goToGameConfig"
+        android:layout_alignStart="@+id/goToGameConfig"/>
 
 <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="How To Play"
-        android:id="@+id/goToHowToPlay"
+        android:text="Join Room"
+        android:id="@+id/goToJoinRoom"
         android:width="200dp"
-        android:onClick="goToHowToPlay"
-        android:layout_below="@+id/goToOptions"
-        android:layout_alignStart="@+id/goToOptions"
+        android:onClick="goToJoinRoom"
+        android:layout_below="@+id/goToOpenRoom"
+        android:layout_alignStart="@+id/goToOpenRoom"
         android:layout_marginTop="50dp"/>
+
+
 
 </RelativeLayout>
