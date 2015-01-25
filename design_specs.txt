@@ -1,0 +1,64 @@
+Dice Wars Program Flow (Functionality Specifications)
+
+User opens the app and is shown the 'Title' screen.
+The 'Title' screen displays 3 buttons: 'Start', 'Options', 'How to Play'
+
+
+**Start**
+
+User presses 'Start' on the 'Title' screen and is shown the 'Game Mode' screen
+The 'Game Mode' screen displays 3 buttons: 'Versus Computer', 'Open Room', 'Join Room'
+
+User presses 'Versus Computer' on the 'Game Mode' screen and is shown the 'Configuration' screen
+The 'Configuration' screen displays a table with 4 columns: 'Player Status' (togglable), 'Name', 'Edit Name' (button), 'Color' (switcher)
+The 'Configuration' screen displays 2 options: 'Board Size' (radio button), 'Colorless Territories' (checkbox)
+The 'Configuration' screen displays 1 button: 'Begin Game'
+
+User presses a row in the 'Player Status' column: 'Player Status' toggles from 'Active' to 'Closed' to 'Active' [User status is set to 'You']
+User presses a row in the 'Edit Name' column: the row becomes editable in the 'Name' column via the keyboard
+User presses a row in the 'Color' column: a color palette appears; touching a color will close the palette and update the row
+User presses a radio button under 'Board Size': The respective size, 'Small', 'Medium', 'Large' becomes selected
+User presses a checkbox 'Colorless Territories': the colorless territories propery is toggled
+
+
+User presses 'Begin Game': The 'Configuration' displayed is used to generate a 'Board', and a 'Game' is started
+A 'Start Player' is chosen
+The 'Start Player' is set to 'Moving' status
+A 'Round' begins with the 'Start Player' (round)
+A 'Turn' starts for the 'Moving Player' (turn)
+A 'Attack Phase' starts for the 'Moving Player'
+The 'Moving Player' selects an 'Owned Territory' and it becomes 'Attacking' (attack_phase)
+The 'Moving Player' selects an 'Unowned Territory' and it becomes 'Defending'
+The 'Attacking Territory's Value' is 'Rolled' against the 'Defending Territory's Value'
+If the 'Attacking Territory's Roll' is greater, 'Moving Player' becomes 'Owner' of the 'Defending Territory'
+The 'Defending Territory's Value' becomes the 'Attacking Territory's Value' - 1
+The 'Attacking Territory's Value' becomes 1.
+Otherwise, the 'Attacking Territory's Value' is reset to 1.
+Repeat at (attack_phase) until 'Moving Player' selects 'End Phase'
+A 'Defending Phase' starts for the 'Moving Player'
+A 'Resupply Value' is generated equal to the number of contiguous territories of 'Moving Player'
+If the 'Reinforced Territory' is at 'Max Value', nothing happens
+Otherwise, 'Resupply Value' is decremented by 1 and 'Reinforced Territory's Value' is incremented by 1
+Repeat at (reinforce) until 'Resupply Value' is 0
+The 'Moving' status is transferred to the next 'Player'
+Repeat at (turn) until 'Moving Player' is 'Start Player'
+Repeat at (round) until 'Start Player' is the only 'Player'
+The 'Start Player' wins the 'Game'
+The 'Results' screen is displayed
+
+The 'Results' screen displays 2 columns: 'Name', 'Ranking'
+The 'Restuls' screen displays 2 buttons: 'Rematch', 'Finish'
+User presses 'Rematch': The 'Configuration' used in the previous 'Game' is used to generate a new 'Game'
+User presses 'Start' on the 'Title' screen and is shown the 'Game Mode' screen
+
+
+**Options**
+
+User presses 'Options' on the 'Title' screen and is shown the 'Options' screen
+The 'Options' screen displays 2 options: 'Online profile' and 'Perferred color'
+User presses 'Online profile': User's default online name becomes editable via the keyboard
+User presses 'Perferred color': a color palette appears; touching a color will update the default color for games
+
+**How to Play**
+
+The stuff I already have there basically, didn't have time to write it tonight
