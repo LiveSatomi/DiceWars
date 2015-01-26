@@ -11,7 +11,7 @@ public class TitleActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_title);
+        setContentView(R.layout.a_title);
     }
 
 
@@ -23,8 +23,8 @@ public class TitleActivity extends Activity {
     public void goToGameMode(View v) {
         Log.i("nav", "Go to Game Mode");
 
-        Intent helpIntent = new Intent(this, ModeSelectActivity.class);
-        startActivity(helpIntent);
+        Intent start = new Intent(this, ModeSelectActivity.class);
+        startActivity(start);
     }
 
     /**
@@ -40,6 +40,9 @@ public class TitleActivity extends Activity {
      */
     public void goToHowToPlay(View v) {
         Log.i("nav", "Go to How To Play");
+        
+        Intent howToPlay = new Intent(this, HowToPlayActivity.class);
+        startActivity(howToPlay);
 
     }
 

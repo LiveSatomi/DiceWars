@@ -12,7 +12,7 @@ public class ModeSelectActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mode_select);
+        setContentView(R.layout.a_mode_select);
     }
 
     // Activity Navigation
