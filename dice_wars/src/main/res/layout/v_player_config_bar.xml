@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="31dp"
+        android:layout_marginTop="100dp">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Name"
+            android:id="@+id/name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+    <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:id="@+id/editName"
+            android:background="@drawable/edit_name"
+            android:maxWidth="20dp"
+            android:maxHeight="20dp"
+            android:layout_marginRight="10dp"
+            />
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Active"
+            android:id="@+id/status"
+            android:layout_marginRight="10dp"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ColorPick"
+            android:id="@+id/colorPicker"
+            android:layout_marginRight="10dp"/>
+
+</LinearLayout>

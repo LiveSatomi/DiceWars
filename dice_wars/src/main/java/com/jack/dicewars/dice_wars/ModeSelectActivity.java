@@ -21,7 +21,7 @@ public class ModeSelectActivity extends Activity {
      * Calls another activity GameConfigActivity
      */
     public void goToGameConfig(View v) {
-        Log.i("nav", "Go to Game Mode");
+        Log.i("nav", "Go to Game Config");
 
         Intent configIntent = new Intent(this, GameConfigActivity.class);
         startActivity(configIntent);
