@@ -32,7 +32,9 @@ public class TitleActivity extends Activity {
      */
     public void goToOptions(View v) {
         Log.i("nav", "Go to Options");
-
+        
+        Intent options = new Intent(this, OptionsActivity.class);
+        startActivity(options);
     }
 
     /**

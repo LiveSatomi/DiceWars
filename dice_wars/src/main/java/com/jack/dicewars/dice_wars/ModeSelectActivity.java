@@ -24,7 +24,11 @@ public class ModeSelectActivity extends Activity {
         Log.i("nav", "Go to Game Config");
 
         Intent configIntent = new Intent(this, GameConfigActivity.class);
-        startActivity(configIntent);
+        // Versus all computers, so set user position to 0
+        Bundle state = new Bundle();
+        state.putInt("position", 0);   
+        configIntent.putExtra("position", 0);
+        startActivity(configIntent, state);
     }
 
     /**

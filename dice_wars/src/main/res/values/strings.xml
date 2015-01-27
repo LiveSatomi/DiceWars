@@ -7,5 +7,6 @@
     <string name="title_activity_game_mode">GameModeActivity</string>
     <string name="title_activity_game_config">GameConfig</string>
     <string name="title_activity_how_to_play">How To Play</string>
+    <string name="title_activity_options">OptionsActivity</string>
 
 </resources>

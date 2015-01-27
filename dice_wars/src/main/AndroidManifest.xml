@@ -21,14 +21,17 @@
             android:label="@string/title_activity_game_mode" >
         </activity>
         <activity
-            android:name=".GameConfigActivity"
+            android:name="com.jack.dicewars.dice_wars.GameConfigActivity"
             android:label="@string/title_activity_game_config" >
         </activity>
         <activity
-                android:name=".HowToPlayActivity"
-                android:label="@string/title_activity_how_to_play" >
+            android:name="com.jack.dicewars.dice_wars.HowToPlayActivity"
+            android:label="@string/title_activity_how_to_play" >
         </activity>
-
+        <activity
+            android:name="com.jack.dicewars.dice_wars.OptionsActivity"
+            android:label="@string/title_activity_options" >
+        </activity>
     </application>
 
 </manifest>
