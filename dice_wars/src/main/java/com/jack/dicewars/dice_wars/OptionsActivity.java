@@ -32,7 +32,7 @@ public class OptionsActivity extends Activity {
         BufferedReader reader;
         String setProfile;
         try {
-            FileInputStream optionsFileStream = this.openFileInput("options");
+            FileInputStream optionsFileStream = this.openFileInput(getString(R.string.file_path_options));
             reader = new BufferedReader(new InputStreamReader(optionsFileStream));
             setProfile = reader.readLine();
             profile.setText(setProfile);
@@ -58,7 +58,7 @@ public class OptionsActivity extends Activity {
     /**
      * Prepares the profile field for editing.
      *
-     * @param view The edittext that hold the online profile
+     * @param view The edittext that holds the online profile
      */
     public void editOnlineProfile(View view) {
         TextView profile = (TextView) view;
@@ -78,6 +78,7 @@ public class OptionsActivity extends Activity {
         // Close the soft keyboard
         InputMethodManager imm = (InputMethodManager) getSystemService(
                 INPUT_METHOD_SERVICE);
+        getCurrentFocus().getWindowToken();
         imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         // Hide the cursor while not in focus
         profile.setCursorVisible(false);
@@ -93,7 +94,7 @@ public class OptionsActivity extends Activity {
     private void verifyProfile(EditText profile) {
         String newProfile = profile.getText().toString();
         try {
-            FileOutputStream optionsFileStream = this.openFileOutput("options", MODE_PRIVATE);
+            FileOutputStream optionsFileStream = this.openFileOutput(getString(R.string.file_path_options), MODE_PRIVATE);
             optionsFileStream.write(newProfile.getBytes());
             optionsFileStream.close();
         } catch (FileNotFoundException e) {

@@ -6,42 +6,56 @@
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="31dp"
-        android:layout_marginTop="100dp">
+        android:layout_marginTop="100dp"
+        android:id="@+id/config_bar"
+        >
 
-    <TextView
+    <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Name"
-            android:id="@+id/name"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:text="@string/config_name"
+            android:id="@+id/config_name"
+            android:textSize="20sp"
+            android:maxLength="16"
+            android:inputType="textPersonName"
+            android:imeOptions="actionDone"
+            android:layout_weight=".5"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="2dp"
+            android:enabled="true"
+            android:focusable="true"
+            android:focusableInTouchMode="false"/>
 
     <Button
             style="?android:attr/buttonStyleSmall"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:id="@+id/editName"
+            android:id="@+id/config_edit_name"
             android:background="@drawable/edit_name"
-            android:maxWidth="20dp"
             android:maxHeight="20dp"
-            android:layout_marginRight="10dp"
+            android:onClick="editName"
+            android:maxWidth="20dp"
+            android:layout_weight="0"
+            android:enabled="true"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AI"
+            android:id="@+id/config_status"
+            android:onClick="toggleStatus"
+            android:layout_weight=".2"
+            style="@null"
             />
 
     <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Active"
-            android:id="@+id/status"
-            android:layout_marginRight="10dp"
-            android:minWidth="90dp"
-            android:nestedScrollingEnabled="false"/>
-
-    <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ColorPick"
-            android:id="@+id/colorPicker"
-            android:layout_marginRight="10dp"/>
+            android:text="c"
+            android:id="@+id/config_color"
+            android:onClick="openPalette"
+            android:layout_weight="0"
+            />
 
 </LinearLayout>

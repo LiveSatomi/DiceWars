@@ -19,42 +19,42 @@
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_below="@+id/configTitle"
             android:layout_alignParentStart="true"
             android:id="@+id/configContainer">
 
         <include
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 layout="@layout/v_player_config_bar"/>
 
         <include
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 layout="@layout/v_player_config_bar"
                 />
 
         <include
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 layout="@layout/v_player_config_bar"
                 />
 
         <include
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 layout="@layout/v_player_config_bar"
                 />
 
         <include
                 layout="@layout/v_player_config_bar"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"/>
 
         <include
                 layout="@layout/v_player_config_bar"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"/>
 
         <GridLayout
@@ -105,8 +105,7 @@
                         android:layout_height="wrap_content"
                         android:text="Large"
                         android:id="@+id/largeSize"
-                        android:layout_marginLeft="30dp"
-                        android:checked="true"/>
+                        android:layout_marginLeft="30dp"/>
 
             </RadioGroup>
 

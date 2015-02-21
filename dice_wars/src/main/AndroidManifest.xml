@@ -32,6 +32,10 @@
             android:name="com.jack.dicewars.dice_wars.OptionsActivity"
             android:label="@string/title_activity_options" >
         </activity>
+        <activity
+            android:name=".MainGameActivity"
+            android:label="@string/title_activity_main_game_activity" >
+        </activity>
     </application>
 
 </manifest>

@@ -1,0 +1,49 @@
+Title
+Start
+Options
+How to Play
+Start
+Game Mode
+Versus Computer
+Open Room
+Join Room
+Configuration
+Player Status
+Active
+Closed
+You
+Name
+Edit Name
+Color
+Board Size
+Small
+Medium
+Large
+Colorless Territories
+Begin Game
+Game
+Player
+Start Player
+Moving Player
+Round
+Turn
+Attack Phase
+Owned Territory
+Unowned Territory
+Attacking
+Defending
+Attacking Territory's Value
+Defending Territory's Value
+Rolled
+End Phase
+Defending Phase
+Resupply Value
+Reinforced Territory
+Max Value
+Results
+Rematch
+Finish
+
+Options
+Online profile
+Perferred color

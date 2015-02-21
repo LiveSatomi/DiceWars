@@ -19,7 +19,7 @@
             android:layout_marginTop="35dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:textSize="50dp"/>
+            android:textSize="50sp"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -41,8 +41,8 @@
             android:textSize="20sp"
             android:maxLength="16"
             android:background="@android:color/transparent"
-            android:inputType="textPersonName"
             android:cursorVisible="false"
+            android:imeOptions="actionDone"
             android:onClick="editOnlineProfile"
             android:layout_alignBottom="@+id/onlineProfileText"
             android:layout_alignParentEnd="true"/>
