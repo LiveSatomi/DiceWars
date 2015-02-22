@@ -9,6 +9,11 @@ import android.os.Parcelable;
  */
 public class Player implements Parcelable {
 
+    public static final String STATUS_YOU = "YOU";
+    public static final String STATUS_AI = "AI";
+    public static final String STATUS_HUMAN = "HUMAN";
+    public static final String STATUS_CLOSED = "CLOSED";
+
     private String name;
     private String status;
     private int color;

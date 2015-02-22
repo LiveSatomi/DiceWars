@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import com.jack.dicewars.dice_wars.game.Configuration;
+import com.jack.dicewars.dice_wars.game.Player;
 
 import java.io.*;
 
@@ -17,11 +18,6 @@ import java.io.*;
 public class GameConfigActivity extends Activity {
 
     public static final String exPosition = "position";
-
-    private final String STATUS_YOU = "YOU";
-    private final String STATUS_AI = "AI";
-    private final String STATUS_HUMAN = "HUMAN";
-    private final String STATUS_CLOSED = "CLOSED";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +57,8 @@ public class GameConfigActivity extends Activity {
         String statusText = status.getText().toString();
 
         // Begin editing sibling name field if allowed
-        if (statusText.equals(STATUS_YOU) || statusText.equals(STATUS_AI) || statusText.equals(STATUS_CLOSED)) {
+        if (statusText.equals(Player.STATUS_YOU) || statusText.equals(Player.STATUS_AI) || statusText.equals
+                (Player.STATUS_CLOSED)) {
             final EditText name = (EditText) ((ViewGroup) v.getParent()).findViewById(R.id.config_name);
             Log.i("profile temp", name.getText().toString());
 
@@ -108,14 +105,14 @@ public class GameConfigActivity extends Activity {
         Button status = (Button) v;
         CharSequence statusText = status.getText();
         switch (statusText.toString()) {
-            case STATUS_YOU:
-                status.setText(STATUS_YOU);
+            case Player.STATUS_YOU:
+                status.setText(Player.STATUS_YOU);
                 break;
-            case STATUS_AI:
-                status.setText(STATUS_CLOSED);
+            case Player.STATUS_AI:
+                status.setText(Player.STATUS_CLOSED);
                 break;
-            case STATUS_CLOSED:
-                status.setText(STATUS_AI);
+            case Player.STATUS_CLOSED:
+                status.setText(Player.STATUS_AI);
                 break;
         }
 
@@ -171,7 +168,7 @@ public class GameConfigActivity extends Activity {
 
         // Status
         Button playerStatus = (Button) viewingPlayerSlot.findViewById(R.id.config_status);
-        playerStatus.setText(STATUS_YOU);
+        playerStatus.setText(Player.STATUS_YOU);
         playerStatus.setEnabled(false);
 
         // Color
@@ -189,7 +186,7 @@ public class GameConfigActivity extends Activity {
 
             // Status
             Button playerStatus = (Button) viewingPlayerSlot.findViewById(R.id.config_status);
-            playerStatus.setText(STATUS_AI);
+            playerStatus.setText(Player.STATUS_AI);
 
             // Color
             String[] placeHolderColors = new String[]{"g", "p", "b", "r", "w", "y"};

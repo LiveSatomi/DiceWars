@@ -1,12 +1,16 @@
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:0.14.2'
+        classpath 'org.ajoberstar:gradle-git:1.1.0-milestone.1'
     }
 }
 apply plugin: 'com.android.application'
+apply plugin: 'org.ajoberstar.github-pages'
+
 
 repositories {
     jcenter()
@@ -37,8 +41,8 @@ dependencies {
 }
 
 task javadoc(type:Exec) {
-    String destination = "~/Projects/DiceWars/dice_wars/docs/javadoc"
-    String sourcepath = "~/Projects/DiceWars/dice_wars/src/main/java"
+    String destination = "../build/docs/javadoc"
+    String sourcepath = "src/main/java"
     String packagesToDoc = "com"
 
     if (System.getProperty("os.name") == "Linux") {
@@ -48,5 +52,15 @@ task javadoc(type:Exec) {
         args "-c", "javadoc -d ${destination} -sourcepath ${sourcepath} -subpackages ${packagesToDoc}"
     } else {
         throw UnsupportedOperationException("OS not supported. Please add shell")
+    }
+    outputs.dir destination
+}
+
+githubPages {
+    repoUri = 'https://github.com/jmueller30/dice_wars.git'
+    deleteExistingFiles = false
+    pages {
+        from javadoc.outputs.files
+
     }
 }
