@@ -57,10 +57,12 @@ task javadoc(type:Exec) {
 }
 
 githubPages {
+    String siteDocsDir = "docs"
     repoUri = 'https://github.com/jmueller30/dice_wars.git'
+    
     deleteExistingFiles = false
     pages {
         from javadoc.outputs.files
-
+        into siteDocsDir
     }
 }
