@@ -35,3 +35,18 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
 }
+
+task javadoc(type:Exec) {
+    String destination = "~/Projects/DiceWars/dice_wars/docs/javadoc"
+    String sourcepath = "~/Projects/DiceWars/dice_wars/src/main/java"
+    String packagesToDoc = "com"
+
+    if (System.getProperty("os.name") == "Linux") {
+        executable = "bash"
+        // Will recursively generate javadoc for all packages specified by -sourcepath and -subpackages
+        // and place them at destination
+        args "-c", "javadoc -d ${destination} -sourcepath ${sourcepath} -subpackages ${packagesToDoc}"
+    } else {
+        throw UnsupportedOperationException("OS not supported. Please add shell")
+    }
+}
