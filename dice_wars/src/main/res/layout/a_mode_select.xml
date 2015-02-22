@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                tools:context=".ModeSelectActivity"
+                android:id="@+id/root">
+
+
+<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Mode Select"
+        android:id="@+id/modeTitle"
+        android:textColor="#ff00ff25"
+        android:layout_marginTop="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="50dp"/>
+
+<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Versus Computer"
+        android:id="@+id/goToGameConfig"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:width="200dp"
+        android:onClick="goToGameConfig"/>
+    
+<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open Room"
+        android:id="@+id/goToOpenRoom"
+        android:width="200dp"
+        android:onClick="goToOpenRoom"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/goToGameConfig"
+        android:layout_alignStart="@+id/goToGameConfig"/>
+
+<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Join Room"
+        android:id="@+id/goToJoinRoom"
+        android:width="200dp"
+        android:onClick="goToJoinRoom"
+        android:layout_below="@+id/goToOpenRoom"
+        android:layout_alignStart="@+id/goToOpenRoom"
+        android:layout_marginTop="50dp"/>
+
+
+
+</RelativeLayout>

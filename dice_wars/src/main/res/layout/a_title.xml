@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                tools:context=".TitleActivity"
+                android:id="@+id/root">
+
+
+<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Dice Wars"
+        android:id="@+id/title"
+        android:textColor="#ff00ff25"
+        android:layout_marginTop="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="50dp"/>
+
+<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        android:id="@+id/goToGameMode"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:width="200dp"
+        android:onClick="goToGameMode"/>
+        
+<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Options"
+        android:id="@+id/goToOptions"
+        android:width="200dp"
+        android:onClick="goToOptions"
+        android:layout_below="@+id/goToGameMode"
+        android:layout_alignStart="@+id/goToGameMode"
+        android:layout_marginTop="50dp"/>
+
+<Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="How To Play"
+        android:id="@+id/goToHowToPlay"
+        android:width="200dp"
+        android:onClick="goToHowToPlay"
+        android:layout_below="@+id/goToOptions"
+        android:layout_alignStart="@+id/goToOptions"
+        android:layout_marginTop="50dp"/>
+
+</RelativeLayout>
