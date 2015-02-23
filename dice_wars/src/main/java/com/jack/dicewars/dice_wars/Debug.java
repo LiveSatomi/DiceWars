@@ -6,8 +6,12 @@ package com.jack.dicewars.dice_wars;
  * Created by jack on 2/22/15.
  */
 public enum Debug {
+    // for methods like "goToActivity" that change foreground activities
     nav ("nav"),
-    profile ("profile");
+    // for filesystem actions that affect the profile
+    profile ("profile"),
+    // for logging methods that are apart of the activity lifecycle: onCreate, onWindowFocusChanged, etc
+    life ("life");
 
     public String s;
 

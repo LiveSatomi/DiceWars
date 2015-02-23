@@ -38,8 +38,9 @@ public class GameConfigActivity extends Activity {
 
         setContentView(R.layout.a_game_config);
 
+        // Extras may be null when in single player mode.
         if (getIntent().getExtras() == null) {
-            return;
+            getIntent().putExtras(defaultExtras());
         }
 
     }
@@ -47,7 +48,7 @@ public class GameConfigActivity extends Activity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        Log.i("life", "onWindowFocusChanged Config");
+        Log.i(Debug.life.s, "onWindowFocusChanged Config");
         LinearLayout config = (LinearLayout) findViewById(R.id.configContainer);
 
         for (int i = 0; i < Configuration.getMaxPlayers(); i++) {
@@ -77,7 +78,6 @@ public class GameConfigActivity extends Activity {
         if (statusText.equals(Player.STATUS_YOU) || statusText.equals(Player.STATUS_AI) || statusText.equals(Player
                 .STATUS_CLOSED)) {
             final EditText name = (EditText) ((ViewGroup) view.getParent()).findViewById(R.id.config_name);
-            Log.i("profile temp", name.getText().toString());
 
             // Add "Done" to this instance of the keyboard
             name.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -86,7 +86,6 @@ public class GameConfigActivity extends Activity {
                     if (actionId == EditorInfo.IME_ACTION_DONE) {
                         name.clearFocus();
                     }
-                    Log.i("test", "adding list");
                     return false;
                 }
             });
@@ -143,12 +142,21 @@ public class GameConfigActivity extends Activity {
     }
 
     /**
+     * Opens a palette so the user can choose a color for the corresponding player.
+     *
+     * @param view The button displaying the current color.
+     */
+    public void openPalette(View view) {
+        //TODO
+    }
+
+    /**
      * Uploads all game configuration information to the intent for the {@link MainGameActivity}.
      *
      * @param view The Begin Game button.
      */
     public void goToGame(View view) {
-        Log.i("nav", "Go to Begin Game");
+        Log.i(Debug.nav.s, "Go to Begin Game");
         // Build the configuration from the options that are set
 
         Configuration config = constructConfiguration();
@@ -171,7 +179,8 @@ public class GameConfigActivity extends Activity {
     }
 
     /**
-     * Sets user defaults appropriately based on the Intent's extras and the user preferences in {@OptionsActivity}.
+     * Sets user defaults appropriately based on the Intent's extras and the user preferences in {@link
+     * OptionsActivity}.
      *
      * @param config The View with the group of settings that can be set.
      */
@@ -190,7 +199,7 @@ public class GameConfigActivity extends Activity {
             name.setText(setProfile);
             optionsFileStream.close();
         } catch (FileNotFoundException e) {
-            Log.i("profile", "Profile has not been set");
+            Log.i(Debug.profile.s, "Profile has not been set");
         } catch (IOException e) {
             e.printStackTrace();
         }
