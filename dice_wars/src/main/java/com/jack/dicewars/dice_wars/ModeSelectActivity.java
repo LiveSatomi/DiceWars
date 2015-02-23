@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-
+/**
+ * This activity allows the user to determine if they are playing with alone or with others.
+ */
 public class ModeSelectActivity extends Activity {
 
     @Override
@@ -18,32 +20,33 @@ public class ModeSelectActivity extends Activity {
     // Activity Navigation
 
     /**
-     * Calls another activity GameConfigActivity
+     * The game will be played alone, so go to the game activity with the default settings.
+     *
+     * @param view The button clicked to cause this mode.
      */
-    public void goToGameConfig(View v) {
-        Log.i("nav", "Go to Game Config");
+    public void goToGameConfig(View view) {
+        Log.i(Debug.nav.s, "Go to Game Config");
 
         Intent configIntent = new Intent(this, GameConfigActivity.class);
-        // Versus all computers, so set user position to 0
-        Bundle state = new Bundle();
-        state.putInt("position", 0);   
-        configIntent.putExtra("position", 0);
-        startActivity(configIntent, state);
+        startActivity(configIntent);
     }
 
     /**
-     * Calls another activity OpenRoom
+     * The game will be played with others, and this user will be the host.
+     *
+     * @param view The button clicked to cause this mode.
      */
-    public void goToOpenRoom(View v) {
-        Log.i("nav", "Go to Open Room");
+    public void goToOpenRoom(View view) {
+        Log.i(Debug.nav.s, "Go to Open Room");
 
     }
 
     /**
-     * Calls another activity JoinRoom
+     * The game will be played with others, and a different user will be the host.
+     *
+     * @param view The button clicked to cause this mode.
      */
-    public void goToJoinRoom(View v) {
-        Log.i("nav", "Go to Join Room");
-
+    public void goToJoinRoom(View view) {
+        Log.i(Debug.nav.s, "Go to Join Room");
     }
 }

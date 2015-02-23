@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+/**
+ * This activity is the entry point of the app.
+ */
 public class TitleActivity extends Activity {
 
     @Override
@@ -14,38 +17,37 @@ public class TitleActivity extends Activity {
         setContentView(R.layout.a_title);
     }
 
-
-    // Activity Navigation
-
     /**
-     * Calls another activity GameMode
+     *
+     * @param view The button clicked to call the {@link ModeSelectActivity}.
      */
-    public void goToGameMode(View v) {
-        Log.i("nav", "Go to Game Mode");
+    public void goToGameMode(View view) {
+        Log.i(Debug.nav.s, "Go to Game Mode");
 
         Intent start = new Intent(this, ModeSelectActivity.class);
         startActivity(start);
     }
 
     /**
-     * Calls another activity Options
+     *
+     * @param view The button clicked to call the {@link OptionsActivity}.
      */
-    public void goToOptions(View v) {
-        Log.i("nav", "Go to Options");
-        
+    public void goToOptions(View view) {
+        Log.i(Debug.nav.s, "Go to Options");
+
         Intent options = new Intent(this, OptionsActivity.class);
         startActivity(options);
     }
 
     /**
-     * Calls another activity HowToPlay
+     *
+     * @param view The button clicked to call the {@link HowToPlayActivity}.
      */
-    public void goToHowToPlay(View v) {
-        Log.i("nav", "Go to How To Play");
-        
+    public void goToHowToPlay(View view) {
+        Log.i(Debug.nav.s, "Go to How To Play");
+
         Intent howToPlay = new Intent(this, HowToPlayActivity.class);
         startActivity(howToPlay);
 
     }
-
 }

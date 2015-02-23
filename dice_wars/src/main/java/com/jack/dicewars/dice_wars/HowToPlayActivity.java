@@ -7,27 +7,28 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 
-
+/**
+ * Displays a simple tutorial on how to play DiceWars to the user.
+ */
 public class HowToPlayActivity extends FragmentActivity {
 
     private ViewPager pager;
-
     private PagerAdapter pagerAdapter;
-
     private static final int NUM_PAGES = 2;
+    private final int[] pages = new int[NUM_PAGES];
 
-    private final int[] PAGES = new int[NUM_PAGES];
+    private static final String HOW_TO_PLAY_FILENAME = "how_to_play_page";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         // Initialize pages in order
-        for(int n = 0; n < NUM_PAGES; n++) {
-            PAGES[n] = getResources().getIdentifier("how_to_play_page" + (n + 1), "drawable", getPackageName());
-            Log.i("active", "talk " + ((Integer) PAGES[n]).toString());
+        for (int n = 0; n < NUM_PAGES; n++) {
+            final String drawableResources = "drawable";
+            pages[n] = getResources().getIdentifier(HOW_TO_PLAY_FILENAME + (n + 1), drawableResources,
+                    getPackageName());
         }
 
         // Load the pager containing layout
@@ -53,7 +54,14 @@ public class HowToPlayActivity extends FragmentActivity {
         }
     }
 
+    /**
+     * Facilitates loading how to play images in a slider.
+     */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+        /**
+         * @param fm link between current fragment (the current image) and the activity
+         *
+         */
         public ScreenSlidePagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -62,10 +70,9 @@ public class HowToPlayActivity extends FragmentActivity {
         public Fragment getItem(int position) {
             //Make page fragment
             SliderPagerFragment pageFragment = new SliderPagerFragment();
-            Log.i("active", Integer.toString(position));
             //Create fragment's bundle and store corresponding page Id, then set the bundle
             Bundle pageInfo = new Bundle();
-            pageInfo.putInt("pageId", PAGES[position]);
+            pageInfo.putInt("pageId", pages[position]);
             pageFragment.setArguments(pageInfo);
             return pageFragment;
         }
@@ -75,7 +82,4 @@ public class HowToPlayActivity extends FragmentActivity {
             return NUM_PAGES;
         }
     }
-
-
-
 }

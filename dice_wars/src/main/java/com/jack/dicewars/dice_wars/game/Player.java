@@ -1,6 +1,5 @@
 package com.jack.dicewars.dice_wars.game;
 
-import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -18,12 +17,23 @@ public class Player implements Parcelable {
     private String status;
     private int color;
 
+    /**
+     *
+     * @param name The player's screen name.
+     * @param status The player's relationship to the game defined by {@link #STATUS_YOU}
+     * @param color The ID of the color the player is using.
+     */
     public Player(String name, String status, int color) {
         this.name = name;
         this.status = status;
         this.color = color;
     }
 
+    /**
+     * Enables Parcelable interface.
+     *
+     * @param in Parceled Player
+     */
     protected Player(Parcel in) {
         name = in.readString();
         status = in.readString();

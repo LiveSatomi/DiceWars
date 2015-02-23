@@ -54,6 +54,7 @@ task javadoc(type:Exec) {
         throw UnsupportedOperationException("OS not supported. Please add shell")
     }
     outputs.dir destination
+    inputs.sourceDir(sourcepath)
 }
 
 

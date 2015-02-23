@@ -5,19 +5,32 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.*;
+import android.view.KeyEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Player;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 
+/**
+ * Allows the user to set the names, colors, and number of players, board size, and other options.
+ */
 public class GameConfigActivity extends Activity {
 
-    public static final String exPosition = "position";
+    public static final String EX_POSITION = "position";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,15 +64,19 @@ public class GameConfigActivity extends Activity {
 
     }
 
-    public void editName(View v) {
+    /**
+     * Enables editing the name corresponding to the button pressed, if it is owned by the user.
+     * @param view The button pressed to begin editing the name.
+     */
+    public void editName(View view) {
         // Find sibling views
-        Button status = (Button) ((ViewGroup) v.getParent()).findViewById(R.id.config_status);
+        Button status = (Button) ((ViewGroup) view.getParent()).findViewById(R.id.config_status);
         String statusText = status.getText().toString();
 
         // Begin editing sibling name field if allowed
-        if (statusText.equals(Player.STATUS_YOU) || statusText.equals(Player.STATUS_AI) || statusText.equals
-                (Player.STATUS_CLOSED)) {
-            final EditText name = (EditText) ((ViewGroup) v.getParent()).findViewById(R.id.config_name);
+        if (statusText.equals(Player.STATUS_YOU) || statusText.equals(Player.STATUS_AI) || statusText.equals(Player
+                .STATUS_CLOSED)) {
+            final EditText name = (EditText) ((ViewGroup) view.getParent()).findViewById(R.id.config_name);
             Log.i("profile temp", name.getText().toString());
 
             // Add "Done" to this instance of the keyboard
@@ -101,8 +118,14 @@ public class GameConfigActivity extends Activity {
 
     }
 
-    public void toggleStatus(View v) {
-        Button status = (Button) v;
+    /**
+     * Toggles between legal status based on the context including current state and whether the corresponding player
+     * is owned by the user.
+     *
+     * @param view The button being toggled.
+     */
+    public void toggleStatus(View view) {
+        Button status = (Button) view;
         CharSequence statusText = status.getText();
         switch (statusText.toString()) {
             case Player.STATUS_YOU:
@@ -114,21 +137,17 @@ public class GameConfigActivity extends Activity {
             case Player.STATUS_CLOSED:
                 status.setText(Player.STATUS_AI);
                 break;
-        }
-
-        LinearLayout config = (LinearLayout) findViewById(R.id.configContainer);
-
-        for (int i = 0; i < Configuration.getMaxPlayers(); i++) {
-            //ViewGroup configBar = (ViewGroup) config.getChildAt(i);
-            //Button status = (Button) configBar.getChildAt(2);
-            Log.i("width measured", String.valueOf(status.getMeasuredWidth()));
-            Log.i("width", String.valueOf(status.getWidth()));
-
+            default:
+                throw new IllegalStateException("Unknown Status");
         }
     }
 
-    // Activity Navigation
-    public void goToGame(View v) {
+    /**
+     * Uploads all game configuration information to the intent for the {@link MainGameActivity}.
+     *
+     * @param view The Begin Game button.
+     */
+    public void goToGame(View view) {
         Log.i("nav", "Go to Begin Game");
         // Build the configuration from the options that are set
 
@@ -140,14 +159,24 @@ public class GameConfigActivity extends Activity {
         startActivity(mainGame);
     }
 
+    /**
+     * Defines the minimum extras needed in case a null Bundle is passed with the Intent.
+     *
+     * @return A bundle with minimum extras for this activity. Position is 0.
+     */
     static Bundle defaultExtras() {
         Bundle b = new Bundle();
-        b.putInt(exPosition, 0);
+        b.putInt(EX_POSITION, 0);
         return b;
     }
 
+    /**
+     * Sets user defaults appropriately based on the Intent's extras and the user preferences in {@OptionsActivity}.
+     *
+     * @param config The View with the group of settings that can be set.
+     */
     private void ownerSetup(LinearLayout config) {
-        int position = getIntent().getExtras().getInt("position");
+        int position = getIntent().getExtras().getInt(EX_POSITION);
         LinearLayout viewingPlayerSlot = (LinearLayout) config.getChildAt(position);
 
         // Name
@@ -175,6 +204,11 @@ public class GameConfigActivity extends Activity {
         // set "you" color on the button
     }
 
+    /**
+     * Sets game config defaults appropriately after loading the layout.
+     *
+     * @param config The View with the group of settings that can be set.
+     */
     private void playerSetup(LinearLayout config) {
 
         for (int i = 0; i < Configuration.getMaxPlayers(); i++) {
@@ -195,6 +229,11 @@ public class GameConfigActivity extends Activity {
         }
     }
 
+    /**
+     * Construct a game model Configuration object based on the contents of the View.
+     *
+     * @return A fully defined Configuration object.
+     */
     private Configuration constructConfiguration() {
         LinearLayout playerConfigContainer = (LinearLayout) findViewById(R.id.configContainer);
 

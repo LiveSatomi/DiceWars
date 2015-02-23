@@ -26,12 +26,12 @@ public class Configuration {
     /**
      * Full constructor for a game Configuration. Forces all of the Configuration properties to be set to their
      * game values. Useful for single player games.
+     *
      * @param names A list of the players' screen names.
-     * @param statuses A list of the players' statuses.@see  com.jack.dicewars.dice_wars.game.Player#STATUS_YOU STATUS
-     *                                   variables.
-     * @param colors
-     * @param cT
-     * @param rR
+     * @param statuses A list of the players' statuses defined by {@link Player#STATUS_YOU} STATUS variables.
+     * @param colors A list of the players' statuses defined by {@link Player} COLOR variables.
+     * @param cT Whether this configuration will have colorless territories enabled.
+     * @param rR Whether this configuration will have user defined or random reinforcements.
      */
     public Configuration(String[] names, String[] statuses, int[] colors, boolean cT, boolean rR) {
         for (int i = 0; i < MAX_PLAYERS; i++) {
@@ -42,6 +42,11 @@ public class Configuration {
         randomReinforce = rR;
     }
 
+    /**
+     * Defines a Configuration by the extras of the passed intent. Extra keys are defined at {@link #PLAYERS_KEY}.
+     *
+     * @param intent The intent with extras fully defining this Configuration.
+     */
     public Configuration(Intent intent) {
         Parcelable[] parceledPlayers = intent.getParcelableArrayExtra(PLAYERS_KEY);
         for (int i = 0; i < MAX_PLAYERS; i++) {
@@ -54,9 +59,10 @@ public class Configuration {
     /**
      * Returns the passed intent with the configurations separated into primitive types and matched with string keys
      * that are defined as this class' members.
-     * *
+     *
      *
      * @param intent The link to the activity that needs configuration settings
+     * @return An intent with extras that fully define a Configuration
      */
     public Intent upload(Intent intent) {
         intent.putExtra(PLAYERS_KEY, players);
@@ -82,7 +88,7 @@ public class Configuration {
     }
 
     /**
-     * 
+     *
      * @return Whether defense phase reinforcements will be randomly allocated
      */
     public boolean isRandomReinforce() {
@@ -97,6 +103,10 @@ public class Configuration {
         this.randomReinforce = randomReinforce;
     }
 
+    /**
+     *
+     * @return The maximum number of players one game of DiceWars can handle.
+     */
     public static int getMaxPlayers() {
         return MAX_PLAYERS;
 

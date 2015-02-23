@@ -8,12 +8,12 @@ import android.view.ViewGroup;
 
 /**
  * @author Jack Mueller
- * Taken from developer.android.com/training
+ *         Taken from developer.android.com/training
  */
 public class SliderPagerFragment extends Fragment {
 
     /**
-     * The page Id of this fragment
+     * The page Id of this fragment.
      */
     private int pageId;
 
