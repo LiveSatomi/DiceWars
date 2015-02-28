@@ -2,7 +2,7 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context="com.jack.dicewars.dice_wars.GameConfigActivity">
+                tools:context="com.jack.dicewars.dice_wars.setup.GameConfigActivity">
 
     <TextView
             android:layout_width="wrap_content"
@@ -88,7 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Small"
-                        android:id="@+id/smallSize"
+                        android:id="@+id/radioBoardSmall"
                         android:layout_marginLeft="30dp"
                         android:checked="false"/>
 
@@ -96,7 +96,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Medium"
-                        android:id="@+id/mediumSize"
+                        android:id="@+id/radioBoardMedium"
                         android:layout_marginLeft="30dp"
                         android:checked="true"/>
 
@@ -104,7 +104,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Large"
-                        android:id="@+id/largeSize"
+                        android:id="@+id/radioBoardLarge"
                         android:layout_marginLeft="30dp"/>
 
             </RadioGroup>

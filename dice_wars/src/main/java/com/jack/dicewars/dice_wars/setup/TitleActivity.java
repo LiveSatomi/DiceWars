@@ -1,10 +1,12 @@
-package com.jack.dicewars.dice_wars;
+package com.jack.dicewars.dice_wars.setup;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import com.jack.dicewars.dice_wars.Debug;
+import com.jack.dicewars.dice_wars.R;
 
 /**
  * This activity is the entry point of the app.
@@ -41,7 +43,7 @@ public class TitleActivity extends Activity {
 
     /**
      *
-     * @param view The button clicked to call the {@link HowToPlayActivity}.
+     * @param view The button clicked to call the {@link com.jack.dicewars.dice_wars.setup.HowToPlayActivity}.
      */
     public void goToHowToPlay(View view) {
         Log.i(Debug.nav.s, "Go to How To Play");

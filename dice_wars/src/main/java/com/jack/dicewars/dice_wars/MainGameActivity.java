@@ -6,12 +6,24 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import com.jack.dicewars.dice_wars.game.Configuration;
+import com.jack.dicewars.dice_wars.game.Game;
+import com.jack.dicewars.dice_wars.setup.GameConfigActivity;
+
+import java.util.Map;
 
 /**
  * This activity will handle displaying the progression of a DiceWars game.
  */
 public class MainGameActivity extends Activity {
+
+    /**
+     * The root container for DiceWars game logic
+     */
+    private Game game;
+
+    private Map<View, TerritoryView> territoryViewMap;
 
     /**
      * Loads the configuration to use for the game.
@@ -24,8 +36,18 @@ public class MainGameActivity extends Activity {
         setContentView(R.layout.a_main_game);
 
         Intent i = getIntent();
-        Configuration config = new Configuration(i);
+        this.game = new Game(new Configuration(i));
+        game.start();
+        update();
     }
+
+    /**
+     * Updates the view based on the state of {@game}.
+     */
+    private void update() {
+
+    }
+
 
     @Override
     public void onBackPressed() {

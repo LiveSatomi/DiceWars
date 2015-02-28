@@ -11,17 +11,16 @@ import android.os.Parcelable;
 public class Configuration {
 
     private static final int MAX_PLAYERS = 6;
-    private static final int BOARD_SIZE_SMALL = 0;
-    private static final int BOARD_SIZE_MEDIUM = 1;
-    private static final int BOARD_SIZE_LARGE = 2;
 
     private static final String PLAYERS_KEY = "players";
     private static final String COLORLESS_TERRITORY_KEY = "colorless_territory";
     private static final String RANDOM_REINFORCE_KEY = "random_reinforce";
+    private static final String BOARD_SIZE_KEY = "board_size";
 
     private final Player[] players = new Player[MAX_PLAYERS];
     private boolean colorlessTerritory;
     private boolean randomReinforce;
+    private int boardSize;
 
     /**
      * Full constructor for a game Configuration. Forces all of the Configuration properties to be set to their
@@ -32,14 +31,16 @@ public class Configuration {
      * @param colors A list of the players' statuses defined by {@link Player} COLOR variables.
      * @param cT Whether this configuration will have colorless territories enabled.
      * @param rR Whether this configuration will have user defined or random reinforcements.
+     * @param size The size of the board defined by {@link Board#BOARD_SIZE_SMALL}.
      */
-    public Configuration(String[] names, String[] statuses, int[] colors, boolean cT, boolean rR) {
+    public Configuration(String[] names, String[] statuses, int[] colors, boolean cT, boolean rR, int size) {
         for (int i = 0; i < MAX_PLAYERS; i++) {
             players[i] = new Player(names[i], statuses[i], colors[i]);
         }
 
         colorlessTerritory = cT;
         randomReinforce = rR;
+        boardSize = size;
     }
 
     /**
@@ -54,6 +55,7 @@ public class Configuration {
         }
         colorlessTerritory = intent.getBooleanExtra(COLORLESS_TERRITORY_KEY, false);
         randomReinforce = intent.getBooleanExtra(RANDOM_REINFORCE_KEY, false);
+        boardSize = intent.getIntExtra(BOARD_SIZE_KEY, Board.BOARD_SIZE_SMALL);
     }
 
     /**
@@ -68,6 +70,7 @@ public class Configuration {
         intent.putExtra(PLAYERS_KEY, players);
         intent.putExtra(COLORLESS_TERRITORY_KEY, colorlessTerritory);
         intent.putExtra(RANDOM_REINFORCE_KEY, randomReinforce);
+        intent.putExtra(BOARD_SIZE_KEY, boardSize);
         return intent;
     }
 

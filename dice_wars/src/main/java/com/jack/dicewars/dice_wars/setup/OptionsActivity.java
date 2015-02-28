@@ -1,4 +1,4 @@
-package com.jack.dicewars.dice_wars;
+package com.jack.dicewars.dice_wars.setup;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
+import com.jack.dicewars.dice_wars.Debug;
+import com.jack.dicewars.dice_wars.R;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -22,7 +24,7 @@ import java.io.InputStreamReader;
  * is achieved by storing the device filesystem.
  */
 public class OptionsActivity extends Activity {
-
+    //TODO disallow blank saved names by adding constraint and reworking keyboard on this page
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +44,7 @@ public class OptionsActivity extends Activity {
             profile.setText(setProfile);
             optionsFileStream.close();
         } catch (FileNotFoundException e) {
-            Log.i(Debug.profile.s, "Profile has not been set");
+            Log.i(Debug.profile.s, "Profile has not been set. Setting to Player");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -77,7 +79,7 @@ public class OptionsActivity extends Activity {
      */
     public void closeProfileEdit(View view) {
         EditText profile = (EditText) findViewById(R.id.onlineProfile);
-        verifyProfile(profile);
+        validateProfile(profile);
 
         // Close the soft keyboard
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
@@ -94,10 +96,11 @@ public class OptionsActivity extends Activity {
      *
      * @param profile The text field that defines the profile.
      */
-    private void verifyProfile(EditText profile) {
+    private void validateProfile(EditText profile) {
         String newProfile = profile.getText().toString();
+
         try {
-            FileOutputStream optionsFileStream = this.openFileOutput(getString(R.string.file_path_options), 
+            FileOutputStream optionsFileStream = this.openFileOutput(getString(R.string.file_path_options),
                     MODE_PRIVATE);
             optionsFileStream.write(newProfile.getBytes());
             optionsFileStream.close();

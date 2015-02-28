@@ -1,4 +1,4 @@
-package com.jack.dicewars.dice_wars;
+package com.jack.dicewars.dice_wars.setup;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,11 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
+import com.jack.dicewars.dice_wars.Debug;
+import com.jack.dicewars.dice_wars.MainGameActivity;
+import com.jack.dicewars.dice_wars.R;
+import com.jack.dicewars.dice_wars.game.Board;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Player;
 
@@ -151,7 +151,7 @@ public class GameConfigActivity extends Activity {
     }
 
     /**
-     * Uploads all game configuration information to the intent for the {@link MainGameActivity}.
+     * Uploads all game configuration information to the intent for the {@link com.jack.dicewars.dice_wars.MainGameActivity}.
      *
      * @param view The Begin Game button.
      */
@@ -172,7 +172,7 @@ public class GameConfigActivity extends Activity {
      *
      * @return A bundle with minimum extras for this activity. Position is 0.
      */
-    static Bundle defaultExtras() {
+    public static Bundle defaultExtras() {
         Bundle b = new Bundle();
         b.putInt(EX_POSITION, 0);
         return b;
@@ -267,7 +267,22 @@ public class GameConfigActivity extends Activity {
         boolean colorlessTerritories = ((CheckBox) findViewById(R.id.colorless)).isChecked();
         boolean randomReinforce = ((CheckBox) findViewById(R.id.randomReinforce)).isChecked();
 
-        return new Configuration(playerNames, playerStatuses, playerColors, colorlessTerritories, randomReinforce);
+        int boardSize = 0;
+        RadioGroup boardSizeGroup = (RadioGroup) findViewById(R.id.boardSizeRadioGroup);
+        switch (boardSizeGroup.getCheckedRadioButtonId()) {
+            case R.id.radioBoardSmall:
+                boardSize = Board.BOARD_SIZE_SMALL;
+                break;
+            case R.id.radioBoardMedium:
+                boardSize = Board.BOARD_SIZE_MEDIUM;
+                break;
+            case R.id.radioBoardLarge:
+                boardSize = Board.BOARD_SIZE_LARGE;
+                break;
+        }
+
+        return new Configuration(playerNames, playerStatuses, playerColors, colorlessTerritories, randomReinforce,
+                boardSize);
     }
 
 
