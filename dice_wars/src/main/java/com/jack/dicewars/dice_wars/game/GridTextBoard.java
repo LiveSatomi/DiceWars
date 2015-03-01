@@ -10,8 +10,8 @@ import java.util.List;
 public class GridTextBoard extends Board {
 
 
-    private final int cols = 3;
-    private final int rows = 7;
+    private int cols = 3;
+    private int rows = 7;
 
 
     public GridTextBoard(Configuration config) {
@@ -24,12 +24,12 @@ public class GridTextBoard extends Board {
 
         // Create territories (isolated, how they come) and add them to the major board.
 
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
-                if((i == 0 || i == rows - 1) && (j == 0 || j == cols - 1)) {
+        for (int i = 0; i < getRows(); i++) {
+            for (int j = 0; j < getCols(); j++) {
+                if((i == 0 || i == getRows() - 1) && (j == 0 || j == getCols() - 1)) {
                     // corner case
                     board.add(new TerritoryBorder(TerritoryBorder.EDGE_CORNER_COUNT));
-                } else if (i == 0 || i == rows - 1 || j == 0 || j == cols - 1) {
+                } else if (i == 0 || i == getRows() - 1 || j == 0 || j == getCols() - 1) {
                     // edge but not corner
                     board.add(new TerritoryBorder((TerritoryBorder.EDGE_EDGE_COUNT)));
                 } else {
@@ -52,10 +52,10 @@ public class GridTextBoard extends Board {
             int colIndex = i % cols;
 
             // 4 possible neighbors in right, down, left, up order
-            int rightIndex = (rowIndex) * cols + (colIndex + 1);
-            int downIndex = (rowIndex + 1) * cols + (colIndex);
-            int leftIndex = (rowIndex) * cols + (colIndex - 1);
-            int upIndex = (rowIndex - 1) * cols + (colIndex);
+            int rightIndex = coordinatesToIndex(rowIndex, colIndex + 1, cols);
+            int downIndex = coordinatesToIndex(rowIndex + 1, colIndex, cols);
+            int leftIndex = coordinatesToIndex(rowIndex, colIndex - 1, cols);
+            int upIndex = coordinatesToIndex(rowIndex - 1, colIndex, cols);
             int[] neighbors = {rightIndex, downIndex, leftIndex, upIndex};
 
             // mask out impossible neighbors
@@ -76,4 +76,34 @@ public class GridTextBoard extends Board {
         return board;
     }
 
+    /**
+     * Helper method to do the 2D to 1D conversion of a row major grid to a list.
+     * @param row the grid row
+     * @param col the grid column
+     * @param cols the number of columns in the grid
+     * @return the index of a 1d list representation of the element at the row and column specified.
+     */
+    public int coordinatesToIndex(int row, int col, int cols) {
+        return row * cols + col;
+    }
+
+    public int getCols() {
+        return cols;
+    }
+
+    public int getRows() {
+        return rows;
+    }
+
+    /**
+     * Debug. Called by bespoke options only.
+     * @param cols
+     */
+    public void setCols(int cols) {
+        this.cols = cols;
+    }
+
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
 }

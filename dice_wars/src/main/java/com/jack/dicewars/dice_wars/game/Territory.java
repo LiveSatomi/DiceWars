@@ -1,5 +1,7 @@
 package com.jack.dicewars.dice_wars.game;
 
+import com.jack.dicewars.dice_wars.Color;
+
 /**
  * Created by Jack Mueller on 2/23/15.
  *
@@ -38,6 +40,14 @@ public class Territory {
      */
     public void setOwner(Player owner) {
         this.owner = owner;
+    }
+
+    /**
+     * Gets the color of this Terrtiory's owner.
+     * @return
+     */
+    public Color getColor() {
+        return owner.getColor();
     }
 
     /**

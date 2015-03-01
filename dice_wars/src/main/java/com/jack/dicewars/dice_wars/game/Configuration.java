@@ -2,6 +2,8 @@ package com.jack.dicewars.dice_wars.game;
 
 import android.content.Intent;
 import android.os.Parcelable;
+import com.jack.dicewars.dice_wars.Color;
+import com.jack.dicewars.dice_wars.Debug;
 
 /**
  * Created by Jack Mueller on 1/28/15.
@@ -21,6 +23,7 @@ public class Configuration {
     private boolean colorlessTerritory;
     private boolean randomReinforce;
     private int boardSize;
+    private int appMode = Debug.gridText.f;
 
     /**
      * Full constructor for a game Configuration. Forces all of the Configuration properties to be set to their
@@ -28,12 +31,12 @@ public class Configuration {
      *
      * @param names A list of the players' screen names.
      * @param statuses A list of the players' statuses defined by {@link Player#STATUS_YOU} STATUS variables.
-     * @param colors A list of the players' statuses defined by {@link Player} COLOR variables.
+     * @param colors A list of the players' colors defined by {@link com.jack.dicewars.dice_wars.Color}.
      * @param cT Whether this configuration will have colorless territories enabled.
      * @param rR Whether this configuration will have user defined or random reinforcements.
      * @param size The size of the board defined by {@link Board#BOARD_SIZE_SMALL}.
      */
-    public Configuration(String[] names, String[] statuses, int[] colors, boolean cT, boolean rR, int size) {
+    public Configuration(String[] names, String[] statuses, Color[] colors, boolean cT, boolean rR, int size) {
         for (int i = 0; i < MAX_PLAYERS; i++) {
             players[i] = new Player(names[i], statuses[i], colors[i]);
         }
@@ -113,5 +116,13 @@ public class Configuration {
     public static int getMaxPlayers() {
         return MAX_PLAYERS;
 
+    }
+
+    public int getAppMode() {
+        return appMode;
+    }
+
+    public void setAppMode(int appMode) {
+        this.appMode = appMode;
     }
 }

@@ -18,9 +18,6 @@ public abstract class Board {
      */
     private Configuration config;
 
-    /**
-     * A list of the existing borders (one for each Territory)
-     */
     private List<TerritoryBorder> board;
 
     public Board(Configuration config) {
@@ -39,7 +36,7 @@ public abstract class Board {
         // Supply the board with isolated Territories
         board = generateLayout();
         // Connect the Territories through their TerritoryBorders
-        board = generateGridConnections(board);
+        board = generateGridConnections(getBoard());
     }
 
     protected abstract List<TerritoryBorder> generateLayout();
@@ -50,4 +47,11 @@ public abstract class Board {
      * @param board
      */
     protected abstract List<TerritoryBorder> generateGridConnections(List<TerritoryBorder> board);
+
+    /**
+     * A list of the existing borders (one for each Territory)
+     */
+    public List<TerritoryBorder> getBoard() {
+        return board;
+    }
 }

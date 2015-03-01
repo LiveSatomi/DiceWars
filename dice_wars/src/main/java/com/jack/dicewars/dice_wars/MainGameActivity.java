@@ -6,12 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
+import android.view.ViewGroup;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Game;
 import com.jack.dicewars.dice_wars.setup.GameConfigActivity;
-
-import java.util.Map;
 
 /**
  * This activity will handle displaying the progression of a DiceWars game.
@@ -23,7 +21,7 @@ public class MainGameActivity extends Activity {
      */
     private Game game;
 
-    private Map<View, TerritoryView> territoryViewMap;
+    private BoardView boardView;
 
     /**
      * Loads the configuration to use for the game.
@@ -38,6 +36,12 @@ public class MainGameActivity extends Activity {
         Intent i = getIntent();
         this.game = new Game(new Configuration(i));
         game.start();
+        if (game.getAppMode() == Debug.gridText.f) {
+            boardView = new GridTextBoardView(game.getBoard(), this);
+        } else {
+            throw new EnumConstantNotPresentException(Debug.class, "App mode does not exist");
+        }
+        boardView.apply((ViewGroup) findViewById(R.id.boardContainer));
         update();
     }
 
@@ -45,7 +49,7 @@ public class MainGameActivity extends Activity {
      * Updates the view based on the state of {@game}.
      */
     private void update() {
-
+        //is this a(n abstract) method of boardview? or is that just a part of the implementation?
     }
 
 

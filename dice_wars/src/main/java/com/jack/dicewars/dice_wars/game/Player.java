@@ -2,6 +2,7 @@ package com.jack.dicewars.dice_wars.game;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.jack.dicewars.dice_wars.Color;
 
 /**
  * Created by jack on 1/28/15.
@@ -15,7 +16,7 @@ public class Player implements Parcelable {
 
     private String name;
     private String status;
-    private int color;
+    private Color color;
 
     /**
      *
@@ -23,7 +24,7 @@ public class Player implements Parcelable {
      * @param status The player's relationship to the game defined by {@link #STATUS_YOU}
      * @param color The ID of the color the player is using.
      */
-    public Player(String name, String status, int color) {
+    public Player(String name, String status, Color color) {
         this.name = name;
         this.status = status;
         this.color = color;
@@ -37,7 +38,7 @@ public class Player implements Parcelable {
     protected Player(Parcel in) {
         name = in.readString();
         status = in.readString();
-        color = in.readInt();
+        color = in.readParcelable(Color.class.getClassLoader());
     }
 
     @Override
@@ -49,7 +50,7 @@ public class Player implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(status);
-        dest.writeInt(color);
+        dest.writeParcelable(getColor(), flags);
     }
 
     @SuppressWarnings("unused")
@@ -64,4 +65,8 @@ public class Player implements Parcelable {
             return new Player[size];
         }
     };
+
+    public Color getColor() {
+        return color;
+    }
 }

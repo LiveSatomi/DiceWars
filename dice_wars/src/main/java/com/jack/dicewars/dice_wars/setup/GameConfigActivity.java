@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
+import com.jack.dicewars.dice_wars.Color;
 import com.jack.dicewars.dice_wars.Debug;
 import com.jack.dicewars.dice_wars.MainGameActivity;
 import com.jack.dicewars.dice_wars.R;
@@ -249,18 +250,18 @@ public class GameConfigActivity extends Activity {
         int playerNum = Configuration.getMaxPlayers();
         String[] playerNames = new String[playerNum];
         String[] playerStatuses = new String[playerNum];
-        int[] playerColors = new int[playerNum];
+        Color[] playerColors = new Color[playerNum];
 
         for (int i = 0; i < playerNum; i++) {
             LinearLayout currentPlayerSlot = (LinearLayout) playerConfigContainer.getChildAt(i);
             TextView name = (TextView) currentPlayerSlot.findViewById(R.id.config_name);
             Button status = (Button) currentPlayerSlot.findViewById(R.id.config_status);
-            //TODO
-            int colorPlaceHolder = -1;
+            Button colorPicker = (Button) currentPlayerSlot.findViewById((R.id.config_color));
 
             playerNames[i] = name.getText().toString();
             playerStatuses[i] = status.getText().toString();
-            playerColors[i] = colorPlaceHolder;
+            //playerColors[i] = Color.valueOf(colorPicker.getText().toString());
+            playerColors[i] = Color.valueOf("colorless");
 
         }
 
