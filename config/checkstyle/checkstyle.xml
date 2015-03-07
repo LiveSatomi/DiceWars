@@ -138,7 +138,8 @@
         <module name="HideUtilityClassConstructor"/>
         <module name="InterfaceIsType"/>
         <module name="VisibilityModifier">
-            <property name="publicMemberPattern" value="^s$"/>
+            <property name="publicMemberPattern" value="^[fs]$"/>
+            <property name="protectedAllowed" value="true"/>
         </module>
 
 

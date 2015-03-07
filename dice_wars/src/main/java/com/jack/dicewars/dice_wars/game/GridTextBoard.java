@@ -1,23 +1,43 @@
 package com.jack.dicewars.dice_wars.game;
 
+import android.util.Log;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Jack Mueller on 2/28/15.
- *
  */
-public class GridTextBoard extends Board {
+public class GridTextBoard extends AbstractBoard {
 
+    private static final int[] BOARD_SIZE_SMALL_GRID = {7, 3};
+    private static final int[] BOARD_SIZE_MEDIUM_GRID = {8, 4};
+    private static final int[] BOARD_SIZE_LARGE_GRID = {9, 5};
+    /**
+     * Defines grid sizes based on {@link #BOARD_SIZE_SMALL} variables.
+     */
+    public static final int[][] BOARD_SIZE_GRID = {BOARD_SIZE_SMALL_GRID, BOARD_SIZE_MEDIUM_GRID,
+            BOARD_SIZE_LARGE_GRID};
 
-    private int cols = 3;
-    private int rows = 7;
+    private int rows;
+    private int cols;
 
-
+    /**
+     * @param config the configuration with information about the player count and board size.
+     */
     public GridTextBoard(Configuration config) {
         super(config);
+
+        int[] dims = BOARD_SIZE_GRID[config.getBoardSize()];
+        rows = dims[0];
+        cols = dims[1];
     }
 
+    /**
+     * @return A 1D list of TerritoryBorders that can be translated into a grid with row major order.
+     */
     protected List<TerritoryBorder> generateLayout() {
 
         List<TerritoryBorder> board = new LinkedList<>();
@@ -26,13 +46,14 @@ public class GridTextBoard extends Board {
 
         for (int i = 0; i < getRows(); i++) {
             for (int j = 0; j < getCols(); j++) {
-                if((i == 0 || i == getRows() - 1) && (j == 0 || j == getCols() - 1)) {
+                if ((i == 0 || i == getRows() - 1) && (j == 0 || j == getCols() - 1)) {
                     // corner case
                     board.add(new TerritoryBorder(TerritoryBorder.EDGE_CORNER_COUNT));
                 } else if (i == 0 || i == getRows() - 1 || j == 0 || j == getCols() - 1) {
                     // edge but not corner
                     board.add(new TerritoryBorder((TerritoryBorder.EDGE_EDGE_COUNT)));
                 } else {
+                    // interior territories
                     board.add(new TerritoryBorder((TerritoryBorder.EDGE_MID_COUNT)));
                 }
             }
@@ -43,9 +64,11 @@ public class GridTextBoard extends Board {
 
     /**
      * Helper method to ensure correct connections with naive (row-major grid) Territory generation.
-     * @param board A board with incomplete instantiation of its TerritoryBorder objects; the neighbors array is empty.
+     *
+     * @return The passed list with each TerritoryBorder now having references to the TerritoryBorders to the left,
+     * top, right, and bottom of itself if applicable.
      */
-    protected List<TerritoryBorder> generateGridConnections(List<TerritoryBorder> board) {
+    protected List<TerritoryBorder> generateGridConnections() {
         for (int i = 0; i < board.size(); i++) {
             // linear index to XY index
             int rowIndex = i / cols;
@@ -66,8 +89,8 @@ public class GridTextBoard extends Board {
             boolean[] neighborsMask = {rightPossible, downPossible, leftPossible, upPossible};
 
             // Add neighbors that exist to this territory's neighbor list
-            for (int j = 0, addedDirections = 0; j < TerritoryBorder.EDGE_MAX_COUNT &&
-                    addedDirections < board.get(i).getNeighbors().length; j++) {
+            for (int j = 0, addedDirections = 0; j < TerritoryBorder.EDGE_MAX_COUNT && addedDirections < board.get(i)
+                    .getNeighbors().length; j++) {
                 if (neighborsMask[j]) {
                     board.get(i).getNeighbors()[addedDirections] = board.get(neighbors[j]).getInternal();
                 }
@@ -76,10 +99,46 @@ public class GridTextBoard extends Board {
         return board;
     }
 
+    @Override
+    protected void assignTerritories() {
+        // A shallow copy of the member board that we can remove from without affecting the instance.
+        List<TerritoryBorder> boardCopy = new ArrayList<>(board);
+
+        List<Player> activePlayers = getConfig().activePlayers();
+        int perPlayer = board.size() / activePlayers.size();
+
+        Random rand = new Random();
+        while (perPlayer > 0) {
+            // Assign 1 territory to each player per while loop iteration
+            for (int i = 0; i < activePlayers.size(); i++) {
+
+                int randomLoc = rand.nextInt(boardCopy.size());
+                TerritoryBorder current = boardCopy.remove(randomLoc);
+                Player player = activePlayers.get(i);
+                current.setOwnerOfInternal(player);
+            }
+            perPlayer--;
+        }
+
+        // Give the left over territories to some players, this will not affect the number of dice they begin with.
+        // Territories that were truncated by "board.size() / activePlayers.size()"  will be assigned randomly
+        int playerForExtraTerritory;
+        while(!boardCopy.isEmpty()) {
+            playerForExtraTerritory = rand.nextInt(activePlayers.size());
+            boardCopy.remove(0).setOwnerOfInternal(activePlayers.get(playerForExtraTerritory));
+        }
+    }
+
+    protected void assignDice() {
+
+
+    }
+
     /**
      * Helper method to do the 2D to 1D conversion of a row major grid to a list.
-     * @param row the grid row
-     * @param col the grid column
+     *
+     * @param row  the grid row
+     * @param col  the grid column
      * @param cols the number of columns in the grid
      * @return the index of a 1d list representation of the element at the row and column specified.
      */
@@ -87,23 +146,17 @@ public class GridTextBoard extends Board {
         return row * cols + col;
     }
 
-    public int getCols() {
-        return cols;
-    }
-
+    /**
+     * @return The number of rows of Territories this board has.
+     */
     public int getRows() {
         return rows;
     }
 
     /**
-     * Debug. Called by bespoke options only.
-     * @param cols
+     * @return The number of columns of Territories this board has.
      */
-    public void setCols(int cols) {
-        this.cols = cols;
-    }
-
-    public void setRows(int rows) {
-        this.rows = rows;
+    public int getCols() {
+        return cols;
     }
 }

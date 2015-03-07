@@ -35,16 +35,17 @@ public class Territory {
     }
 
     /**
-     * Changes the ownership of this Territory.
+     * Changes the ownership of this Territory. Also tells the owner to register the Territory with itself
      * @param owner The new owner of this territory.
      */
     public void setOwner(Player owner) {
         this.owner = owner;
+        owner.claimOwnership(this);
     }
 
     /**
-     * Gets the color of this Terrtiory's owner.
-     * @return
+     *
+     * @return The color of this Terrtiory's owner.
      */
     public Color getColor() {
         return owner.getColor();

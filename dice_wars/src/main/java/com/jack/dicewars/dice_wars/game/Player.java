@@ -4,11 +4,19 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import com.jack.dicewars.dice_wars.Color;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * Created by jack on 1/28/15.
+ *
+ * This class represents a player of a DiceWars game. It can have a name and a Color that it uses to represent itself.
+ * It can have various statuses that describe it's most current role at many times including before, during and
+ * after the game.
  */
 public class Player implements Parcelable {
 
+    // TODO change these strings to a Status enum
     public static final String STATUS_YOU = "YOU";
     public static final String STATUS_AI = "AI";
     public static final String STATUS_HUMAN = "HUMAN";
@@ -17,6 +25,12 @@ public class Player implements Parcelable {
     private String name;
     private String status;
     private Color color;
+
+    /**
+     * A list of territories that a Player knows it owns. This data is retrievable by querying the board, but this way
+     * the filter is basically cached for each Player.
+     */
+    private List<Territory> territories = new LinkedList<>();
 
     /**
      *
@@ -66,7 +80,43 @@ public class Player implements Parcelable {
         }
     };
 
+    /**
+     *
+     * @return The Color this Player uses to represent itself on territories and elsewhere.
+     */
     public Color getColor() {
         return color;
+    }
+
+    /**
+     *
+     * @return The Status this Player is currently has. Can change throughout the Game.
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     *
+     * @return The list of Territories owned by this Player.
+     */
+    public List<Territory> getTerritories() {
+        return territories;
+    }
+
+    /**
+     *
+     * @param territory The Territory this Player will register with itself.
+     */
+    public void claimOwnership(Territory territory) {
+        territories.add(territory);
+    }
+
+    /**
+     *
+     * @param territory The Territory this Player will unregister from its cache.
+     */
+    public void loseOwnership(Territory territory) {
+        territories.remove(territory);
     }
 }

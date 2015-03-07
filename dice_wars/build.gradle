@@ -42,26 +42,29 @@ dependencies {
 
 task javadoc(type:Exec) {
     String destination = "../build/docs/javadoc"
-    String sourcepath = "src/main/java"
+    String sourcePath = "src/main/java"
+    String androidSourcePath = "/home/jack/tools/android-sdk/docs/reference"
+
     String packagesToDoc = "com"
 
     if (System.getProperty("os.name") == "Linux") {
         executable = "bash"
         // Will recursively generate javadoc for all packages specified by -sourcepath and -subpackages
         // and place them at destination
-        args "-c", "javadoc -d ${destination} -sourcepath ${sourcepath} -subpackages ${packagesToDoc}"
+        args "-c", "javadoc -d ${destination} -sourcepath ${sourcePath} -subpackages " +
+                "${packagesToDoc}"
     } else {
         throw UnsupportedOperationException("OS not supported. Please add shell")
     }
     outputs.dir destination
-    inputs.sourceDir(sourcepath)
+    inputs.sourceDir(sourcePath)
 }
 
 
 githubPages {
     String siteDocsDir = "docs"
     repoUri = 'https://github.com/jmueller30/dice_wars.git'
-    
+
     deleteExistingFiles = false
     pages {
         from javadoc.outputs.files

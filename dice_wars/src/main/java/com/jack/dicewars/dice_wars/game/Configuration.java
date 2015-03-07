@@ -5,6 +5,9 @@ import android.os.Parcelable;
 import com.jack.dicewars.dice_wars.Color;
 import com.jack.dicewars.dice_wars.Debug;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Jack Mueller on 1/28/15.
  *
@@ -34,11 +37,11 @@ public class Configuration {
      * @param colors A list of the players' colors defined by {@link com.jack.dicewars.dice_wars.Color}.
      * @param cT Whether this configuration will have colorless territories enabled.
      * @param rR Whether this configuration will have user defined or random reinforcements.
-     * @param size The size of the board defined by {@link Board#BOARD_SIZE_SMALL}.
+     * @param size The size of the board defined by {@link AbstractBoard#BOARD_SIZE_SMALL}.
      */
     public Configuration(String[] names, String[] statuses, Color[] colors, boolean cT, boolean rR, int size) {
         for (int i = 0; i < MAX_PLAYERS; i++) {
-            players[i] = new Player(names[i], statuses[i], colors[i]);
+            getPlayers()[i] = new Player(names[i], statuses[i], colors[i]);
         }
 
         colorlessTerritory = cT;
@@ -54,11 +57,11 @@ public class Configuration {
     public Configuration(Intent intent) {
         Parcelable[] parceledPlayers = intent.getParcelableArrayExtra(PLAYERS_KEY);
         for (int i = 0; i < MAX_PLAYERS; i++) {
-            players[i] = ((Player) parceledPlayers[i]);
+            getPlayers()[i] = ((Player) parceledPlayers[i]);
         }
         colorlessTerritory = intent.getBooleanExtra(COLORLESS_TERRITORY_KEY, false);
         randomReinforce = intent.getBooleanExtra(RANDOM_REINFORCE_KEY, false);
-        boardSize = intent.getIntExtra(BOARD_SIZE_KEY, Board.BOARD_SIZE_SMALL);
+        boardSize = intent.getIntExtra(BOARD_SIZE_KEY, AbstractBoard.BOARD_SIZE_SMALL);
     }
 
     /**
@@ -70,10 +73,10 @@ public class Configuration {
      * @return An intent with extras that fully define a Configuration
      */
     public Intent upload(Intent intent) {
-        intent.putExtra(PLAYERS_KEY, players);
+        intent.putExtra(PLAYERS_KEY, getPlayers());
         intent.putExtra(COLORLESS_TERRITORY_KEY, colorlessTerritory);
         intent.putExtra(RANDOM_REINFORCE_KEY, randomReinforce);
-        intent.putExtra(BOARD_SIZE_KEY, boardSize);
+        intent.putExtra(BOARD_SIZE_KEY, getBoardSize());
         return intent;
     }
 
@@ -118,11 +121,52 @@ public class Configuration {
 
     }
 
+    /**
+     *
+     * @return Returns the app mode that the game is running.
+     */
     public int getAppMode() {
         return appMode;
     }
 
+    /**
+     *
+     * @param appMode sets the app mode for upcoming games.
+     */
     public void setAppMode(int appMode) {
         this.appMode = appMode;
+    }
+
+    /**
+     *
+     * @return The board size code
+     */
+    public int getBoardSize() {
+        return boardSize;
+    }
+
+    /**
+     *
+     * @return the array of Players for this game
+     */
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    /**
+     *
+     * @return An array of the players that actually take turns in a Round. This array can change throughout the game
+     * as Players are defeated.
+     */
+    public List<Player> activePlayers() {
+        List<Player> activePlayers = new ArrayList<>();
+        for (Player p : players) {
+            final String status = p.getStatus();
+            if (status.equals(Player.STATUS_YOU) || status.equals(Player.STATUS_AI) || status.equals(Player
+                    .STATUS_HUMAN)) {
+                activePlayers.add(p);
+            }
+        }
+        return activePlayers;
     }
 }

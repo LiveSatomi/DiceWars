@@ -17,11 +17,11 @@ import com.jack.dicewars.dice_wars.setup.GameConfigActivity;
 public class MainGameActivity extends Activity {
 
     /**
-     * The root container for DiceWars game logic
+     * The root container for DiceWars game logic.
      */
     private Game game;
 
-    private BoardView boardView;
+    private AbstractBoardView boardView;
 
     /**
      * Loads the configuration to use for the game.
@@ -36,6 +36,8 @@ public class MainGameActivity extends Activity {
         Intent i = getIntent();
         this.game = new Game(new Configuration(i));
         game.start();
+
+        // Choose the game mode to run
         if (game.getAppMode() == Debug.gridText.f) {
             boardView = new GridTextBoardView(game.getBoard(), this);
         } else {

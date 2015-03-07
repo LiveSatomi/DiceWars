@@ -10,12 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import com.jack.dicewars.dice_wars.Color;
 import com.jack.dicewars.dice_wars.Debug;
 import com.jack.dicewars.dice_wars.MainGameActivity;
 import com.jack.dicewars.dice_wars.R;
-import com.jack.dicewars.dice_wars.game.Board;
+import com.jack.dicewars.dice_wars.game.AbstractBoard;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Player;
 
@@ -68,6 +73,7 @@ public class GameConfigActivity extends Activity {
 
     /**
      * Enables editing the name corresponding to the button pressed, if it is owned by the user.
+     *
      * @param view The button pressed to begin editing the name.
      */
     public void editName(View view) {
@@ -152,7 +158,8 @@ public class GameConfigActivity extends Activity {
     }
 
     /**
-     * Uploads all game configuration information to the intent for the {@link com.jack.dicewars.dice_wars.MainGameActivity}.
+     * Uploads all game configuration information to the intent for the {@link com.jack.dicewars.dice_wars
+     * * .MainGameActivity}.
      *
      * @param view The Begin Game button.
      */
@@ -231,9 +238,8 @@ public class GameConfigActivity extends Activity {
             // Status
             Button playerStatus = (Button) viewingPlayerSlot.findViewById(R.id.config_status);
             playerStatus.setText(Player.STATUS_AI);
-
             // Color
-            String[] placeHolderColors = new String[]{"g", "p", "b", "r", "w", "y"};
+            String[] placeHolderColors = new String[]{"green", "yellow", "red", "blue", "purple", "pink"};
             Button playerColor = (Button) viewingPlayerSlot.findViewById(R.id.config_color);
             playerColor.setText(placeHolderColors[i]);
         }
@@ -260,8 +266,7 @@ public class GameConfigActivity extends Activity {
 
             playerNames[i] = name.getText().toString();
             playerStatuses[i] = status.getText().toString();
-            //playerColors[i] = Color.valueOf(colorPicker.getText().toString());
-            playerColors[i] = Color.valueOf("colorless");
+            playerColors[i] = Color.valueOf(colorPicker.getText().toString());
 
         }
 
@@ -272,14 +277,16 @@ public class GameConfigActivity extends Activity {
         RadioGroup boardSizeGroup = (RadioGroup) findViewById(R.id.boardSizeRadioGroup);
         switch (boardSizeGroup.getCheckedRadioButtonId()) {
             case R.id.radioBoardSmall:
-                boardSize = Board.BOARD_SIZE_SMALL;
+                boardSize = AbstractBoard.BOARD_SIZE_SMALL;
                 break;
             case R.id.radioBoardMedium:
-                boardSize = Board.BOARD_SIZE_MEDIUM;
+                boardSize = AbstractBoard.BOARD_SIZE_MEDIUM;
                 break;
             case R.id.radioBoardLarge:
-                boardSize = Board.BOARD_SIZE_LARGE;
+                boardSize = AbstractBoard.BOARD_SIZE_LARGE;
                 break;
+            default:
+                throw new IllegalStateException("Unknown board size");
         }
 
         return new Configuration(playerNames, playerStatuses, playerColors, colorlessTerritories, randomReinforce,

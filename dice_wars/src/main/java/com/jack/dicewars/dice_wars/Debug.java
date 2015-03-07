@@ -4,11 +4,11 @@ package com.jack.dicewars.dice_wars;
  * This class is for strings I may want to have lying around for development while still complying to checkstyle rules.
  *
  * Created by jack on 2/22/15.
- */    
+ */
 public enum Debug {
-    /* TODO possibly create a Debug package that can be imported with "logcat filter" and "appmode" classes so the 
+    /* TODO possibly create a Debug package that can be imported with "logcat filter" and "appmode" classes so the
     constructors in this class don't look so weird*/
-    
+
     //Logcat search filters
     // for methods like "goToActivity" that change foreground activities
     nav ("nav"),
@@ -37,6 +37,10 @@ public enum Debug {
         this.s = message;
     }
 
+    /**
+     * Sets the flags to run a specific app mode. Abnormal flags are set by the bespoke options in app.
+     * @param flag the flag to set
+     */
     Debug(int flag) {
         this.f = flag;
     }

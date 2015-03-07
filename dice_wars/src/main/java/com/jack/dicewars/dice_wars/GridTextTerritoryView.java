@@ -6,12 +6,27 @@ import android.widget.LinearLayout;
 
 /**
  * Created by Jack Mueller on 2/28/15.
+ *
+ * This implementation uses Buttons with two characters to represent its data to the users. This territory is mostly
+ * for debugging purposes and for developing the model before the custom Views are finished. Buttons were chosen
+ * because they are interactive and easy to change the text of out of the box.
  */
-public class GridTextTerritoryView extends TerritoryView {
+public class GridTextTerritoryView extends AbstractTerritoryView {
 
+    /**
+     * The y coordinate of this View in the grid.
+     */
     private int row;
+    /**
+     * The x coordinate of this View in the grid.
+     */
     private int col;
 
+    /**
+     * Create a GridTextTerritoryView that should be placed at [row, col] in a grid.
+     * @param row this TerritoryView's row
+     * @param col this TerritoryView's column
+     */
     public GridTextTerritoryView(int row, int col) {
         this.row = row;
         this.col = col;
@@ -30,10 +45,18 @@ public class GridTextTerritoryView extends TerritoryView {
         return gridTextButton;
     }
 
+    /**
+     *
+     * @return the row that this TerritoryView should be located in the grid.
+     */
     public int getRow() {
         return row;
     }
 
+    /**
+     *
+     * @return the column that this TerritoryView should be located in the grid.
+     */
     public int getCol() {
         return col;
     }

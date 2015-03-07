@@ -4,14 +4,15 @@ import com.jack.dicewars.dice_wars.Color;
 
 /**
  * Created by Jack Mueller on 2/25/15.
+ *
+ * Acts as the owner to a colorless Territory. Will always lose battles, have the colorless territory color, and
+ * never has an active turn.
  */
 public class NullPlayer extends Player {
     public static final String STATUS_COLORLESS = "COLORLESS";
-    public static final int COLOR_NULL = -1;
 
     /**
-     * Acts as the owner to a colorless Territory. Will always lose battles, have the colorless territory color, and
-     * never have an active turn.
+     * A typical NullPlayer has a 0 length name, a special status, and uses the Colorless Color enum.
      */
     public NullPlayer() {
         super("", STATUS_COLORLESS, Color.colorless);

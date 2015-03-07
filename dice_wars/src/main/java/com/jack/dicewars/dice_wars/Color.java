@@ -6,7 +6,7 @@ import android.os.Parcelable;
 /**
  * Created by Jack Mueller on 2/25/15.
  */
-public enum Color implements Parcelable{
+public enum Color implements Parcelable {
     colorless("N"),
     green("g"),
     yellow("y"),
@@ -16,7 +16,7 @@ public enum Color implements Parcelable{
     pink("i");
 
     /**
-     * A color code that represents the actual color while in Text Mode
+     * A color code that represents the actual color while in Text Mode.
      */
     private String code;
 
@@ -29,10 +29,18 @@ public enum Color implements Parcelable{
         code = text;
     }
 
+    /**
+     * This color code should appear on color pickers and Territories in Text Mode.
+     * @return The one letter, lowercase color code
+     */
     public String getCode() {
         return code;
     }
 
+    /**
+     * Sets the color code when being created from a parcel.
+     * @param code The one letter lowercase color code
+     */
     public void setCode(String code) {
         this.code = code;
     }
