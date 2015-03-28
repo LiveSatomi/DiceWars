@@ -1,7 +1,5 @@
 package com.jack.dicewars.dice_wars.game;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +18,11 @@ public class GridTextBoard extends AbstractBoard {
      */
     public static final int[][] BOARD_SIZE_GRID = {BOARD_SIZE_SMALL_GRID, BOARD_SIZE_MEDIUM_GRID,
             BOARD_SIZE_LARGE_GRID};
+
+    /**
+     * Number of dice each Player at the start of the game in addition to their 1 per Territory.
+     */
+    private static final int DICE_PER_PLAYER = 6;
 
     private int rows;
     private int cols;
@@ -99,6 +102,12 @@ public class GridTextBoard extends AbstractBoard {
         return board;
     }
 
+    /**
+     * Assigns Territories to Players by linking the internal Territory to a Color and registering the Territory with
+     * the Player (for caching). Each player is giving exactly the same amount of Territories (when possible).
+     * Leftovers after distributing evenly are given to random players, unless colorless territories is enabled in
+     * the {@link #config}.
+     */
     @Override
     protected void assignTerritories() {
         // A shallow copy of the member board that we can remove from without affecting the instance.
@@ -106,6 +115,11 @@ public class GridTextBoard extends AbstractBoard {
 
         List<Player> activePlayers = getConfig().activePlayers();
         int perPlayer = board.size() / activePlayers.size();
+
+        final boolean colorlessTerritory = getConfig().isColorlessTerritory();
+        if (colorlessTerritory) {
+            perPlayer--;
+        }
 
         Random rand = new Random();
         while (perPlayer > 0) {
@@ -123,15 +137,39 @@ public class GridTextBoard extends AbstractBoard {
         // Give the left over territories to some players, this will not affect the number of dice they begin with.
         // Territories that were truncated by "board.size() / activePlayers.size()"  will be assigned randomly
         int playerForExtraTerritory;
-        while(!boardCopy.isEmpty()) {
+        while (!boardCopy.isEmpty() && !colorlessTerritory) {
             playerForExtraTerritory = rand.nextInt(activePlayers.size());
             boardCopy.remove(0).setOwnerOfInternal(activePlayers.get(playerForExtraTerritory));
         }
     }
 
+    /**
+     * Randomly assigns a preset number of dice based on {@link #DICE_PER_PLAYER}. Each owned territory is guaranteed
+     * to have at least 1 die.
+     */
     protected void assignDice() {
+        List<Player> activePlayers = getConfig().activePlayers();
 
+        // Guarantee each territory 1 die. TODO decide if territory constructor sets value to 1 (what about colorless?)
+        for (Player p : activePlayers) {
+            final List<Territory> territories = p.getTerritories();
+            for (Territory t : territories) {
+                t.setValue(1);
+            }
+        }
 
+        // For each Player pick random Territories for each dice
+        Random rand = new Random();
+        for (Player p : activePlayers) {
+            final List<Territory> territories = p.getTerritories();
+            // Reset dice count for each player
+            for (int diceLeft = DICE_PER_PLAYER; diceLeft > 0; diceLeft--) {
+                // Pick a random territory and increment its value
+                final Territory pickedTerritory = territories.get(rand.nextInt(territories.size()));
+                //TODO set a guard for max value
+                pickedTerritory.setValue(pickedTerritory.getValue() + 1);
+            }
+        }
     }
 
     /**

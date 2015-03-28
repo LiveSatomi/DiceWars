@@ -2,10 +2,13 @@ package com.jack.dicewars.dice_wars.game;
 
 import android.content.Intent;
 import android.os.Parcelable;
+import android.util.Log;
 import com.jack.dicewars.dice_wars.Color;
 import com.jack.dicewars.dice_wars.Debug;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -168,5 +171,17 @@ public class Configuration {
             }
         }
         return activePlayers;
+    }
+
+    /**
+     * This method will randomize the player order so that the order is different at the start of each game.
+     */
+    public void randomizePlayerOrder() {
+        // TODO implement my own randomization function... if I feel like it
+        final List<Player> playersList = Arrays.asList(players);
+        Collections.shuffle(playersList);
+        for (int i = 0; i < players.length; i++) {
+            players[i] = playersList.get(i);
+        }
     }
 }

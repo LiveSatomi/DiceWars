@@ -6,7 +6,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Game;
 import com.jack.dicewars.dice_wars.setup.GameConfigActivity;
@@ -44,6 +46,8 @@ public class MainGameActivity extends Activity {
             throw new EnumConstantNotPresentException(Debug.class, "App mode does not exist");
         }
         boardView.apply((ViewGroup) findViewById(R.id.boardContainer));
+
+        updateLabels();
         update();
     }
 
@@ -51,9 +55,28 @@ public class MainGameActivity extends Activity {
      * Updates the view based on the state of {@game}.
      */
     private void update() {
-        //is this a(n abstract) method of boardview? or is that just a part of the implementation?
+        //is this a(n abstract) method of boardView? or is that just a part of the implementation?
     }
 
+    /**
+     * Updates labels on the view to match the state of the model.
+     */
+    private void updateLabels() {
+        ((TextView) findViewById(R.id.activePlayerName)).setText(game.currentPlayerName());
+        ((TextView) findViewById(R.id.activePhase)).setText(game.currentPhase());
+    }
+    
+    /**
+     * Advances the Game to the next Phase, Turn, or Round.
+     *
+     * @param view The button clicked to call this method
+     */
+    public void advance(View view) {
+        //TODO guard against unauthorized players from making this button press have an effect.
+        game.advance();
+        updateLabels();
+        Log.i("active", "advanced");
+    }
 
     @Override
     public void onBackPressed() {

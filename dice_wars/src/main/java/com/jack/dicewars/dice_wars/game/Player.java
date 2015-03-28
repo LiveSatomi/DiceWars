@@ -119,4 +119,8 @@ public class Player implements Parcelable {
     public void loseOwnership(Territory territory) {
         territories.remove(territory);
     }
+
+    public String getName() {
+        return name;
+    }
 }

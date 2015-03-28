@@ -1,5 +1,6 @@
 package com.jack.dicewars.dice_wars.game;
 
+import android.util.Log;
 import com.jack.dicewars.dice_wars.Debug;
 
 /**
@@ -18,6 +19,10 @@ public class Game {
      * The root of the interactive part of the model.
      */
     private AbstractBoard board;
+    /**
+     * The current Round that is being played.
+     */
+    private Round round;
 
     /**
      * Creates a Game, and determines what app mode this game will use, but does not create a board for the game, call
@@ -32,14 +37,29 @@ public class Game {
         } else {
             throw new EnumConstantNotPresentException(Debug.class, "App mode does not exist");
         }
+        round = null;
     }
 
     /**
      * Initializes this game's board and determines the order of players, as well as who will go first.
+     * Completes setup of the game by initiating the first round, turn, and phase.
      */
     public void start() {
         board.startState(config);
-        //TODO determine who is first/the order of play
+        config.randomizePlayerOrder();
+        round = new Round(config.activePlayers());
+    }
+
+    /**
+     * Advances the game state by one Phase, which may roll over to a new Round or Turn.
+     */
+    public void advance() {
+        if (!round.advance()) {
+            // The Round has ended, start a new one
+            round = new Round(config.activePlayers());
+        } else {
+            Log.i("active", "true at game");
+        }
     }
 
     /**
@@ -57,5 +77,14 @@ public class Game {
     public int getAppMode() {
         return config.getAppMode();
     }
+
+    public String currentPlayerName() {
+        return round.currentPlayer().getName();
+    }
+
+    public String currentPhase() {
+        return round.currentPhase();
+    }
+
 
 }
