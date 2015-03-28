@@ -1,6 +1,7 @@
 package com.jack.dicewars.dice_wars;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -42,7 +43,7 @@ public class GridTextBoardView extends AbstractBoardView {
      * @param b Model data of the board and its grid indexed Territories.
      * @param context The MainGameActivity in which this board is being used.
      */
-    public GridTextBoardView(AbstractBoard b, Context context) {
+    public GridTextBoardView(final AbstractBoard b, Context context) {
         GridTextBoard board = (GridTextBoard) b;
 
         this.context = context;
@@ -59,8 +60,19 @@ public class GridTextBoardView extends AbstractBoardView {
                 // A GridTextTerritoryView can preserve the grid coordinate model information.
                 AbstractTerritoryView territoryView = new GridTextTerritoryView(i, j);
                 Button gridTextButton = (Button) territoryView.defaultView(context);
-
+                //TODO figure out how to add onclick function to this button
                 final Territory internal = grid.get(board.coordinatesToIndex(i, j, cols)).getInternal();
+                gridTextButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (b.isSelectable(internal)) {
+                            //TODO Something cool
+                        } else {
+                            //TODO Uh oh too much cool
+                        }
+
+                    }
+                });
                 final Color color = internal.getColor();
                 gridTextButton.setText(color.getCode() + internal.getValue());
                 // Guarantee that the TerritoryView and Button coordinates are linked

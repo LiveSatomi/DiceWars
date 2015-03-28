@@ -34,7 +34,6 @@ public class Round {
     public boolean advance() {
         if(turn.advance()) {
             // Advancing logic completed at a lower level
-            Log.i("active", "true at round: " + players.get(currentPlayerIndex).getName());
             return true;
         } else {
             // The Turn ended

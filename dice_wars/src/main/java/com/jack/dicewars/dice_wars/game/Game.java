@@ -23,6 +23,10 @@ public class Game {
      * The current Round that is being played.
      */
     private Round round;
+    /**
+     * The number of current Round being played.
+     */
+    private int roundNum;
 
     /**
      * Creates a Game, and determines what app mode this game will use, but does not create a board for the game, call
@@ -33,11 +37,12 @@ public class Game {
     public Game(Configuration config) {
         this.config = config;
         if (getAppMode() == Debug.gridText.f) {
-            board = new GridTextBoard(config);
+            board = new GridTextBoard(this, config);
         } else {
             throw new EnumConstantNotPresentException(Debug.class, "App mode does not exist");
         }
         round = null;
+        roundNum = 0;
     }
 
     /**
@@ -45,9 +50,21 @@ public class Game {
      * Completes setup of the game by initiating the first round, turn, and phase.
      */
     public void start() {
-        board.startState(config);
+        board.startState();
         config.randomizePlayerOrder();
         round = new Round(config.activePlayers());
+        roundNum = 1;
+    }
+
+    /**
+     * Tells whether a certain Territory is selectable based on the Context, which device selected the Territory,
+     * whose Turn it is in the Game, what Phase it is, and what has already been selected.
+     * @param territory
+     * @return
+     */
+    public boolean isSelectable(Territory territory) {
+
+        return true; //TODO implement
     }
 
     /**
@@ -57,6 +74,7 @@ public class Game {
         if (!round.advance()) {
             // The Round has ended, start a new one
             round = new Round(config.activePlayers());
+            roundNum++;
         } else {
             Log.i("active", "true at game");
         }
@@ -84,6 +102,14 @@ public class Game {
 
     public String currentPhase() {
         return round.currentPhase();
+    }
+
+    /**
+     *
+     * @return The number of rounds this game has been played, including the current round
+     */
+    public int getRoundNum() {
+        return roundNum;
     }
 
 

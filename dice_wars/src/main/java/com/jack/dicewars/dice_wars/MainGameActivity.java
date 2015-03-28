@@ -55,7 +55,7 @@ public class MainGameActivity extends Activity {
      * Updates the view based on the state of {@game}.
      */
     private void update() {
-        //is this a(n abstract) method of boardView? or is that just a part of the implementation?
+        //is this a(n abstract) method of boardView? or is that just a part of the implementation of this method?
     }
 
     /**
@@ -66,6 +66,11 @@ public class MainGameActivity extends Activity {
         ((TextView) findViewById(R.id.activePhase)).setText(game.currentPhase());
     }
     
+    public void requestSelection() {
+        
+        
+    }
+
     /**
      * Advances the Game to the next Phase, Turn, or Round.
      *

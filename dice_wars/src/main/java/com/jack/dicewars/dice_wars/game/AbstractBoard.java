@@ -14,7 +14,8 @@ public abstract class AbstractBoard {
     public static final int BOARD_SIZE_MEDIUM = 1;
     public static final int BOARD_SIZE_LARGE = 2;
 
-    private Configuration config;
+    private Game game;
+    protected Configuration config;
 
     /**
      * A well ordered list of TerritoryBorders, which also define well ordered connections between themselves. The
@@ -25,11 +26,11 @@ public abstract class AbstractBoard {
     /**
      * Saves the configuration used for making this game because it is important for balancing the number of Players
      * that start with Territories.
-     * @param config the configuration which defines constraints for the start states of this board.
+     * @param game the configuration which defines constraints for the start states of this board.
      */
-    public AbstractBoard(Configuration config) {
+    public AbstractBoard(Game game, Configuration config) {
+        this.game = game;
         this.config = config;
-
     }
 
     /**
@@ -37,14 +38,13 @@ public abstract class AbstractBoard {
      * Territories. Amount of territories that are assigned are based on the amount of players and the value of
      * {@link com.jack.dicewars.dice_wars.game.Configuration#colorlessTerritory}.
      *
-     * @param config the same Configuration that was used to create this board.
      */
-    public void startState(Configuration config) {
+    public void startState() {
         // Supply the board with isolated Territories
         board = generateLayout();
         // Connect the Territories through their TerritoryBorders
         board = generateGridConnections();
-        //TODO assign players and values
+        // Assign players and values
         board = assignFairly();
     }
 
@@ -72,7 +72,7 @@ public abstract class AbstractBoard {
      */
     protected List<TerritoryBorder> assignFairly() {
         assignTerritories();
-        
+
         assignDice();
 
         return board;
@@ -83,6 +83,15 @@ public abstract class AbstractBoard {
     protected abstract void assignDice();
 
     /**
+     * Returns
+     *
+     * @param internal The territory requesting to be selected based on the click of it's TerritoryView
+     */
+    public boolean isSelectable(Territory internal) {
+        return game.isSelectable(internal);
+    }
+
+    /**
      * A list of the existing borders (one for each Territory).
      *
      * @return The list of TerritoryBorder objects in an order defined by a subclass implementation.
@@ -91,10 +100,4 @@ public abstract class AbstractBoard {
         return board;
     }
 
-    /**
-     * A access to the same Configuration that the Game has. TODO This will be used repeatedly?
-     */
-    protected Configuration getConfig() {
-        return config;
-    }
 }

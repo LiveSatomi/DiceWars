@@ -1,6 +1,7 @@
 package com.jack.dicewars.dice_wars;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -44,6 +45,7 @@ public class GridTextTerritoryView extends AbstractTerritoryView {
         gridTextButton.setText("N0");
         return gridTextButton;
     }
+
 
     /**
      *

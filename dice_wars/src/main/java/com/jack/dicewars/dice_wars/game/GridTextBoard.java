@@ -30,8 +30,8 @@ public class GridTextBoard extends AbstractBoard {
     /**
      * @param config the configuration with information about the player count and board size.
      */
-    public GridTextBoard(Configuration config) {
-        super(config);
+    public GridTextBoard(Game game, Configuration config) {
+        super(game, config);
 
         int[] dims = BOARD_SIZE_GRID[config.getBoardSize()];
         rows = dims[0];
@@ -113,10 +113,10 @@ public class GridTextBoard extends AbstractBoard {
         // A shallow copy of the member board that we can remove from without affecting the instance.
         List<TerritoryBorder> boardCopy = new ArrayList<>(board);
 
-        List<Player> activePlayers = getConfig().activePlayers();
+        List<Player> activePlayers = config.activePlayers();
         int perPlayer = board.size() / activePlayers.size();
 
-        final boolean colorlessTerritory = getConfig().isColorlessTerritory();
+        final boolean colorlessTerritory = config.isColorlessTerritory();
         if (colorlessTerritory) {
             perPlayer--;
         }
@@ -148,7 +148,7 @@ public class GridTextBoard extends AbstractBoard {
      * to have at least 1 die.
      */
     protected void assignDice() {
-        List<Player> activePlayers = getConfig().activePlayers();
+        List<Player> activePlayers = config.activePlayers();
 
         // Guarantee each territory 1 die. TODO decide if territory constructor sets value to 1 (what about colorless?)
         for (Player p : activePlayers) {

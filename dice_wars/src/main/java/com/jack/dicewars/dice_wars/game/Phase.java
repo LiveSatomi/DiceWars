@@ -5,7 +5,7 @@ package com.jack.dicewars.dice_wars.game;
  */
 public interface Phase {
 
-    //TODO pass context for localization
+    //TODO pass in R.string.phaseName to constructor for localization
     /**
      *
      * @return A friendly description of what this happens during this phase.

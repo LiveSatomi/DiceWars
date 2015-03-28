@@ -31,8 +31,6 @@ public class Turn {
     public boolean advance() {
         if (currentPhase < phases.length - 1) {
             // simply advance to the next phase
-            Log.i("active", "true at turn: " + currentPhase());
-
             currentPhase++;
             return true;
         } else {
