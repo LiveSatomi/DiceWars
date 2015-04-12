@@ -3,6 +3,7 @@ package com.jack.dicewars.dice_wars;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import com.jack.dicewars.dice_wars.game.TerritoryBorder;
 
 import java.util.Map;
 
@@ -20,15 +21,27 @@ public abstract class AbstractBoardView {
      */
     protected Context context;
 
-    protected Map<AbstractTerritoryView, View> territoryViewMap;
+    protected Map<AbstractTerritoryView, View> territoryNativeViewMap;
+    protected Map<TerritoryBorder, AbstractTerritoryView> modelTerritoryMap;
 
     /**
-     * Puts programmatically generated views into the supplied viewPort based on the {@link #territoryViewMap} and
+     * Puts programmatically generated views into the supplied viewPort based on the {@link #territoryNativeViewMap} and
      * any other Views that are defined by the subclass implementation.
      * @param viewPort The entire container allocated to viewing the board.
-     * @return A modified version of the viewPort that has a representation of territoryViewMap as its child
+     * @return A modified version of the viewPort that has a representation of territoryNativeViewMap as its child
      * nodes.
      */
     public abstract View apply(ViewGroup viewPort);
+
+    /**
+     * Updates all Views in modelTerritoryMap that are also in territoryNativeViewMap
+     */
+    public void updateViews() {
+        for (Map.Entry<TerritoryBorder, AbstractTerritoryView> entry : modelTerritoryMap.entrySet()) {
+            updateView(entry.getKey());
+        }
+    }
+
+    protected abstract void updateView(TerritoryBorder modelKey);
 
 }

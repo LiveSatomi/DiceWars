@@ -2,6 +2,8 @@ package com.jack.dicewars.dice_wars.game;
 
 import com.jack.dicewars.dice_wars.Color;
 
+import java.util.Random;
+
 /**
  * Created by Jack Mueller on 2/23/15.
  *
@@ -11,8 +13,11 @@ import com.jack.dicewars.dice_wars.Color;
  */
 public class Territory {
 
+    public static final int DICE_FACES = 6;
+
     private Player owner;
     private int value;
+    private Random random;
 
     /**
      * Creates an isolated territory that keeps track of it's owner and dice value.
@@ -21,8 +26,9 @@ public class Territory {
      * @param value The initial amount of dice on this Territory.
      */
     public Territory(Player owner, int value) {
-        this.setOwner(owner);
+        owner.claimOwnership(this);
         this.setValue(value);
+        random = new Random();
     }
 
 
@@ -40,12 +46,11 @@ public class Territory {
      */
     public void setOwner(Player owner) {
         this.owner = owner;
-        owner.claimOwnership(this);
     }
 
     /**
      *
-     * @return The color of this Terrtiory's owner.
+     * @return The color of this Territory's owner.
      */
     public Color getColor() {
         return owner.getColor();
@@ -65,5 +70,13 @@ public class Territory {
      */
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public int roll() {
+        int rollSum = 0;
+        for (int diceLeft = value; diceLeft > 0; diceLeft--) {
+            rollSum += random.nextInt(DICE_FACES) + 1;
+        }
+        return rollSum;
     }
 }

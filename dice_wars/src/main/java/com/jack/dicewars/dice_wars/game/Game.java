@@ -1,6 +1,7 @@
 package com.jack.dicewars.dice_wars.game;
 
 import android.util.Log;
+import com.jack.dicewars.dice_wars.Color;
 import com.jack.dicewars.dice_wars.Debug;
 
 /**
@@ -59,12 +60,39 @@ public class Game {
     /**
      * Tells whether a certain Territory is selectable based on the Context, which device selected the Territory,
      * whose Turn it is in the Game, what Phase it is, and what has already been selected.
-     * @param territory
-     * @return
+     * @param territory The territory that was clicked.
+     * @return True if the territory is selected, false otherwise.
      */
-    public boolean isSelectable(Territory territory) {
-
+    public boolean select(TerritoryBorder territory) {
+        // TODO This violates CQS returning boolean
+        if (isSelectable(territory)) {
+            currentPhase().pushTerritory(territory);
+            // invalidate view. What do we have access to here?
+        }
         return true; //TODO implement
+    }
+
+    private boolean isSelectable(TerritoryBorder territory) {
+        // If it's not the clicker's turn, the clicker can't do anything
+        if (myTurn()) {
+            return board.passesFilter(territory, currentPhase().filters());
+        } else {
+            return false;
+        }
+    }
+
+    public boolean myTurn() {
+        return currentPlayerColor().equals(myColor());
+
+    }
+
+    private Color myColor() {
+        for (Player p : config.activePlayers()) {
+            if (p.isMe()) {
+                return p.getColor();
+            }
+        }
+        return null;
     }
 
     /**
@@ -75,8 +103,6 @@ public class Game {
             // The Round has ended, start a new one
             round = new Round(config.activePlayers());
             roundNum++;
-        } else {
-            Log.i("active", "true at game");
         }
     }
 
@@ -100,7 +126,12 @@ public class Game {
         return round.currentPlayer().getName();
     }
 
-    public String currentPhase() {
+    public Color currentPlayerColor() {
+        return round.currentPlayer().getColor();
+    }
+
+
+    public Phase currentPhase() {
         return round.currentPhase();
     }
 

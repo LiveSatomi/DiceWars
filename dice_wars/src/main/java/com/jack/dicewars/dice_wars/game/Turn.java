@@ -1,7 +1,5 @@
 package com.jack.dicewars.dice_wars.game;
 
-import android.util.Log;
-
 /**
  * Created by Jack Mueller on 3/8/15.
  */
@@ -19,8 +17,8 @@ public class Turn {
         currentPhase = 0;
     }
 
-    public String currentPhase() {
-        return phases[currentPhase].toString();
+    public Phase currentPhase() {
+        return phases[currentPhase];
     }
 
     /**

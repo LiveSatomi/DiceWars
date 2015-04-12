@@ -105,11 +105,13 @@ public class Player implements Parcelable {
     }
 
     /**
-     *
+     * DO NOT use this method from Phases, use
      * @param territory The Territory this Player will register with itself.
      */
-    public void claimOwnership(Territory territory) {
+    void claimOwnership(Territory territory) {
         territories.add(territory);
+        territory.setOwner(this);
+
     }
 
     /**
@@ -118,9 +120,14 @@ public class Player implements Parcelable {
      */
     public void loseOwnership(Territory territory) {
         territories.remove(territory);
+        territory.setOwner(new NullPlayer());
     }
 
     public String getName() {
         return name;
+    }
+
+    public boolean isMe() {
+        return status.equals(STATUS_YOU);
     }
 }

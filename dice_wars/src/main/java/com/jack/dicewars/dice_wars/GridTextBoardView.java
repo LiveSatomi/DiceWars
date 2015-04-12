@@ -38,13 +38,13 @@ public class GridTextBoardView extends AbstractBoardView {
 
     /**
      * Creates {@link com.jack.dicewars.dice_wars.GridTextTerritoryView} and maps them to Android Button to fill the
-     * {@link #territoryViewMap}.
+     * {@link #territoryNativeViewMap}.
      *
      * @param b Model data of the board and its grid indexed Territories.
      * @param context The MainGameActivity in which this board is being used.
      */
-    public GridTextBoardView(final AbstractBoard b, Context context) {
-        GridTextBoard board = (GridTextBoard) b;
+    public GridTextBoardView(AbstractBoard b, Context context) {
+        final GridTextBoard board = (GridTextBoard) b;
 
         this.context = context;
         rows = board.getRows();
@@ -53,36 +53,45 @@ public class GridTextBoardView extends AbstractBoardView {
         // A row major ordered list of TerritoryBorder model objects.
         final List<TerritoryBorder> grid = board.getBoard();
 
-        territoryViewMap = new HashMap<>();
+        territoryNativeViewMap = new HashMap<>();
+        modelTerritoryMap = new HashMap<>();
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 // A GridTextTerritoryView can preserve the grid coordinate model information.
-                AbstractTerritoryView territoryView = new GridTextTerritoryView(i, j);
+                final AbstractTerritoryView territoryView = new GridTextTerritoryView(i, j);
                 Button gridTextButton = (Button) territoryView.defaultView(context);
-                //TODO figure out how to add onclick function to this button
-                final Territory internal = grid.get(board.coordinatesToIndex(i, j, cols)).getInternal();
+
+                final TerritoryBorder territory = grid.get(board.coordinatesToIndex(i, j, cols));
                 gridTextButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (b.isSelectable(internal)) {
-                            //TODO Something cool
-                        } else {
-                            //TODO Uh oh too much cool
-                        }
-
+                        // Request selection. Let the model handle potential selection.
+                        board.select(territory);
+                        // Handle changes in the Views
+                        updateViews();
                     }
                 });
-                final Color color = internal.getColor();
-                gridTextButton.setText(color.getCode() + internal.getValue());
+
                 // Guarantee that the TerritoryView and Button coordinates are linked
-                territoryViewMap.put(territoryView, gridTextButton);
+                territoryNativeViewMap.put(territoryView, gridTextButton);
+                modelTerritoryMap.put(territory, territoryView);
+
+                // First update acts as an initialization
+                updateView(territory);
             }
         }
     }
 
+    @Override
+    public void updateView(TerritoryBorder modelKey) {
+        Button nativeView = (Button) territoryNativeViewMap.get(modelTerritoryMap.get(modelKey));
+        final Color color = modelKey.getInternal().getColor();
+        nativeView.setText(color.getCode() + modelKey.getInternal().getValue());
+    }
+
     /**
-     * TerritoryViews are represented by Buttons and other defined Views include a  one column GridLayout as the
+     * TerritoryViews are represented by Buttons and other defined Views include a one column GridLayout as the
      * ViewPort implementation, LinearLayouts for the rows of the grid, and Android Space objects to
      * simulate columns.
      *
@@ -99,7 +108,7 @@ public class GridTextBoardView extends AbstractBoardView {
         ((GridLayout) container).setColumnCount(1);
 
         // loop through all territories and places the corresponding View in the skeleton
-        for (Map.Entry<AbstractTerritoryView, View> territoryMapping : territoryViewMap.entrySet()) {
+        for (Map.Entry<AbstractTerritoryView, View> territoryMapping : territoryNativeViewMap.entrySet()) {
             // get a reference to the model's row and column
             final GridTextTerritoryView territory = (GridTextTerritoryView) territoryMapping.getKey();
             final int modelRow = territory.getRow();

@@ -61,6 +61,6 @@ public class TerritoryBorder {
      * @param player The Player that now owns the Territory inside of this Border
      */
     public void setOwnerOfInternal(Player player) {
-        getInternal().setOwner(player);
+        player.claimOwnership(getInternal());
     }
 }

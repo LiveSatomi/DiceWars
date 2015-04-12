@@ -16,7 +16,8 @@ public enum Debug {
     profile ("profile"),
     // for logging methods that are apart of the activity lifecycle: onCreate, onWindowFocusChanged, etc
     life ("life"),
-
+    // for visibility on the results of battles
+    battle ("battle"),
     //App mode flags
     gridText(1);
 

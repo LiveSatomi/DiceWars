@@ -19,5 +19,4 @@ public abstract class AbstractTerritoryView {
      * represent a BoardView.
      */
     public abstract View defaultView(Context context);
-
 }

@@ -62,13 +62,14 @@ public class MainGameActivity extends Activity {
      * Updates labels on the view to match the state of the model.
      */
     private void updateLabels() {
-        ((TextView) findViewById(R.id.activePlayerName)).setText(game.currentPlayerName());
-        ((TextView) findViewById(R.id.activePhase)).setText(game.currentPhase());
+        //TODO is redundent?
+        ((TextView) findViewById(R.id.activePlayerName)).setText(game.currentPlayerName().toString());
+        ((TextView) findViewById(R.id.activePhase)).setText(game.currentPhase().toString());
     }
-    
+
     public void requestSelection() {
-        
-        
+
+
     }
 
     /**
@@ -78,9 +79,10 @@ public class MainGameActivity extends Activity {
      */
     public void advance(View view) {
         //TODO guard against unauthorized players from making this button press have an effect.
-        game.advance();
+        if (game.myTurn() || !game.myTurn()) {
+            game.advance();
+        }
         updateLabels();
-        Log.i("active", "advanced");
     }
 
     @Override

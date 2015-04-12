@@ -22,7 +22,7 @@ public class Round {
         turn = new Turn(currentPlayer);
     }
 
-    public String currentPhase() {
+    public Phase currentPhase() {
         return turn.currentPhase();
     }
 

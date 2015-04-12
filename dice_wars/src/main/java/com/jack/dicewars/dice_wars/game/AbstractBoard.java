@@ -1,6 +1,7 @@
 package com.jack.dicewars.dice_wars.game;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Jack Mueller on 2/23/15.
@@ -83,12 +84,11 @@ public abstract class AbstractBoard {
     protected abstract void assignDice();
 
     /**
-     * Returns
      *
-     * @param internal The territory requesting to be selected based on the click of it's TerritoryView
+     * @param territory The territory requesting to be selected based on the click of it's TerritoryView
      */
-    public boolean isSelectable(Territory internal) {
-        return game.isSelectable(internal);
+    public boolean select(TerritoryBorder territory) {
+        return game.select(territory);
     }
 
     /**
@@ -100,4 +100,8 @@ public abstract class AbstractBoard {
         return board;
     }
 
+    public boolean passesFilter(TerritoryBorder territory, Map filters) {
+        // TODO implement
+        return true;
+    }
 }
