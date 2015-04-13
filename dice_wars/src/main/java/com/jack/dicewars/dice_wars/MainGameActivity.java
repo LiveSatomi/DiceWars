@@ -62,14 +62,9 @@ public class MainGameActivity extends Activity {
      * Updates labels on the view to match the state of the model.
      */
     private void updateLabels() {
-        //TODO is redundent?
+        //TODO is redundant?
         ((TextView) findViewById(R.id.activePlayerName)).setText(game.currentPlayerName().toString());
         ((TextView) findViewById(R.id.activePhase)).setText(game.currentPhase().toString());
-    }
-
-    public void requestSelection() {
-
-
     }
 
     /**

@@ -1,6 +1,8 @@
 package com.jack.dicewars.dice_wars.game.board;
 
-import com.jack.dicewars.dice_wars.game.*;
+import com.jack.dicewars.dice_wars.game.Configuration;
+import com.jack.dicewars.dice_wars.game.Game;
+import com.jack.dicewars.dice_wars.game.Player;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -8,7 +10,8 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by Jack Mueller on 2/28/15.
+ * A implementation of AbstractBoard that is entirely functional, but exposes as much data as possible for debugging
+ * purposes.
  */
 public class GridTextBoard extends AbstractBoard {
 
@@ -21,15 +24,11 @@ public class GridTextBoard extends AbstractBoard {
     public static final int[][] BOARD_SIZE_GRID = {BOARD_SIZE_SMALL_GRID, BOARD_SIZE_MEDIUM_GRID,
             BOARD_SIZE_LARGE_GRID};
 
-    /**
-     * Number of dice each Player at the start of the game in addition to their 1 per Territory.
-     */
-    private static final int DICE_PER_PLAYER = 6;
-
     private int rows;
     private int cols;
 
     /**
+     * @param game the game this board is contained in.
      * @param config the configuration with information about the player count and board size.
      */
     public GridTextBoard(Game game, Configuration config) {
@@ -53,13 +52,13 @@ public class GridTextBoard extends AbstractBoard {
             for (int j = 0; j < getCols(); j++) {
                 if ((i == 0 || i == getRows() - 1) && (j == 0 || j == getCols() - 1)) {
                     // corner case
-                    board.add(new TerritoryBorder(TerritoryBorder.EDGE_CORNER_COUNT));
+                    board.add(new TerritoryBorder(TerritoryBorder.CORNER_EDGE_COUNT));
                 } else if (i == 0 || i == getRows() - 1 || j == 0 || j == getCols() - 1) {
                     // edge but not corner
-                    board.add(new TerritoryBorder((TerritoryBorder.EDGE_EDGE_COUNT)));
+                    board.add(new TerritoryBorder((TerritoryBorder.SIDE_EDGE_COUNT)));
                 } else {
                     // interior territories
-                    board.add(new TerritoryBorder((TerritoryBorder.EDGE_MID_COUNT)));
+                    board.add(new TerritoryBorder((TerritoryBorder.MID_EDGE_COUNT)));
                 }
             }
         }
@@ -104,12 +103,6 @@ public class GridTextBoard extends AbstractBoard {
         return board;
     }
 
-    /**
-     * Assigns Territories to Players by linking the internal Territory to a Color and registering the Territory with
-     * the Player (for caching). Each player is giving exactly the same amount of Territories (when possible).
-     * Leftovers after distributing evenly are given to random players, unless colorless territories is enabled in
-     * the {@link #config}.
-     */
     @Override
     protected void assignTerritories() {
         // A shallow copy of the member board that we can remove from without affecting the instance.
@@ -145,10 +138,7 @@ public class GridTextBoard extends AbstractBoard {
         }
     }
 
-    /**
-     * Randomly assigns a preset number of dice based on {@link #DICE_PER_PLAYER}. Each owned territory is guaranteed
-     * to have at least 1 die.
-     */
+    @Override
     protected void assignDice() {
         List<Player> activePlayers = config.activePlayers();
 

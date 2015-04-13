@@ -2,8 +2,6 @@ package com.jack.dicewars.dice_wars;
 
 /**
  * This class is for strings I may want to have lying around for development while still complying to checkstyle rules.
- *
- * Created by jack on 2/22/15.
  */
 public enum Debug {
     /* TODO possibly create a Debug package that can be imported with "logcat filter" and "appmode" classes so the

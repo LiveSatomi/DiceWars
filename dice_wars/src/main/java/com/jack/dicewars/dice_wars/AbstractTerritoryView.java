@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.View;
 
 /**
- * Created by Jack Mueller on 2/25/15.
  *
  * This class is the superclass for a game Territory, which is updated with data from the model to display Territory
  * * information to the users. It programmatically generates the Android View it needs to represent itself, rather

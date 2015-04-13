@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import com.jack.dicewars.dice_wars.Debug;
 import com.jack.dicewars.dice_wars.R;
-import com.jack.dicewars.dice_wars.setup.GameConfigActivity;
 
 /**
  * This activity allows the user to determine if they are playing with alone or with others.

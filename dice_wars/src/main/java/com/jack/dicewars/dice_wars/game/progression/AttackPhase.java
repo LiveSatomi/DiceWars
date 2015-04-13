@@ -4,24 +4,31 @@ import android.util.Log;
 import com.jack.dicewars.dice_wars.Debug;
 import com.jack.dicewars.dice_wars.game.Player;
 import com.jack.dicewars.dice_wars.game.board.Territory;
-import com.jack.dicewars.dice_wars.game.progression.AbstractPhase;
 
 import java.util.Map;
 
 /**
- * Created by Jack Mueller on 3/8/15.
+ * A Phase that takes a defending territory and defending territory, uses Territories' properties to change the
+ * ownership of those Territories.
  */
 public class AttackPhase extends AbstractPhase {
 
+    /**
+     * TODO move this field.
+     */
     private static final int RESET_VALUE = 1;
 
-    Player player;
-
-    AttackPhase(Player player) {
-        this.player = player;
+    /**
+     * Creates an Attack Phase controlled by player that will initiate an attack after selecting and attacking and
+     * defending territory until it is ended.
+     * @param p The player controlling the attacks
+     */
+    AttackPhase(Player p) {
+        player = p;
         territoryLimit = 2;
     }
 
+    @Override
     public String toString() {
         return "Attack Phase";
     }
@@ -37,6 +44,7 @@ public class AttackPhase extends AbstractPhase {
         Territory attacking = selected.remove(0).getInternal();
         Territory defending = selected.remove(0).getInternal();
         // Do the attack
+        // TODO implement this if statement in a Territory function
         if (attacking.roll() > defending.roll()) {
             // Attacker wins, takes territory.
             defending.getOwner().loseOwnership(defending);

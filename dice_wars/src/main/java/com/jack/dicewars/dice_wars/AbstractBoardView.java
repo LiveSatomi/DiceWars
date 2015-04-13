@@ -8,7 +8,6 @@ import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
 import java.util.Map;
 
 /**
- * Created by Jack Mueller on 2/28/15.
  *
  * This class is the superclass for a game Board, which defines basic responsibilities like generating random versions
  * of itself within Configuration parameters and responding to user input. It also holds a ties the {@link com.jack
@@ -34,7 +33,7 @@ public abstract class AbstractBoardView {
     public abstract View apply(ViewGroup viewPort);
 
     /**
-     * Updates all Views in modelTerritoryMap that are also in territoryNativeViewMap
+     * Updates all Views in modelTerritoryMap that are also in territoryNativeViewMap.
      */
     public void updateViews() {
         for (Map.Entry<TerritoryBorder, AbstractTerritoryView> entry : modelTerritoryMap.entrySet()) {
@@ -42,6 +41,10 @@ public abstract class AbstractBoardView {
         }
     }
 
+    /**
+     *
+     * @param modelKey The model data used to find View to update the properties of.
+     */
     protected abstract void updateView(TerritoryBorder modelKey);
 
 }

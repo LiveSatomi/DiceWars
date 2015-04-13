@@ -9,7 +9,6 @@ import com.jack.dicewars.dice_wars.game.progression.Phase;
 import com.jack.dicewars.dice_wars.game.progression.Round;
 
 /**
- * Created by Jack Mueller on 2/23/15.
  *
  * A Game of DiceWars that is driven by User and AI Player actions and structured by Rounds. It ends when one Player
  * controls all the Territories on the Board.
@@ -65,15 +64,18 @@ public class Game {
      * Tells whether a certain Territory is selectable based on the Context, which device selected the Territory,
      * whose Turn it is in the Game, what Phase it is, and what has already been selected.
      * @param territory The territory that was clicked.
-     * @return True if the territory is selected, false otherwise.
      */
     public void select(TerritoryBorder territory) {
         if (isSelectable(territory)) {
             currentPhase().pushTerritory(territory);
-            // invalidate view. What do we have access to here?
         }
     }
 
+    /**
+     * Tells whether a territory is selectable based on the current Phases' criteria and the state of the game.
+     * @param territory The territory requesting to be selected.
+     * @return Whether the territory can be selected
+     */
     private boolean isSelectable(TerritoryBorder territory) {
         // If it's not the clicker's turn, the clicker can't do anything
         if (myTurn()) {
@@ -83,11 +85,18 @@ public class Game {
         }
     }
 
+    /**
+     *
+     * @return Returns true if it is the device owners turn.
+     */
     public boolean myTurn() {
         return currentPlayerColor().equals(myColor());
-
     }
 
+    /**
+     *
+     * @return The color of the device owner player.
+     */
     private Color myColor() {
         for (Player p : config.activePlayers()) {
             if (p.isMe()) {
@@ -124,15 +133,26 @@ public class Game {
         return config.getAppMode();
     }
 
+    /**
+     *
+     * @return The name of the player currently controlling the turn.
+     */
     public String currentPlayerName() {
         return round.currentPlayer().getName();
     }
 
+    /**
+     *
+     * @return The color being used by the player currently controlling the turn.
+     */
     public Color currentPlayerColor() {
         return round.currentPlayer().getColor();
     }
 
-
+    /**
+     *
+     * @return The current Phase in effect
+     */
     public Phase currentPhase() {
         return round.currentPhase();
     }

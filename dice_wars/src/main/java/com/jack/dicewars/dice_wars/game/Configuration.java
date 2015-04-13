@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Created by Jack Mueller on 1/28/15.
  *
  * This class encapsulates all the different settings and variations a different game of Dice Wars can have.
  */
@@ -40,7 +39,8 @@ public class Configuration {
      * @param colors A list of the players' colors defined by {@link com.jack.dicewars.dice_wars.Color}.
      * @param cT Whether this configuration will have colorless territories enabled.
      * @param rR Whether this configuration will have user defined or random reinforcements.
-     * @param size The size of the board defined by {@link com.jack.dicewars.dice_wars.game.board.AbstractBoard#BOARD_SIZE_SMALL}.
+     * @param size The size of the board defined by
+     *             {@link com.jack.dicewars.dice_wars.game.board.AbstractBoard#BOARD_SIZE_SMALL}.
      */
     public Configuration(String[] names, String[] statuses, Color[] colors, boolean cT, boolean rR, int size) {
         for (int i = 0; i < MAX_PLAYERS; i++) {

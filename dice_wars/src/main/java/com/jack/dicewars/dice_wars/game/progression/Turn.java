@@ -1,9 +1,10 @@
 package com.jack.dicewars.dice_wars.game.progression;
 
-import com.jack.dicewars.dice_wars.game.*;
+import com.jack.dicewars.dice_wars.game.Player;
 
 /**
- * Created by Jack Mueller on 3/8/15.
+ * A Turn is taken by one Player and made up of Phases. A Turn an only advance through as many phases as it is
+ * instantiated with.
  */
 public class Turn {
 
@@ -12,6 +13,10 @@ public class Turn {
     private Phase[] phases;
     private int currentPhase;
 
+    /**
+     * Starts a turn controlled by player that will go through an Attack, Reinforce, and Effect phase.
+     * @param player The player controlling the turn.
+     */
     Turn(Player player) {
         this.player = player;
 
@@ -19,6 +24,10 @@ public class Turn {
         currentPhase = 0;
     }
 
+    /**
+     *
+     * @return The current phase of this turn.
+     */
     public Phase currentPhase() {
         return phases[currentPhase];
     }

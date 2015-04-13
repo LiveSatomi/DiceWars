@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import com.jack.dicewars.dice_wars.R;
 
 /**
- * @author Jack Mueller
- *         Taken from developer.android.com/training
+ * Holds an image that can be scrolled left or right off the screen.
+ * Taken from developer.android.com/training
  */
 public class SliderPagerFragment extends Fragment {
 

@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by jack on 1/28/15.
  *
  * This class represents a player of a DiceWars game. It can have a name and a Color that it uses to represent itself.
  * It can have various statuses that describe it's most current role at many times including before, during and
@@ -123,10 +122,18 @@ public class Player implements Parcelable {
         territory.setOwner(new NullPlayer());
     }
 
+    /**
+     *
+     * @return The name of this player
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     *
+     * @return True if this player is the device owner.
+     */
     public boolean isMe() {
         return status.equals(STATUS_YOU);
     }

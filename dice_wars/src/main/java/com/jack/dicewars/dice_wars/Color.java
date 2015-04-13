@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Jack Mueller on 2/25/15.
+ * A Color acts as the Primary ID for a Player during a given Game.
  */
 public enum Color implements Parcelable {
     colorless("N"),

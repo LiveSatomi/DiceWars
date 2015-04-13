@@ -1,12 +1,10 @@
 package com.jack.dicewars.dice_wars;
 
 import android.content.Context;
-import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 /**
- * Created by Jack Mueller on 2/28/15.
  *
  * This implementation uses Buttons with two characters to represent its data to the users. This territory is mostly
  * for debugging purposes and for developing the model before the custom Views are finished. Buttons were chosen

@@ -1,19 +1,23 @@
 package com.jack.dicewars.dice_wars.game.progression;
 
 import com.jack.dicewars.dice_wars.game.Player;
-import com.jack.dicewars.dice_wars.game.progression.AbstractPhase;
 
 import java.util.Map;
 
 /**
- * Created by Jack Mueller on 3/8/15.
+ * An effect phase. Can have many effects.
  */
 public class EffectPhase extends AbstractPhase {
 
+    /**
+     * TODO implement.
+     * @param player The player controlling the effects
+     */
     public EffectPhase(Player player) {
         territoryLimit = -1;
     }
 
+    @Override
     public String toString() {
         return "Effect Phase";
     }

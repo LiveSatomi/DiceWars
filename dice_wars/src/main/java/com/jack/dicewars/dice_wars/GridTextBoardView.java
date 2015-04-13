@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Jack Mueller on 2/28/15.
  *
  * This implementation of AbstractBoardView is to be used in Text Mode. Territories are represented by a one
  * character color code and a 1 digit dice value. The Territories are arranged in a grid whose size can be edited in

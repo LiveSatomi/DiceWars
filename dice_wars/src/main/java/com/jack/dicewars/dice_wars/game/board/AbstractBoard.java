@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Jack Mueller on 2/23/15.
  *
  * A board defines connections between Territories, it has different constraints based on its size, amount of
  * Players, and other factors in Configuration. It has many initial states for each set of constraints.
@@ -17,6 +16,10 @@ public abstract class AbstractBoard {
     public static final int BOARD_SIZE_SMALL = 0;
     public static final int BOARD_SIZE_MEDIUM = 1;
     public static final int BOARD_SIZE_LARGE = 2;
+    /**
+     * Number of dice each Player at the start of the game in addition to their 1 per Territory.
+     */
+    protected static final int DICE_PER_PLAYER = 6;
 
     private Game game;
     protected Configuration config;
@@ -30,7 +33,8 @@ public abstract class AbstractBoard {
     /**
      * Saves the configuration used for making this game because it is important for balancing the number of Players
      * that start with Territories.
-     * @param game the configuration which defines constraints for the start states of this board.
+     * @param game the game this board is contained in.
+     * @param config the configuration which defines constraints for the start states of this board.
      */
     public AbstractBoard(Game game, Configuration config) {
         this.game = game;
@@ -82,12 +86,21 @@ public abstract class AbstractBoard {
         return board;
     }
 
+    /**
+     * Assigns Territories to Players by linking the internal Territory to a Color and registering the Territory with
+     * the Player (for caching). Each player is giving exactly the same amount of Territories (when possible).
+     * Leftovers after distributing evenly are given to random players, unless colorless territories is enabled in
+     * the {@link #config}.
+     */
     protected abstract void assignTerritories();
 
+    /**
+     * Randomly assigns a preset number of dice based on {@link #DICE_PER_PLAYER}. Each owned territory is guaranteed
+     * to have at least 1 die.
+     */
     protected abstract void assignDice();
 
     /**
-     *
      * @param territory The territory requesting to be selected based on the click of it's TerritoryView
      */
     public void select(TerritoryBorder territory) {
@@ -103,6 +116,14 @@ public abstract class AbstractBoard {
         return board;
     }
 
+    /**
+     * Checks territory for the criteria defined in Map. Possible types criteria and the form of their value is
+     * defined by TODO define this thing.
+     *
+     * @param territory The territory being checked by filters
+     * @param filters The criteria to check the territory by
+     * @return Whether the territory meets the criteria in filters.
+     */
     public boolean passesFilter(TerritoryBorder territory, Map filters) {
         // TODO implement
         return true;

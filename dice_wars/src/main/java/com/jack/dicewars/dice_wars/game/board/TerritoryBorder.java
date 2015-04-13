@@ -2,10 +2,8 @@ package com.jack.dicewars.dice_wars.game.board;
 
 import com.jack.dicewars.dice_wars.game.NullPlayer;
 import com.jack.dicewars.dice_wars.game.Player;
-import com.jack.dicewars.dice_wars.game.board.Territory;
 
 /**
- * Created by Jack Mueller on 2/25/15.
  *
  * A Territory Border is a model fabrication that encapsulates internal {@link Territory} data when it is not needed.
  * A TerritoryBorders responsibilities revolve around how many other Territories (which actually means
@@ -17,17 +15,18 @@ public class TerritoryBorder {
      * The exact number of Territories the internal Territory touches.
      */
     public static final int EDGE_MAX_COUNT = 4;
-    public static final int EDGE_MID_COUNT = 4;
-    public static final int EDGE_EDGE_COUNT = 3;
-    public static final int EDGE_CORNER_COUNT = 2;
+    public static final int MID_EDGE_COUNT = 4;
+    public static final int SIDE_EDGE_COUNT = 3;
+    public static final int CORNER_EDGE_COUNT = 2;
 
     private Territory[] neighbors;
 
     private Territory internal;
 
     /**
-     * Creates a TerritoryBorder with an internal Territory that is owned by {@link com.jack.dicewars.dice_wars.game.NullPlayer} and has no dice on it.
-     * This constructor does not connect this object to any other TerritoryBorders.
+     * Creates a TerritoryBorder with an internal Territory that is owned by
+     * {@link com.jack.dicewars.dice_wars.game.NullPlayer} and has no dice on it. This constructor does not connect this
+     * object to any other TerritoryBorders.
      *
      * @param edgeCount How many TerritoryBorders can a Player get to from this TerritoryBorder.
      */

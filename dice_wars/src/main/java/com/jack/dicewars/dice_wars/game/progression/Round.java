@@ -5,7 +5,7 @@ import com.jack.dicewars.dice_wars.game.Player;
 import java.util.List;
 
 /**
- * Created by Jack Mueller on 3/8/15.
+ * A Round is made up of multiple players that each get Turns within this Round.
  */
 public class Round {
 
@@ -14,6 +14,10 @@ public class Round {
 
     private Turn turn;
 
+    /**
+     * Makes a Round where Turns will be taken by all Players in players, in the order of the passed list.
+     * @param players The Players that will be given Turns
+     */
     public Round(List<Player> players) {
         this.players = players;
         currentPlayerIndex = 0;
@@ -22,17 +26,28 @@ public class Round {
         turn = new Turn(currentPlayer);
     }
 
+    /**
+     *
+     * @return The Phase that is currently being played by the active Player
+     */
     public Phase currentPhase() {
         return turn.currentPhase();
     }
 
+    /**
+     *
+     * @return The Player who will be associated with an active Turn
+     */
     public Player currentPlayer() {
         return players.get(currentPlayerIndex);
-
     }
 
+    /**
+     *
+     * @return True if there are more Players to be given Turns, false if each Player has had a Turn.
+     */
     public boolean advance() {
-        if(turn.advance()) {
+        if (turn.advance()) {
             // Advancing logic completed at a lower level
             return true;
         } else {

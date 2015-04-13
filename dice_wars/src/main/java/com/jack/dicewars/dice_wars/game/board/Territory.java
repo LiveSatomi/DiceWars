@@ -6,7 +6,6 @@ import com.jack.dicewars.dice_wars.game.Player;
 import java.util.Random;
 
 /**
- * Created by Jack Mueller on 2/23/15.
  *
  * A Territory is the smallest division that can be owned by a Player in DiceWars. Ownership can change rapidly; In
  * fact owning all Territories is the win condition of a game. A Territory has a value and a Player owner, which can
@@ -74,6 +73,10 @@ public class Territory {
         this.value = value;
     }
 
+    /**
+     *
+     * @return A number that is the sum of {@link Territory#value} dice rolls of {@link Territory#DICE_FACES}.
+     */
     public int roll() {
         int rollSum = 0;
         for (int diceLeft = value; diceLeft > 0; diceLeft--) {

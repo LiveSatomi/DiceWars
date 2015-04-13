@@ -5,7 +5,8 @@ import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
 import java.util.Map;
 
 /**
- * Created by Jack Mueller on 3/8/15.
+ * A phase that knows about what is occurring during it, how to keep track of territories, and what kinds of
+ * territories it wants to keep track of.
  */
 public interface Phase {
 
@@ -15,9 +16,15 @@ public interface Phase {
      * @return A friendly description of what happens during this phase.
      */
     @Override
-    public String toString();
+    String toString();
 
-    public Map filters(); // TODO implement
+    /**
+     * Returns a set of filters on data that can be queried from a Board and Territories. The possible criteria and the
+     * form of their value is defined by TODO define this thing.*
+     * TODO implement
+     * @return A set of criteria
+     */
+    Map filters();
 
     /**
      * Appends territories to the end of a list for well ordered consumption by Phase implementation.
