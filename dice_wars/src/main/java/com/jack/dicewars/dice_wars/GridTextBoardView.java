@@ -1,17 +1,15 @@
 package com.jack.dicewars.dice_wars;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.Space;
-import com.jack.dicewars.dice_wars.game.AbstractBoard;
-import com.jack.dicewars.dice_wars.game.GridTextBoard;
-import com.jack.dicewars.dice_wars.game.Territory;
-import com.jack.dicewars.dice_wars.game.TerritoryBorder;
+import com.jack.dicewars.dice_wars.game.board.AbstractBoard;
+import com.jack.dicewars.dice_wars.game.board.GridTextBoard;
+import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
 
 import java.util.HashMap;
 import java.util.List;

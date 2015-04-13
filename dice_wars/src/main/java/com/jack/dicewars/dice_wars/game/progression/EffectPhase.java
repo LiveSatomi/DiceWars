@@ -1,4 +1,7 @@
-package com.jack.dicewars.dice_wars.game;
+package com.jack.dicewars.dice_wars.game.progression;
+
+import com.jack.dicewars.dice_wars.game.Player;
+import com.jack.dicewars.dice_wars.game.progression.AbstractPhase;
 
 import java.util.Map;
 

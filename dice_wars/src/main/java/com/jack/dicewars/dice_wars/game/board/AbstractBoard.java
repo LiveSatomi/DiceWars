@@ -1,4 +1,7 @@
-package com.jack.dicewars.dice_wars.game;
+package com.jack.dicewars.dice_wars.game.board;
+
+import com.jack.dicewars.dice_wars.game.Configuration;
+import com.jack.dicewars.dice_wars.game.Game;
 
 import java.util.List;
 import java.util.Map;
@@ -87,8 +90,8 @@ public abstract class AbstractBoard {
      *
      * @param territory The territory requesting to be selected based on the click of it's TerritoryView
      */
-    public boolean select(TerritoryBorder territory) {
-        return game.select(territory);
+    public void select(TerritoryBorder territory) {
+        game.select(territory);
     }
 
     /**

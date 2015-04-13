@@ -1,6 +1,7 @@
-package com.jack.dicewars.dice_wars.game;
+package com.jack.dicewars.dice_wars.game.board;
 
 import com.jack.dicewars.dice_wars.Color;
+import com.jack.dicewars.dice_wars.game.Player;
 
 import java.util.Random;
 
@@ -41,7 +42,8 @@ public class Territory {
     }
 
     /**
-     * Changes the ownership of this Territory. Also tells the owner to register the Territory with itself
+     * Changes the ownership of this Territory. Does not register the territory with the Owner, use Player
+     * .claimOwnership for that.
      * @param owner The new owner of this territory.
      */
     public void setOwner(Player owner) {

@@ -1,6 +1,6 @@
-package com.jack.dicewars.dice_wars.game;
+package com.jack.dicewars.dice_wars.game.progression;
 
-import android.util.Log;
+import com.jack.dicewars.dice_wars.game.Player;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class Round {
 
     private Turn turn;
 
-    Round(List<Player> players) {
+    public Round(List<Player> players) {
         this.players = players;
         currentPlayerIndex = 0;
 

@@ -20,7 +20,7 @@ import com.jack.dicewars.dice_wars.Color;
 import com.jack.dicewars.dice_wars.Debug;
 import com.jack.dicewars.dice_wars.MainGameActivity;
 import com.jack.dicewars.dice_wars.R;
-import com.jack.dicewars.dice_wars.game.AbstractBoard;
+import com.jack.dicewars.dice_wars.game.board.AbstractBoard;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Player;
 

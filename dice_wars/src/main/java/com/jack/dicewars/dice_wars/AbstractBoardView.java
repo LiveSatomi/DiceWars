@@ -3,7 +3,7 @@ package com.jack.dicewars.dice_wars;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import com.jack.dicewars.dice_wars.game.TerritoryBorder;
+import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
 
 import java.util.Map;
 

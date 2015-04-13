@@ -1,4 +1,6 @@
-package com.jack.dicewars.dice_wars.game;
+package com.jack.dicewars.dice_wars.game.progression;
+
+import com.jack.dicewars.dice_wars.game.*;
 
 /**
  * Created by Jack Mueller on 3/8/15.

@@ -1,8 +1,12 @@
 package com.jack.dicewars.dice_wars.game;
 
-import android.util.Log;
 import com.jack.dicewars.dice_wars.Color;
 import com.jack.dicewars.dice_wars.Debug;
+import com.jack.dicewars.dice_wars.game.board.AbstractBoard;
+import com.jack.dicewars.dice_wars.game.board.GridTextBoard;
+import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
+import com.jack.dicewars.dice_wars.game.progression.Phase;
+import com.jack.dicewars.dice_wars.game.progression.Round;
 
 /**
  * Created by Jack Mueller on 2/23/15.
@@ -63,13 +67,11 @@ public class Game {
      * @param territory The territory that was clicked.
      * @return True if the territory is selected, false otherwise.
      */
-    public boolean select(TerritoryBorder territory) {
-        // TODO This violates CQS returning boolean
+    public void select(TerritoryBorder territory) {
         if (isSelectable(territory)) {
             currentPhase().pushTerritory(territory);
             // invalidate view. What do we have access to here?
         }
-        return true; //TODO implement
     }
 
     private boolean isSelectable(TerritoryBorder territory) {

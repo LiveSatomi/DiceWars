@@ -2,9 +2,9 @@ package com.jack.dicewars.dice_wars.game;
 
 import android.content.Intent;
 import android.os.Parcelable;
-import android.util.Log;
 import com.jack.dicewars.dice_wars.Color;
 import com.jack.dicewars.dice_wars.Debug;
+import com.jack.dicewars.dice_wars.game.board.AbstractBoard;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,7 +40,7 @@ public class Configuration {
      * @param colors A list of the players' colors defined by {@link com.jack.dicewars.dice_wars.Color}.
      * @param cT Whether this configuration will have colorless territories enabled.
      * @param rR Whether this configuration will have user defined or random reinforcements.
-     * @param size The size of the board defined by {@link AbstractBoard#BOARD_SIZE_SMALL}.
+     * @param size The size of the board defined by {@link com.jack.dicewars.dice_wars.game.board.AbstractBoard#BOARD_SIZE_SMALL}.
      */
     public Configuration(String[] names, String[] statuses, Color[] colors, boolean cT, boolean rR, int size) {
         for (int i = 0; i < MAX_PLAYERS; i++) {

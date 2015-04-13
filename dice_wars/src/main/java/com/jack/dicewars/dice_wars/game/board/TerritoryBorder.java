@@ -1,4 +1,8 @@
-package com.jack.dicewars.dice_wars.game;
+package com.jack.dicewars.dice_wars.game.board;
+
+import com.jack.dicewars.dice_wars.game.NullPlayer;
+import com.jack.dicewars.dice_wars.game.Player;
+import com.jack.dicewars.dice_wars.game.board.Territory;
 
 /**
  * Created by Jack Mueller on 2/25/15.
@@ -22,7 +26,7 @@ public class TerritoryBorder {
     private Territory internal;
 
     /**
-     * Creates a TerritoryBorder with an internal Territory that is owned by {@link NullPlayer} and has no dice on it.
+     * Creates a TerritoryBorder with an internal Territory that is owned by {@link com.jack.dicewars.dice_wars.game.NullPlayer} and has no dice on it.
      * This constructor does not connect this object to any other TerritoryBorders.
      *
      * @param edgeCount How many TerritoryBorders can a Player get to from this TerritoryBorder.

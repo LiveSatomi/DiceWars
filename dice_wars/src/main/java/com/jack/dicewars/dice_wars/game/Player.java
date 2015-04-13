@@ -3,6 +3,7 @@ package com.jack.dicewars.dice_wars.game;
 import android.os.Parcel;
 import android.os.Parcelable;
 import com.jack.dicewars.dice_wars.Color;
+import com.jack.dicewars.dice_wars.game.board.Territory;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -105,10 +106,9 @@ public class Player implements Parcelable {
     }
 
     /**
-     * DO NOT use this method from Phases, use
      * @param territory The Territory this Player will register with itself.
      */
-    void claimOwnership(Territory territory) {
+    public void claimOwnership(Territory territory) {
         territories.add(territory);
         territory.setOwner(this);
 

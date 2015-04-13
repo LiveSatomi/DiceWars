@@ -1,4 +1,6 @@
-package com.jack.dicewars.dice_wars.game;
+package com.jack.dicewars.dice_wars.game.progression;
+
+import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
 
 import java.util.LinkedList;
 import java.util.List;

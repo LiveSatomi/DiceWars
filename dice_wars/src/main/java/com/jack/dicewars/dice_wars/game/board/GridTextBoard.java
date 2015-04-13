@@ -1,4 +1,6 @@
-package com.jack.dicewars.dice_wars.game;
+package com.jack.dicewars.dice_wars.game.board;
+
+import com.jack.dicewars.dice_wars.game.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

@@ -1,7 +1,10 @@
-package com.jack.dicewars.dice_wars.game;
+package com.jack.dicewars.dice_wars.game.progression;
 
 import android.util.Log;
 import com.jack.dicewars.dice_wars.Debug;
+import com.jack.dicewars.dice_wars.game.Player;
+import com.jack.dicewars.dice_wars.game.board.Territory;
+import com.jack.dicewars.dice_wars.game.progression.AbstractPhase;
 
 import java.util.Map;
 
