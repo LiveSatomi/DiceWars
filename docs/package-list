@@ -1,3 +1,5 @@
 com.jack.dicewars.dice_wars
 com.jack.dicewars.dice_wars.game
+com.jack.dicewars.dice_wars.game.board
+com.jack.dicewars.dice_wars.game.progression
 com.jack.dicewars.dice_wars.setup
