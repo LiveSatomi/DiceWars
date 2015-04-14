@@ -3,9 +3,11 @@ package com.jack.dicewars.dice_wars.game.progression;
 import android.util.Log;
 import com.jack.dicewars.dice_wars.Debug;
 import com.jack.dicewars.dice_wars.game.Player;
+import com.jack.dicewars.dice_wars.game.board.AdjacentFilter;
+import com.jack.dicewars.dice_wars.game.board.Filter;
 import com.jack.dicewars.dice_wars.game.board.Territory;
 
-import java.util.Map;
+import java.util.HashSet;
 
 /**
  * A Phase that takes a defending territory and defending territory, uses Territories' properties to change the
@@ -34,8 +36,20 @@ public class AttackPhase extends AbstractPhase {
     }
 
     @Override
-    public Map filters() {
-        return null;
+    public HashSet<Filter> filters() {
+        HashSet<Filter> filters = new HashSet<>();
+
+        if (selected.size() == 0) {
+            // TODO implement ColorFilter
+            return filters;
+        } else if (selected.size() == 1) {
+            // Make sure the second territory is reachable from the first.
+            Filter adjacentFilter = new AdjacentFilter(selected.get(0));
+            filters.add(adjacentFilter);
+        } else {
+            throw new IllegalStateException("Attack phase has too many territories selected.");
+        }
+        return filters;
     }
 
     @Override

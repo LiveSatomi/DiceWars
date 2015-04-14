@@ -1,7 +1,9 @@
 package com.jack.dicewars.dice_wars.game.progression;
 
 import com.jack.dicewars.dice_wars.game.Player;
+import com.jack.dicewars.dice_wars.game.board.Filter;
 
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -23,7 +25,7 @@ public class EffectPhase extends AbstractPhase {
     }
 
     @Override
-    public Map filters() {
+    public HashSet<Filter> filters() {
         return null;
     }
 

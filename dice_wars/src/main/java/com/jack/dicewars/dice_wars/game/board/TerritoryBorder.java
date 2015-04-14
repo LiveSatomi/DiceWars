@@ -3,13 +3,17 @@ package com.jack.dicewars.dice_wars.game.board;
 import com.jack.dicewars.dice_wars.game.NullPlayer;
 import com.jack.dicewars.dice_wars.game.Player;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  *
  * A Territory Border is a model fabrication that encapsulates internal {@link Territory} data when it is not needed.
  * A TerritoryBorders responsibilities revolve around how many other Territories (which actually means
  * TerritoryBorders, it is connected to.
  */
-public class TerritoryBorder {
+public class TerritoryBorder implements Filterable {
 
     /**
      * The exact number of Territories the internal Territory touches.
@@ -19,7 +23,7 @@ public class TerritoryBorder {
     public static final int SIDE_EDGE_COUNT = 3;
     public static final int CORNER_EDGE_COUNT = 2;
 
-    private Territory[] neighbors;
+    private TerritoryBorder[] neighbors;
 
     private Territory internal;
 
@@ -32,22 +36,27 @@ public class TerritoryBorder {
      */
     public TerritoryBorder(int edgeCount) {
         internal = new Territory(new NullPlayer(), 0);
-        neighbors = new Territory[edgeCount];
+        neighbors = new TerritoryBorder[edgeCount];
+    }
+
+    @Override
+    public List<Filterable> adjacent() {
+        return new LinkedList<Filterable>(Arrays.asList(neighbors));
     }
 
     /**
      *
-     * @return The TerritoryBorders this object is connected to.
+     * @return The number of reachable TerritoryBorders there are from this TerritoryBorder.
      */
-    public Territory[] getNeighbors() {
-        return neighbors;
+    public int numberOfNeighbors() {
+        return neighbors.length;
     }
 
     /**
      *
      * @param neighbors Sets the TerritoryBorders that are reachable from this object.
      */
-    public void setNeighbors(Territory[] neighbors) {
+    public void setNeighbors(TerritoryBorder[] neighbors) {
         this.neighbors = neighbors;
     }
 
@@ -65,5 +74,14 @@ public class TerritoryBorder {
      */
     public void setOwnerOfInternal(Player player) {
         player.claimOwnership(getInternal());
+    }
+
+    /**
+     *
+     * @param index The index of the neighbor to set.
+     * @param territory The TerritoryBorder reachable from this one.
+     */
+    void setNeighborAt(int index, TerritoryBorder territory) {
+        neighbors[index] = territory;
     }
 }

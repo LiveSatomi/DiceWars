@@ -1,5 +1,6 @@
 package com.jack.dicewars.dice_wars.game;
 
+import android.util.Log;
 import com.jack.dicewars.dice_wars.Color;
 import com.jack.dicewars.dice_wars.Debug;
 import com.jack.dicewars.dice_wars.game.board.AbstractBoard;

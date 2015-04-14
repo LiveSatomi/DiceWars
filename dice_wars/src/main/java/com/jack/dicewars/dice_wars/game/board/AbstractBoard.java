@@ -3,6 +3,7 @@ package com.jack.dicewars.dice_wars.game.board;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Game;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -124,8 +125,13 @@ public abstract class AbstractBoard {
      * @param filters The criteria to check the territory by
      * @return Whether the territory meets the criteria in filters.
      */
-    public boolean passesFilter(TerritoryBorder territory, Map filters) {
+    public boolean passesFilter(Filterable territory, HashSet<Filter> filters) {
         // TODO implement
+        for (Filter filter : filters) {
+            if (!filter.accepts(territory)) {
+                return false;
+            }
+        }
         return true;
     }
 }

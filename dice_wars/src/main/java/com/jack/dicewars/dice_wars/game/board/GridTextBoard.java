@@ -93,10 +93,11 @@ public class GridTextBoard extends AbstractBoard {
             boolean[] neighborsMask = {rightPossible, downPossible, leftPossible, upPossible};
 
             // Add neighbors that exist to this territory's neighbor list
-            for (int j = 0, addedDirections = 0; j < TerritoryBorder.EDGE_MAX_COUNT && addedDirections < board.get(i)
-                    .getNeighbors().length; j++) {
+            for (int j = 0, addedNeighbors = 0; j < TerritoryBorder.EDGE_MAX_COUNT && addedNeighbors < board.get(i)
+                    .numberOfNeighbors(); j++) {
                 if (neighborsMask[j]) {
-                    board.get(i).getNeighbors()[addedDirections] = board.get(neighbors[j]).getInternal();
+                    board.get(i).setNeighborAt(addedNeighbors, board.get(neighbors[j]));
+                    addedNeighbors++;
                 }
             }
         }
