@@ -20,7 +20,8 @@ public class Turn {
     Turn(Player player) {
         this.player = player;
 
-        phases = new Phase[] {new AttackPhase(player), new ReinforcePhase(player), new EffectPhase(player)};
+        // TODO add Effect Phase back in
+        phases = new Phase[] {new AttackPhase(player), new ReinforcePhase(player)};
         currentPhase = 0;
     }
 

@@ -116,4 +116,8 @@ public class TerritoryBorder implements Filterable {
     public void setSelectable(boolean s) {
         this.selectable = s;
     }
+
+    public void incrementValue() {
+        internal.setValue(internal.getValue() + 1);
+    }
 }

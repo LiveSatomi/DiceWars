@@ -1,6 +1,8 @@
 package com.jack.dicewars.dice_wars.game.progression;
 
 import com.jack.dicewars.dice_wars.game.Player;
+import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
+import com.jack.dicewars.dice_wars.game.board.filter.ColorFilter;
 import com.jack.dicewars.dice_wars.game.board.filter.Filter;
 
 import java.util.HashSet;
@@ -18,6 +20,7 @@ public class ReinforcePhase extends AbstractPhase {
      */
     public ReinforcePhase(Player player) {
         territoryLimit = 1;
+        this.player = player;
     }
 
     @Override
@@ -27,11 +30,18 @@ public class ReinforcePhase extends AbstractPhase {
 
     @Override
     public HashSet<Filter> filters() {
-        return new HashSet<>();
+        HashSet<Filter> filters = new HashSet<>();
+
+        // Only reinforce your own Territories
+        filters.add(new ColorFilter(player.getTerritoryColor(), true));
+
+        return filters;
     }
 
     @Override
     protected void consume() {
-
+        TerritoryBorder buffed = selected.remove(0);
+        buffed.setSelected(false);
+        buffed.incrementValue();
     }
 }
