@@ -135,4 +135,10 @@ public abstract class AbstractBoard {
         }
         return true;
     }
+
+    public int getPrimaryUserActionId() {
+        return game.getUserPrimaryActionPromptId();
+    }
+
+
 }

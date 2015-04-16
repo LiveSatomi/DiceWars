@@ -1,5 +1,6 @@
 package com.jack.dicewars.dice_wars.game;
 
+import com.jack.dicewars.dice_wars.R;
 import com.jack.dicewars.dice_wars.TerritoryColor;
 import com.jack.dicewars.dice_wars.Debug;
 import com.jack.dicewars.dice_wars.game.board.AbstractBoard;
@@ -35,6 +36,8 @@ public class Game {
      */
     private int roundNum;
 
+    private int userPrimaryActionPromptId;
+
     /**
      * Creates a Game, and determines what app mode this game will use, but does not create a board for the game, call
      * the start method before beginning a Game.
@@ -50,6 +53,7 @@ public class Game {
         }
         round = null;
         roundNum = 0;
+        userPrimaryActionPromptId = R.string.end_phase;
     }
 
     /**
@@ -82,6 +86,15 @@ public class Game {
             territory.setSelected(true);
             currentPhase().pushTerritory(territory);
             updateSelectable();
+            updatePrimaryAction();
+        }
+    }
+
+    private void updatePrimaryAction() {
+        if (getPendingAction()) {
+            userPrimaryActionPromptId = R.string.undo;
+        } else {
+            userPrimaryActionPromptId = R.string.end_phase;
         }
     }
 
@@ -100,7 +113,7 @@ public class Game {
         for (TerritoryBorder s: board.getBoard()) {
             s.setSelectable(false);
         }
-        
+
         final List<TerritoryBorder> selectable = allSelectable();
         for (TerritoryBorder s : selectable) {
             s.setSelectable(true);
@@ -136,6 +149,29 @@ public class Game {
             }
         }
         return null;
+    }
+
+    public void userPrimaryAction() {
+        boolean pending = getPendingAction();
+        if (pending) {
+            undoPhaseAction();
+            // Call again, because it may be different since the undo
+            pending = getPendingAction();
+        } else {
+            advance();
+        }
+
+        if (pending) {
+            userPrimaryActionPromptId = R.string.undo;
+        } else {
+            userPrimaryActionPromptId = R.string.end_phase;
+        }
+
+        updateSelectable();
+    }
+
+    private void undoPhaseAction() {
+        round.undoPhaseAction();
     }
 
     /**
@@ -197,5 +233,11 @@ public class Game {
         return roundNum;
     }
 
+    public boolean getPendingAction() {
+        return round.getPendingAction();
+    }
 
+    public int getUserPrimaryActionPromptId() {
+        return userPrimaryActionPromptId;
+    }
 }

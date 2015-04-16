@@ -31,6 +31,7 @@ public class AttackPhase extends AbstractPhase {
      */
     AttackPhase(Player p) {
         player = p;
+        pendingAction = false;
         territoryLimit = 2;
     }
 

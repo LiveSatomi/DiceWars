@@ -62,9 +62,9 @@ public class MainGameActivity extends Activity {
      * Updates labels on the view to match the state of the model.
      */
     private void updateLabels() {
-        //TODO is redundant?
-        ((TextView) findViewById(R.id.activePlayerName)).setText(game.currentPlayerName().toString());
+        ((TextView) findViewById(R.id.activePlayerName)).setText(game.currentPlayerName());
         ((TextView) findViewById(R.id.activePhase)).setText(game.currentPhase().toString());
+        ((TextView) findViewById(R.id.phaseEnd)).setText((game.getUserPrimaryActionPromptId()));
     }
 
     /**
@@ -72,13 +72,12 @@ public class MainGameActivity extends Activity {
      *
      * @param view The button clicked to call this method
      */
-    public void advance(View view) {
+    public void userPrimaryAction(View view) {
         //TODO guard against unauthorized players from making this button press have an effect.
-        if (game.myTurn() || !game.myTurn()) {
-            game.advance();
-            updateLabels();
-            game.updateSelectable();
+        if(game.myTurn() || !game.myTurn()) {
+            game.userPrimaryAction();
             boardView.updateViews();
+            updateLabels();
         }
     }
 

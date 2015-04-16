@@ -1,8 +1,11 @@
 package com.jack.dicewars.dice_wars;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import com.jack.dicewars.dice_wars.game.board.AbstractBoard;
 import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
 
 import java.util.Map;
@@ -19,6 +22,8 @@ public abstract class AbstractBoardView {
      * This is the {@link com.jack.dicewars.dice_wars.MainGameActivity} that the board is being used on.
      */
     protected Context context;
+
+    protected AbstractBoard board;
 
     protected Map<AbstractTerritoryView, View> territoryNativeViewMap;
     protected Map<TerritoryBorder, AbstractTerritoryView> modelTerritoryMap;
@@ -39,6 +44,11 @@ public abstract class AbstractBoardView {
         for (Map.Entry<TerritoryBorder, AbstractTerritoryView> entry : modelTerritoryMap.entrySet()) {
             updateView(entry.getKey());
         }
+    }
+
+    public void updateUserPrimaryAction() {
+        final View primaryButton = ((Activity) context).findViewById(R.id.phaseEnd);
+        ((Button) primaryButton).setText(context.getResources().getString(board.getPrimaryUserActionId()));
     }
 
     /**

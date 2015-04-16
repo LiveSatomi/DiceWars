@@ -3,7 +3,7 @@ package com.jack.dicewars.dice_wars.game.progression;
 import com.jack.dicewars.dice_wars.game.Player;
 
 /**
- * A Turn is taken by one Player and made up of Phases. A Turn an only advance through as many phases as it is
+ * A Turn is taken by one Player and made up of Phases. A Turn an only advances through as many phases as it is
  * instantiated with.
  */
 public class Turn {
@@ -47,5 +47,13 @@ public class Turn {
             //last phase, roll over to next turn
             return false;
         }
+    }
+
+    public boolean getPendingAction() {
+        return phases[currentPhase].getPendingAction();
+    }
+
+    public void undoPhaseAction() {
+        phases[currentPhase].undoAction();
     }
 }

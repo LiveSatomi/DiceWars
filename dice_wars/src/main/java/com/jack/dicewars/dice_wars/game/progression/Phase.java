@@ -32,4 +32,12 @@ public interface Phase {
      * @param territory Territory that will be consumed later
      */
     void pushTerritory(TerritoryBorder territory);
+
+    /**
+     * Opposite of pushTerritory(TerritoryBorder). It reverses the game state to a time before the most recently
+     * selected Territory was selected.
+     */
+    void undoAction();
+
+    boolean getPendingAction();
 }

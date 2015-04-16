@@ -65,4 +65,12 @@ public class Round {
             }
         }
     }
+
+    public boolean getPendingAction() {
+        return turn.getPendingAction();
+    }
+
+    public void undoPhaseAction() {
+        turn.undoPhaseAction();
+    }
 }

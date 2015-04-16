@@ -39,18 +39,19 @@ public class GridTextBoardView extends AbstractBoardView {
      * Creates {@link com.jack.dicewars.dice_wars.GridTextTerritoryView} and maps them to Android Button to fill the
      * {@link #territoryNativeViewMap}.
      *
-     * @param b Model data of the board and its grid indexed Territories.
+     * @param board Model data of the board and its grid indexed Territories.
      * @param context The MainGameActivity in which this board is being used.
      */
-    public GridTextBoardView(AbstractBoard b, Context context) {
-        final GridTextBoard board = (GridTextBoard) b;
+    public GridTextBoardView(AbstractBoard board, Context context) {
+        this.board = board;
+        final GridTextBoard gridTextBoard = (GridTextBoard) board;
 
         this.context = context;
-        rows = board.getRows();
-        cols = board.getCols();
+        rows = gridTextBoard.getRows();
+        cols = gridTextBoard.getCols();
 
         // A row major ordered list of TerritoryBorder model objects.
-        final List<TerritoryBorder> grid = board.getBoard();
+        final List<TerritoryBorder> grid = gridTextBoard.getBoard();
 
         territoryNativeViewMap = new HashMap<>();
         modelTerritoryMap = new HashMap<>();
@@ -59,16 +60,19 @@ public class GridTextBoardView extends AbstractBoardView {
             for (int j = 0; j < cols; j++) {
                 // A GridTextTerritoryView can preserve the grid coordinate model information.
                 final AbstractTerritoryView territoryView = new GridTextTerritoryView(i, j);
+                // TODO move as much of this junk to the TerritoryView that makes sense
                 Button gridTextButton = (Button) territoryView.defaultView(context);
 
-                final TerritoryBorder territory = grid.get(board.coordinatesToIndex(i, j, cols));
+                final TerritoryBorder territory = grid.get(gridTextBoard.coordinatesToIndex(i, j, cols));
                 gridTextButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // Request selection. Let the model handle potential selection.
-                        board.requestSelection(territory);
+                        gridTextBoard.requestSelection(territory);
                         // Handle changes in the Views
                         updateViews();
+                        // Update the Primary Action button
+                        updateUserPrimaryAction();
                     }
                 });
 
