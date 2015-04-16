@@ -1,11 +1,13 @@
 package com.jack.dicewars.dice_wars.game.board;
 
+import android.util.Log;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Game;
+import com.jack.dicewars.dice_wars.game.board.filter.Filter;
+import com.jack.dicewars.dice_wars.game.board.filter.Filterable;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -104,8 +106,8 @@ public abstract class AbstractBoard {
     /**
      * @param territory The territory requesting to be selected based on the click of it's TerritoryView
      */
-    public void select(TerritoryBorder territory) {
-        game.select(territory);
+    public void requestSelection(TerritoryBorder territory) {
+        game.requestSelection(territory);
     }
 
     /**
@@ -126,7 +128,6 @@ public abstract class AbstractBoard {
      * @return Whether the territory meets the criteria in filters.
      */
     public boolean passesFilter(Filterable territory, HashSet<Filter> filters) {
-        // TODO implement
         for (Filter filter : filters) {
             if (!filter.accepts(territory)) {
                 return false;

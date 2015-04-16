@@ -1,13 +1,15 @@
 package com.jack.dicewars.dice_wars.game;
 
-import android.util.Log;
-import com.jack.dicewars.dice_wars.Color;
+import com.jack.dicewars.dice_wars.TerritoryColor;
 import com.jack.dicewars.dice_wars.Debug;
 import com.jack.dicewars.dice_wars.game.board.AbstractBoard;
 import com.jack.dicewars.dice_wars.game.board.GridTextBoard;
 import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
 import com.jack.dicewars.dice_wars.game.progression.Phase;
 import com.jack.dicewars.dice_wars.game.progression.Round;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  *
@@ -59,6 +61,10 @@ public class Game {
         config.randomizePlayerOrder();
         round = new Round(config.activePlayers());
         roundNum = 1;
+        final List<TerritoryBorder> selectable = allSelectable();
+        for (TerritoryBorder s: selectable) {
+            s.setSelectable(true);
+        }
     }
 
     /**
@@ -66,9 +72,16 @@ public class Game {
      * whose Turn it is in the Game, what Phase it is, and what has already been selected.
      * @param territory The territory that was clicked.
      */
-    public void select(TerritoryBorder territory) {
+    public void requestSelection(TerritoryBorder territory) {
         if (isSelectable(territory)) {
+            // Invalidate selectable property TODO make efficient
+            for (TerritoryBorder s: board.getBoard()) {
+                s.setSelectable(false);
+            }
+
+            territory.setSelected(true);
             currentPhase().pushTerritory(territory);
+            updateSelectable();
         }
     }
 
@@ -79,11 +92,29 @@ public class Game {
      */
     private boolean isSelectable(TerritoryBorder territory) {
         // If it's not the clicker's turn, the clicker can't do anything
-        if (myTurn()) {
-            return board.passesFilter(territory, currentPhase().filters());
-        } else {
-            return false;
+        return myTurn() && board.passesFilter(territory, currentPhase().filters());
+    }
+
+    public void updateSelectable() {
+        // Invalidate selectable property TODO make efficient
+        for (TerritoryBorder s: board.getBoard()) {
+            s.setSelectable(false);
         }
+        
+        final List<TerritoryBorder> selectable = allSelectable();
+        for (TerritoryBorder s : selectable) {
+            s.setSelectable(true);
+        }
+    }
+
+    private List<TerritoryBorder> allSelectable() {
+        LinkedList<TerritoryBorder> boardCopy = new LinkedList<>();
+        for (TerritoryBorder territory : board.getBoard()) {
+            if (board.passesFilter(territory, currentPhase().filters())) {
+                boardCopy.add(territory);
+            }
+        }
+        return boardCopy;
     }
 
     /**
@@ -98,10 +129,10 @@ public class Game {
      *
      * @return The color of the device owner player.
      */
-    private Color myColor() {
+    private TerritoryColor myColor() {
         for (Player p : config.activePlayers()) {
             if (p.isMe()) {
-                return p.getColor();
+                return p.getTerritoryColor();
             }
         }
         return null;
@@ -146,8 +177,8 @@ public class Game {
      *
      * @return The color being used by the player currently controlling the turn.
      */
-    public Color currentPlayerColor() {
-        return round.currentPlayer().getColor();
+    public TerritoryColor currentPlayerColor() {
+        return round.currentPlayer().getTerritoryColor();
     }
 
     /**

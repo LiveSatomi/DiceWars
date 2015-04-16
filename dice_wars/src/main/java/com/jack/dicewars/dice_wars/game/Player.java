@@ -2,7 +2,7 @@ package com.jack.dicewars.dice_wars.game;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import com.jack.dicewars.dice_wars.Color;
+import com.jack.dicewars.dice_wars.TerritoryColor;
 import com.jack.dicewars.dice_wars.game.board.Territory;
 
 import java.util.LinkedList;
@@ -24,7 +24,7 @@ public class Player implements Parcelable {
 
     private String name;
     private String status;
-    private Color color;
+    private TerritoryColor territoryColor;
 
     /**
      * A list of territories that a Player knows it owns. This data is retrievable by querying the board, but this way
@@ -36,12 +36,12 @@ public class Player implements Parcelable {
      *
      * @param name The player's screen name.
      * @param status The player's relationship to the game defined by {@link #STATUS_YOU}
-     * @param color The ID of the color the player is using.
+     * @param territoryColor The ID of the color the player is using.
      */
-    public Player(String name, String status, Color color) {
+    public Player(String name, String status, TerritoryColor territoryColor) {
         this.name = name;
         this.status = status;
-        this.color = color;
+        this.territoryColor = territoryColor;
     }
 
     /**
@@ -52,7 +52,7 @@ public class Player implements Parcelable {
     protected Player(Parcel in) {
         name = in.readString();
         status = in.readString();
-        color = in.readParcelable(Color.class.getClassLoader());
+        territoryColor = in.readParcelable(TerritoryColor.class.getClassLoader());
     }
 
     @Override
@@ -64,7 +64,7 @@ public class Player implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(status);
-        dest.writeParcelable(getColor(), flags);
+        dest.writeParcelable(getTerritoryColor(), flags);
     }
 
     @SuppressWarnings("unused")
@@ -84,8 +84,8 @@ public class Player implements Parcelable {
      *
      * @return The Color this Player uses to represent itself on territories and elsewhere.
      */
-    public Color getColor() {
-        return color;
+    public TerritoryColor getTerritoryColor() {
+        return territoryColor;
     }
 
     /**

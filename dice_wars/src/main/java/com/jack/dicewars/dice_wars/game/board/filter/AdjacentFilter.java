@@ -1,4 +1,7 @@
-package com.jack.dicewars.dice_wars.game.board;
+package com.jack.dicewars.dice_wars.game.board.filter;
+
+import com.jack.dicewars.dice_wars.game.board.filter.Filter;
+import com.jack.dicewars.dice_wars.game.board.filter.Filterable;
 
 /**
  * Created by Jack Mueller on 4/13/15.

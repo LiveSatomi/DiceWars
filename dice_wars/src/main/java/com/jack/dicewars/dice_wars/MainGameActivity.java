@@ -48,7 +48,7 @@ public class MainGameActivity extends Activity {
         boardView.apply((ViewGroup) findViewById(R.id.boardContainer));
 
         updateLabels();
-        update();
+        boardView.updateViews();
     }
 
     /**
@@ -76,8 +76,10 @@ public class MainGameActivity extends Activity {
         //TODO guard against unauthorized players from making this button press have an effect.
         if (game.myTurn() || !game.myTurn()) {
             game.advance();
+            updateLabels();
+            game.updateSelectable();
+            boardView.updateViews();
         }
-        updateLabels();
     }
 
     @Override

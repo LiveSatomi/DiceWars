@@ -1,7 +1,9 @@
 package com.jack.dicewars.dice_wars.game.board;
 
+import com.jack.dicewars.dice_wars.TerritoryColor;
 import com.jack.dicewars.dice_wars.game.NullPlayer;
 import com.jack.dicewars.dice_wars.game.Player;
+import com.jack.dicewars.dice_wars.game.board.filter.Filterable;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -26,6 +28,8 @@ public class TerritoryBorder implements Filterable {
     private TerritoryBorder[] neighbors;
 
     private Territory internal;
+    private boolean selected;
+    private boolean selectable;
 
     /**
      * Creates a TerritoryBorder with an internal Territory that is owned by
@@ -37,11 +41,23 @@ public class TerritoryBorder implements Filterable {
     public TerritoryBorder(int edgeCount) {
         internal = new Territory(new NullPlayer(), 0);
         neighbors = new TerritoryBorder[edgeCount];
+        selected = false;
+        selectable = false;
     }
 
     @Override
     public List<Filterable> adjacent() {
         return new LinkedList<Filterable>(Arrays.asList(neighbors));
+    }
+
+    @Override
+    public TerritoryColor color() {
+        return internal.getColor();
+    }
+
+    @Override
+    public int value() {
+        return internal.getValue();
     }
 
     /**
@@ -83,5 +99,21 @@ public class TerritoryBorder implements Filterable {
      */
     void setNeighborAt(int index, TerritoryBorder territory) {
         neighbors[index] = territory;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean s) {
+        this.selected = s;
+    }
+
+    public boolean isSelectable() {
+        return selectable;
+    }
+
+    public void setSelectable(boolean s) {
+        this.selectable = s;
     }
 }

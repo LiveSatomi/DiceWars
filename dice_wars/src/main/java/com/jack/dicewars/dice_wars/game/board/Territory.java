@@ -1,6 +1,6 @@
 package com.jack.dicewars.dice_wars.game.board;
 
-import com.jack.dicewars.dice_wars.Color;
+import com.jack.dicewars.dice_wars.TerritoryColor;
 import com.jack.dicewars.dice_wars.game.Player;
 
 import java.util.Random;
@@ -53,8 +53,8 @@ public class Territory {
      *
      * @return The color of this Territory's owner.
      */
-    public Color getColor() {
-        return owner.getColor();
+    public TerritoryColor getColor() {
+        return owner.getTerritoryColor();
     }
 
     /**

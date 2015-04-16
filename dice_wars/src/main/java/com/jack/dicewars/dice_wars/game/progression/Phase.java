@@ -1,6 +1,6 @@
 package com.jack.dicewars.dice_wars.game.progression;
 
-import com.jack.dicewars.dice_wars.game.board.Filter;
+import com.jack.dicewars.dice_wars.game.board.filter.Filter;
 import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
 
 import java.util.HashSet;
@@ -21,7 +21,7 @@ public interface Phase {
 
     /**
      * Returns a set of filters on data that can be queried from a Board and Territories. The possible criteria and the
-     * form of their value is defined by {@link com.jack.dicewars.dice_wars.game.board.Filter}
+     * form of their value is defined by {@link com.jack.dicewars.dice_wars.game.board.filter.Filter}
      * TODO implement
      * @return A set of criteria
      */

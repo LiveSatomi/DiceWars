@@ -1,6 +1,8 @@
 package com.jack.dicewars.dice_wars;
 
 import android.content.Context;
+import android.graphics.Typeface;
+import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -64,7 +66,7 @@ public class GridTextBoardView extends AbstractBoardView {
                     @Override
                     public void onClick(View v) {
                         // Request selection. Let the model handle potential selection.
-                        board.select(territory);
+                        board.requestSelection(territory);
                         // Handle changes in the Views
                         updateViews();
                     }
@@ -83,8 +85,18 @@ public class GridTextBoardView extends AbstractBoardView {
     @Override
     public void updateView(TerritoryBorder modelKey) {
         Button nativeView = (Button) territoryNativeViewMap.get(modelTerritoryMap.get(modelKey));
-        final Color color = modelKey.getInternal().getColor();
-        nativeView.setText(color.getCode() + modelKey.getInternal().getValue());
+        final TerritoryColor territoryColor = modelKey.getInternal().getColor();
+        // TODO figure out why this depends on exactly two characters being here
+        nativeView.setText(modelKey.getInternal().getColor().getCode() + modelKey.getInternal().getValue());
+        if (modelKey.isSelected()) {
+            nativeView.setTypeface(null, Typeface.BOLD);
+        } else if (modelKey.isSelectable()) {
+            nativeView.setText(Html.fromHtml("<u>" + nativeView.getText() + "</u>"));
+            nativeView.setTypeface(null, Typeface.NORMAL);
+        } else {
+            nativeView.setTypeface(null, Typeface.NORMAL);
+        }
+        nativeView.setBackground(context.getResources().getDrawable(territoryColor.getDrawableId()));
     }
 
     /**

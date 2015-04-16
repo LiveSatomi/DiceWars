@@ -88,8 +88,8 @@ public class GridTextBoard extends AbstractBoard {
             // mask out impossible neighbors
             boolean rightPossible = colIndex + 1 < cols;
             boolean downPossible = rowIndex + 1 < rows;
-            boolean leftPossible = colIndex - 1 > 0;
-            boolean upPossible = rowIndex - 1 > 0;
+            boolean leftPossible = colIndex - 1 >= 0;
+            boolean upPossible = rowIndex - 1 >= 0;
             boolean[] neighborsMask = {rightPossible, downPossible, leftPossible, upPossible};
 
             // Add neighbors that exist to this territory's neighbor list

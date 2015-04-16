@@ -1,6 +1,6 @@
 package com.jack.dicewars.dice_wars.game;
 
-import com.jack.dicewars.dice_wars.Color;
+import com.jack.dicewars.dice_wars.TerritoryColor;
 
 /**
  *
@@ -14,6 +14,6 @@ public class NullPlayer extends Player {
      * A typical NullPlayer has a 0 length name, a special status, and uses the Colorless Color enum.
      */
     public NullPlayer() {
-        super("", STATUS_COLORLESS, Color.colorless);
+        super("", STATUS_COLORLESS, TerritoryColor.colorless);
     }
 }

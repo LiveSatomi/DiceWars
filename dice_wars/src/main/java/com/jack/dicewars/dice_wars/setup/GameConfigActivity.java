@@ -16,7 +16,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import com.jack.dicewars.dice_wars.Color;
+import com.jack.dicewars.dice_wars.TerritoryColor;
 import com.jack.dicewars.dice_wars.Debug;
 import com.jack.dicewars.dice_wars.MainGameActivity;
 import com.jack.dicewars.dice_wars.R;
@@ -256,7 +256,7 @@ public class GameConfigActivity extends Activity {
         int playerNum = Configuration.getMaxPlayers();
         String[] playerNames = new String[playerNum];
         String[] playerStatuses = new String[playerNum];
-        Color[] playerColors = new Color[playerNum];
+        TerritoryColor[] playerTerritoryColors = new TerritoryColor[playerNum];
 
         for (int i = 0; i < playerNum; i++) {
             LinearLayout currentPlayerSlot = (LinearLayout) playerConfigContainer.getChildAt(i);
@@ -266,7 +266,7 @@ public class GameConfigActivity extends Activity {
 
             playerNames[i] = name.getText().toString();
             playerStatuses[i] = status.getText().toString();
-            playerColors[i] = Color.valueOf(colorPicker.getText().toString());
+            playerTerritoryColors[i] = TerritoryColor.valueOf(colorPicker.getText().toString());
 
         }
 
@@ -289,7 +289,7 @@ public class GameConfigActivity extends Activity {
                 throw new IllegalStateException("Unknown board size");
         }
 
-        return new Configuration(playerNames, playerStatuses, playerColors, colorlessTerritories, randomReinforce,
+        return new Configuration(playerNames, playerStatuses, playerTerritoryColors, colorlessTerritories, randomReinforce,
                 boardSize);
     }
 

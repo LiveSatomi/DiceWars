@@ -1,10 +1,9 @@
 package com.jack.dicewars.dice_wars.game.progression;
 
 import com.jack.dicewars.dice_wars.game.Player;
-import com.jack.dicewars.dice_wars.game.board.Filter;
+import com.jack.dicewars.dice_wars.game.board.filter.Filter;
 
 import java.util.HashSet;
-import java.util.Map;
 
 /**
  * A Phase that is meant to add value to Territories incrementally. It can also calculate how much value should be
@@ -28,7 +27,7 @@ public class ReinforcePhase extends AbstractPhase {
 
     @Override
     public HashSet<Filter> filters() {
-        return null;
+        return new HashSet<>();
     }
 
     @Override
