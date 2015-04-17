@@ -46,9 +46,12 @@ public abstract class AbstractBoardView {
         }
     }
 
+    /**
+     * Updates the Primary Action Button with appropriate text for the Game state.
+     */
     public void updateUserPrimaryAction() {
         final View primaryButton = ((Activity) context).findViewById(R.id.phaseEnd);
-        ((Button) primaryButton).setText(context.getResources().getString(board.getPrimaryUserActionId()));
+        ((Button) primaryButton).setText(context.getResources().getString(board.getUserPrimaryActionId()));
     }
 
     /**

@@ -78,13 +78,6 @@ public class GridTextBoard extends AbstractBoard {
             int rowIndex = i / cols;
             int colIndex = i % cols;
 
-            // 4 possible neighbors in right, down, left, up order
-            int rightIndex = coordinatesToIndex(rowIndex, colIndex + 1, cols);
-            int downIndex = coordinatesToIndex(rowIndex + 1, colIndex, cols);
-            int leftIndex = coordinatesToIndex(rowIndex, colIndex - 1, cols);
-            int upIndex = coordinatesToIndex(rowIndex - 1, colIndex, cols);
-            int[] neighbors = {rightIndex, downIndex, leftIndex, upIndex};
-
             // mask out impossible neighbors
             boolean rightPossible = colIndex + 1 < cols;
             boolean downPossible = rowIndex + 1 < rows;
@@ -92,13 +85,24 @@ public class GridTextBoard extends AbstractBoard {
             boolean upPossible = rowIndex - 1 >= 0;
             boolean[] neighborsMask = {rightPossible, downPossible, leftPossible, upPossible};
 
+            // This defines values for "absoluteNeighborIndex" below
+            // 4 possible neighbors in right, down, left, up order
+            int rightIndex = coordinatesToIndex(rowIndex, colIndex + 1, cols);
+            int downIndex = coordinatesToIndex(rowIndex + 1, colIndex, cols);
+            int leftIndex = coordinatesToIndex(rowIndex, colIndex - 1, cols);
+            int upIndex = coordinatesToIndex(rowIndex - 1, colIndex, cols);
+            int[] neighbors = {rightIndex, downIndex, leftIndex, upIndex};
+            int absoluteNeighborIndex = 0;
+
             // Add neighbors that exist to this territory's neighbor list
-            for (int j = 0, addedNeighbors = 0; j < TerritoryBorder.EDGE_MAX_COUNT && addedNeighbors < board.get(i)
-                    .numberOfNeighbors(); j++) {
-                if (neighborsMask[j]) {
-                    board.get(i).setNeighborAt(addedNeighbors, board.get(neighbors[j]));
-                    addedNeighbors++;
+            int addedNeighborsCount = 0;
+            while (absoluteNeighborIndex < TerritoryBorder.EDGE_MAX_COUNT && addedNeighborsCount < board.get(i)
+                    .numberOfNeighbors()) {
+                if (neighborsMask[absoluteNeighborIndex]) {
+                    board.get(i).setNeighborAt(addedNeighborsCount, board.get(neighbors[absoluteNeighborIndex]));
+                    addedNeighborsCount++;
                 }
+                absoluteNeighborIndex++;
             }
         }
         return board;

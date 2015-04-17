@@ -64,7 +64,7 @@ public class MainGameActivity extends Activity {
     private void updateLabels() {
         ((TextView) findViewById(R.id.activePlayerName)).setText(game.currentPlayerName());
         ((TextView) findViewById(R.id.activePhase)).setText(game.currentPhase().toString());
-        ((TextView) findViewById(R.id.phaseEnd)).setText((game.getUserPrimaryActionPromptId()));
+        ((TextView) findViewById(R.id.phaseEnd)).setText((game.getUserPrimaryActionId()));
     }
 
     /**
@@ -74,8 +74,8 @@ public class MainGameActivity extends Activity {
      */
     public void userPrimaryAction(View view) {
         //TODO guard against unauthorized players from making this button press have an effect.
-        if(game.myTurn() || !game.myTurn()) {
-            game.userPrimaryAction();
+        if (game.myTurn() || !game.myTurn()) {
+            game.doUserPrimaryAction();
             boardView.updateViews();
             updateLabels();
         }

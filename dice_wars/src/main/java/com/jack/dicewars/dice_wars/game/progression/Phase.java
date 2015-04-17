@@ -39,5 +39,9 @@ public interface Phase {
      */
     void undoAction();
 
+    /**
+     * @return Whether or not this phase has selected Territories and is waiting for more selections to resolve the
+     * action.
+     */
     boolean getPendingAction();
 }

@@ -12,7 +12,7 @@ import com.jack.dicewars.dice_wars.R;
  * This activity allows the user to determine if they are playing with alone or with others.
  */
 public class ModeSelectActivity extends Activity {
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

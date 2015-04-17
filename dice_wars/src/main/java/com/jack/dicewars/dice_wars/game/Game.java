@@ -36,7 +36,7 @@ public class Game {
      */
     private int roundNum;
 
-    private int userPrimaryActionPromptId;
+    private int userPrimaryActionId;
 
     /**
      * Creates a Game, and determines what app mode this game will use, but does not create a board for the game, call
@@ -53,7 +53,7 @@ public class Game {
         }
         round = null;
         roundNum = 0;
-        userPrimaryActionPromptId = R.string.end_phase;
+        userPrimaryActionId = R.string.end_phase;
     }
 
     /**
@@ -86,15 +86,18 @@ public class Game {
             territory.setSelected(true);
             currentPhase().pushTerritory(territory);
             updateSelectable();
-            updatePrimaryAction();
+            updateUserPrimaryAction();
         }
     }
 
-    private void updatePrimaryAction() {
+    /**
+     * Updates what should be displayed as the Primary Action based on the game state.
+     */
+    private void updateUserPrimaryAction() {
         if (getPendingAction()) {
-            userPrimaryActionPromptId = R.string.undo;
+            userPrimaryActionId = R.string.undo;
         } else {
-            userPrimaryActionPromptId = R.string.end_phase;
+            userPrimaryActionId = R.string.end_phase;
         }
     }
 
@@ -108,6 +111,9 @@ public class Game {
         return myTurn() && board.passesFilter(territory, currentPhase().filters());
     }
 
+    /**
+     * Resets selectable values on all Territories of this Game's board based on the current Phase's state.
+     */
     public void updateSelectable() {
         // Invalidate selectable property TODO make efficient
         for (TerritoryBorder s: board.getBoard()) {
@@ -120,6 +126,10 @@ public class Game {
         }
     }
 
+    /**
+     *
+     * @return Returns a list of all selectable Territories based on Filters of the current Phase's state.
+     */
     private List<TerritoryBorder> allSelectable() {
         LinkedList<TerritoryBorder> boardCopy = new LinkedList<>();
         for (TerritoryBorder territory : board.getBoard()) {
@@ -151,7 +161,10 @@ public class Game {
         return null;
     }
 
-    public void userPrimaryAction() {
+    /**
+     * Executes the process initiated by the user Primary Action based on the state of the Game.
+     */
+    public void doUserPrimaryAction() {
         boolean pending = getPendingAction();
         if (pending) {
             undoPhaseAction();
@@ -162,14 +175,17 @@ public class Game {
         }
 
         if (pending) {
-            userPrimaryActionPromptId = R.string.undo;
+            userPrimaryActionId = R.string.undo;
         } else {
-            userPrimaryActionPromptId = R.string.end_phase;
+            userPrimaryActionId = R.string.end_phase;
         }
 
         updateSelectable();
     }
 
+    /**
+     * Reverses the phases action so that the game state is like before it was selected.
+     */
     private void undoPhaseAction() {
         round.undoPhaseAction();
     }
@@ -233,11 +249,19 @@ public class Game {
         return roundNum;
     }
 
+    /**
+     * @return Whether or not the current phase has selected Territories and is waiting for more selections to resolve
+     * the action.
+     */
     public boolean getPendingAction() {
         return round.getPendingAction();
     }
 
-    public int getUserPrimaryActionPromptId() {
-        return userPrimaryActionPromptId;
+    /**
+     *
+     * @return The string resource id for what the current action's text should be for the game's primary button.
+     */
+    public int getUserPrimaryActionId() {
+        return userPrimaryActionId;
     }
 }

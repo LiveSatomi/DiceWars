@@ -3,36 +3,59 @@ package com.jack.dicewars.dice_wars.game.board.filter;
 /**
  * Created by Jack Mueller on 4/15/15.
  */
-public class ValueFilter implements Filter{
+public class ValueFilter implements Filter {
 
-    private int value;
+    /**
+     * Value to be checked relative to accepted values.
+     */
+    private int target;
+    /**
+     * True if accepted values are greater than the target value, False if less than.
+     */
     private boolean greater;
+    /**
+     * If false, only values that are equal to target will be accepted.
+     */
     private boolean useGreater;
 
-    public ValueFilter (int value) {
-        this.value = value;
+    /**
+     * Accepted values are equal to the passed target for this ValueFilter.
+     *
+     * @param target The value accepted Filterable's are checked against.
+     */
+    public ValueFilter(int target) {
+        this.target = target;
         this.useGreater = false;
     }
 
-    public ValueFilter (int value, boolean greater) {
-        this(value);
+    /**
+     * Accepted values are greater than target if greater is true, and less than target if greater is false.
+     * @param target The value that will be compared against target
+     * @param greater Determines whether accepted values should be greater or less than target.
+     */
+    public ValueFilter(int target, boolean greater) {
+        this(target);
         this.greater = greater;
         this.useGreater = true;
     }
 
-    // TODO javadoc
+    /**
+     *
+     * @param filterable The Filterable to check the value of
+     * @return Whether the Filterable's value is valid based on target and the comparison method.
+     */
     @Override
     public boolean accepts(Filterable filterable) {
         int otherValue = filterable.value();
 
         if (useGreater) {
             if (greater) {
-                return otherValue > value;
+                return otherValue > target;
             } else {
-                return otherValue < value;
+                return otherValue < target;
             }
         } else {
-            return value == otherValue;
+            return target == otherValue;
         }
     }
 }

@@ -36,13 +36,15 @@ public class Configuration {
      *
      * @param names A list of the players' screen names.
      * @param statuses A list of the players' statuses defined by {@link Player#STATUS_YOU} STATUS variables.
-     * @param territoryColors A list of the players' colors defined by {@link com.jack.dicewars.dice_wars.TerritoryColor}.
+     * @param territoryColors A list of the players' colors defined by
+     *                        {@link com.jack.dicewars.dice_wars.TerritoryColor}.
      * @param cT Whether this configuration will have colorless territories enabled.
      * @param rR Whether this configuration will have user defined or random reinforcements.
      * @param size The size of the board defined by
      *             {@link com.jack.dicewars.dice_wars.game.board.AbstractBoard#BOARD_SIZE_SMALL}.
      */
-    public Configuration(String[] names, String[] statuses, TerritoryColor[] territoryColors, boolean cT, boolean rR, int size) {
+    public Configuration(String[] names, String[] statuses, TerritoryColor[] territoryColors, boolean cT, boolean rR,
+                         int size) {
         for (int i = 0; i < MAX_PLAYERS; i++) {
             getPlayers()[i] = new Player(names[i], statuses[i], territoryColors[i]);
         }

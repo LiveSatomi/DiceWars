@@ -1,14 +1,16 @@
 package com.jack.dicewars.dice_wars.game.board.filter;
 
 import com.jack.dicewars.dice_wars.TerritoryColor;
-import com.jack.dicewars.dice_wars.game.board.Territory;
 import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
 
 /**
- * Created by Jack Mueller on 4/15/15.
+ * Implementation of Filter that accepts Filterables based on their color's relationship to a target Filterable's color.
  */
 public class ColorFilter implements Filter {
 
+    /**
+     * This Color will be checked against accepted Colors.
+     */
     private TerritoryColor target;
 
     /**
@@ -17,6 +19,12 @@ public class ColorFilter implements Filter {
      */
     private boolean match;
 
+    /**
+     *
+     * @param territoryColor The Color that will be checked against accepted colors. TODO make this a FilterColor
+     * (interface) type
+     * @param matching Defines how to check against passed Colors.
+     */
     public ColorFilter(TerritoryColor territoryColor, boolean matching) {
         target = territoryColor;
         match = matching;

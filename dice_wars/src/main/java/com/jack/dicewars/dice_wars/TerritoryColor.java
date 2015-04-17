@@ -21,7 +21,7 @@ public enum TerritoryColor implements Parcelable {
     private String code;
 
     /**
-     * The id R.drawable saved for this TerritoryColor
+     * The id R.drawable saved for this TerritoryColor.
      */
     private int drawableId;
 
@@ -79,12 +79,17 @@ public enum TerritoryColor implements Parcelable {
     }
 
     /**
-     * An Android drawable that can be repeated on a View
+     * An Android drawable that can be repeated on a View.
+     * @return The drawable resource id for this TerritoryColor
      */
     public int getDrawableId() {
         return drawableId;
     }
 
+    /**
+     *
+     * @param territoryId The drawable resource id for this TerritoryColor
+     */
     public void setDrawableId(int territoryId) {
         this.drawableId = territoryId;
     }

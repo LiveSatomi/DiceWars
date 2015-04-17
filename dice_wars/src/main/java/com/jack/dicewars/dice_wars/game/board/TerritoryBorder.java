@@ -101,23 +101,43 @@ public class TerritoryBorder implements Filterable {
         neighbors[index] = territory;
     }
 
+    /**
+     * Increments the internal Territory's value by one. Useful for ReinforcePhases.
+     */
+    public void incrementValue() {
+        internal.setValue(internal.getValue() + 1);
+    }
+
+    /**
+     *
+     * @return The intra-phase progression state "Territory selected"
+     */
     public boolean isSelected() {
         return selected;
     }
 
-    public void setSelected(boolean s) {
-        this.selected = s;
+    /**
+     *
+     * @param state The new selectivity of this Territory.
+     */
+    public void setSelected(boolean state) {
+        this.selected = state;
     }
 
+    /**
+     *
+     * @return Information on this Territory's selectivity.
+     */
     public boolean isSelectable() {
         return selectable;
     }
 
-    public void setSelectable(boolean s) {
-        this.selectable = s;
+    /**
+     *
+     * @param state The new selectivity of this Territory.
+     */
+    public void setSelectable(boolean state) {
+        this.selectable = state;
     }
 
-    public void incrementValue() {
-        internal.setValue(internal.getValue() + 1);
-    }
 }

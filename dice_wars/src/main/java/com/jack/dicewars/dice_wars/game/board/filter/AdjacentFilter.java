@@ -1,17 +1,21 @@
 package com.jack.dicewars.dice_wars.game.board.filter;
 
-import com.jack.dicewars.dice_wars.game.board.filter.Filter;
-import com.jack.dicewars.dice_wars.game.board.filter.Filterable;
-
 /**
- * Created by Jack Mueller on 4/13/15.
+ * Implementation of Filter that accepts all Filterables near a target Filterable.
  */
 public class AdjacentFilter implements Filter {
 
+    /**
+     * This Filterable is reachable by all accepted Filterables.
+     */
     private Filterable target;
 
-    public AdjacentFilter(Filterable t) {
-        target = t;
+    /**
+     *
+     * @param target The Filterable that must be reachable by accepted Filterables.
+     */
+    public AdjacentFilter(Filterable target) {
+        this.target = target;
 
     }
 

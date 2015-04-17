@@ -51,6 +51,7 @@ public abstract class AbstractPhase implements Phase {
      */
     protected abstract void consume();
 
+    @Override
     public boolean getPendingAction() {
         return pendingAction;
     }

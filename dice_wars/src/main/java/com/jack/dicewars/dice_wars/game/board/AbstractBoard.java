@@ -1,6 +1,5 @@
 package com.jack.dicewars.dice_wars.game.board;
 
-import android.util.Log;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Game;
 import com.jack.dicewars.dice_wars.game.board.filter.Filter;
@@ -136,8 +135,12 @@ public abstract class AbstractBoard {
         return true;
     }
 
-    public int getPrimaryUserActionId() {
-        return game.getUserPrimaryActionPromptId();
+    /**
+     *
+     * @return The string resource id for what the current action's text should be for the game's primary button.
+     */
+    public int getUserPrimaryActionId() {
+        return game.getUserPrimaryActionId();
     }
 
 

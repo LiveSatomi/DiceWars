@@ -66,10 +66,17 @@ public class Round {
         }
     }
 
+    /**
+     * @return Whether or not the current phase has selected Territories and is waiting for more selections to resolve
+     * the action.
+     */
     public boolean getPendingAction() {
         return turn.getPendingAction();
     }
 
+    /**
+     * Reverses the phases action so that the game state is like before it was selected.
+     */
     public void undoPhaseAction() {
         turn.undoPhaseAction();
     }

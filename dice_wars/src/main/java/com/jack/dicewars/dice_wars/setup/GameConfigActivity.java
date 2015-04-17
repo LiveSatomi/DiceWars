@@ -289,8 +289,8 @@ public class GameConfigActivity extends Activity {
                 throw new IllegalStateException("Unknown board size");
         }
 
-        return new Configuration(playerNames, playerStatuses, playerTerritoryColors, colorlessTerritories, randomReinforce,
-                boardSize);
+        return new Configuration(playerNames, playerStatuses, playerTerritoryColors, colorlessTerritories,
+                randomReinforce, boardSize);
     }
 
 
