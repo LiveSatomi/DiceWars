@@ -22,10 +22,16 @@ public class Player implements Parcelable {
     public static final String STATUS_HUMAN = "HUMAN";
     public static final String STATUS_CLOSED = "CLOSED";
 
+    private static final int DEFAULT_MAX_VALUE = 12;
+
     private String name;
     private String status;
     private TerritoryColor territoryColor;
-
+    /**
+     * The maximum value this Player's Territories' can normally have. (i.e. be reinforced to)
+     * TODO this should eventually come from "TerritoryColor properties".
+     */
+    private int maxValue;
     /**
      * A list of territories that a Player knows it owns. This data is retrievable by querying the board, but this way
      * the filter is basically cached for each Player.
@@ -42,6 +48,7 @@ public class Player implements Parcelable {
         this.name = name;
         this.status = status;
         this.territoryColor = territoryColor;
+        maxValue = DEFAULT_MAX_VALUE;
     }
 
     /**
@@ -53,6 +60,7 @@ public class Player implements Parcelable {
         name = in.readString();
         status = in.readString();
         territoryColor = in.readParcelable(TerritoryColor.class.getClassLoader());
+        maxValue = in.readInt();
     }
 
     @Override
@@ -65,6 +73,7 @@ public class Player implements Parcelable {
         dest.writeString(name);
         dest.writeString(status);
         dest.writeParcelable(getTerritoryColor(), flags);
+        dest.writeInt(maxValue);
     }
 
     @SuppressWarnings("unused")
@@ -136,5 +145,13 @@ public class Player implements Parcelable {
      */
     public boolean isMe() {
         return status.equals(STATUS_YOU);
+    }
+
+    /**
+     *
+     * @return The max value this Player can have on his Territories.
+     */
+    public int getMaxValue() {
+        return maxValue;
     }
 }

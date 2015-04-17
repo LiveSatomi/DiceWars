@@ -4,6 +4,7 @@ import com.jack.dicewars.dice_wars.game.Player;
 import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
 import com.jack.dicewars.dice_wars.game.board.filter.ColorFilter;
 import com.jack.dicewars.dice_wars.game.board.filter.Filter;
+import com.jack.dicewars.dice_wars.game.board.filter.ValueFilter;
 
 import java.util.HashSet;
 
@@ -34,7 +35,8 @@ public class ReinforcePhase extends AbstractPhase {
 
         // Only reinforce your own Territories
         filters.add(new ColorFilter(player.getTerritoryColor(), true));
-
+        // Cannot Reinforce Territories at max value
+        filters.add(new ValueFilter(player.getMaxValue(), false));
         return filters;
     }
 
