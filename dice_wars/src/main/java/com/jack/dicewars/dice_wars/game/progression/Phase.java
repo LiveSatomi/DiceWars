@@ -1,7 +1,7 @@
 package com.jack.dicewars.dice_wars.game.progression;
 
+import com.jack.dicewars.dice_wars.game.board.filter.Selectable;
 import com.jack.dicewars.dice_wars.game.board.filter.Filter;
-import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
 
 import java.util.HashSet;
 
@@ -31,7 +31,7 @@ public interface Phase {
      * Appends territories to the end of a list for well ordered consumption by Phase implementation.
      * @param territory Territory that will be consumed later
      */
-    void pushTerritory(TerritoryBorder territory);
+    void pushTerritory(Selectable territory);
 
     /**
      * Opposite of pushTerritory(TerritoryBorder). It reverses the game state to a time before the most recently

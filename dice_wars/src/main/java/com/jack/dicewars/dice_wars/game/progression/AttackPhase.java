@@ -63,10 +63,10 @@ public class AttackPhase extends AbstractPhase {
     @Override
     protected void consume() {
         // The first Territory selected is what the Player is attacking, the next is where the attack is from
-        final TerritoryBorder attackBorder = selected.remove(0);
+        final TerritoryBorder attackBorder = ((TerritoryBorder) selected.remove(0));
         attackBorder.setSelected(false);
         Territory attacking = attackBorder.getInternal();
-        final TerritoryBorder defendBorder = selected.remove(0);
+        final TerritoryBorder defendBorder = ((TerritoryBorder) selected.remove(0));
         defendBorder.setSelected(false);
         Territory defending = defendBorder.getInternal();
         // Do the attack

@@ -106,7 +106,10 @@ public abstract class AbstractBoard {
      * @param territory The territory requesting to be selected based on the click of it's TerritoryView
      */
     public void requestSelection(TerritoryBorder territory) {
-        game.requestSelection(territory);
+        // Allow selection to be requested only if it is the device owners turn.
+        if (game.myTurn()) {
+            game.requestSelection(territory);
+        }
     }
 
     /**
@@ -139,7 +142,7 @@ public abstract class AbstractBoard {
      *
      * @return The string resource id for what the current action's text should be for the game's primary button.
      */
-    public int getUserPrimaryActionId() {
+    public int getPrimaryActionId() {
         return game.getPrimaryActionId();
     }
 

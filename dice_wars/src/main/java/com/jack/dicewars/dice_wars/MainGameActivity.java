@@ -10,9 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.jack.dicewars.dice_wars.ai.AbstractAi;
 import com.jack.dicewars.dice_wars.ai.SimpleAi;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Game;
+import com.jack.dicewars.dice_wars.game.board.filter.Selectable;
+import com.jack.dicewars.dice_wars.game.board.filter.Filterable;
 import com.jack.dicewars.dice_wars.setup.GameConfigActivity;
 
 /**
@@ -61,6 +64,7 @@ public class MainGameActivity extends Activity implements GameController {
      */
     private void uiUpdate() {
         boardView.updateViews();
+        boardView.updatePrimaryAction();
         updateLabels();
     }
 
@@ -79,9 +83,8 @@ public class MainGameActivity extends Activity implements GameController {
      * @param view The button clicked to call this method
      */
     public void userPrimaryAction(View view) {
-        //TODO guard against unauthorized players from making this button press have an effect.
         // Update the Game when the button is clicked
-        if (game.myTurn() || !game.myTurn()) {
+        if (game.myTurn()) {
             game.doPrimaryAction();
             uiUpdate();
         }
@@ -92,30 +95,49 @@ public class MainGameActivity extends Activity implements GameController {
         if (!game.myTurn()) {
             Log.i("AI", "taking turn");
             // Get a new AI task (each is only valid to execute once)
-            AsyncTask<SimpleAi, Void, Void> aiTask = generateAiTask();
+            AsyncTask<AbstractAi, Filterable, Void> aiTask = generateAiTask();
             // Execute the AI's turn in the background
-            aiTask.execute(new SimpleAi[]{new SimpleAi(game)});
+            aiTask.execute(new AbstractAi[]{new SimpleAi(game)});
         }
     }
 
     @Override
-    public AsyncTask<SimpleAi, Void, Void> generateAiTask() {
-        return new AsyncTask<SimpleAi, Void, Void>() {
+    public AsyncTask<AbstractAi, Filterable, Void> generateAiTask() {
+        return new AsyncTask<AbstractAi, Filterable, Void>() {
             @Override
-            protected Void doInBackground(SimpleAi... params) {
+            protected Void doInBackground(AbstractAi... params) {
                 Log.i(Debug.ai.s, "Starting AI turn");
-                params[0].takeTurn();
+                final AbstractAi ai = params[0];
+
+                // TODO Abstract this flow into the AI class itself
+                while (ai.desiredSelection()) {
+                    Selectable selection = ai.makeSelection();
+                    publishProgress(new Selectable[]{selection});
+                }
+
                 return null;
+            }
+
+            @Override
+            protected void onProgressUpdate(Filterable... filterables) {
+                // TODO have a more efficient selection of which views could have been affected.
+                uiUpdate();
             }
 
             @Override
             protected void onPostExecute(Void blank) {
                 Log.i(Debug.ai.s, "AI work is done ");
+
+                while (!getString(game.getPrimaryActionId()).equals("End Phase")) {
+                    game.doPrimaryAction();
+                }
                 game.doPrimaryAction();
+
                 uiUpdate();
             }
         };
     }
+
 
     @Override
     public void onBackPressed() {

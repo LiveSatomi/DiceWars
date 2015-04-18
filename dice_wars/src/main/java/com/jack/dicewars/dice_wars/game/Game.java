@@ -6,6 +6,7 @@ import com.jack.dicewars.dice_wars.TerritoryColor;
 import com.jack.dicewars.dice_wars.Debug;
 import com.jack.dicewars.dice_wars.game.board.AbstractBoard;
 import com.jack.dicewars.dice_wars.game.board.GridTextBoard;
+import com.jack.dicewars.dice_wars.game.board.filter.Selectable;
 import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
 import com.jack.dicewars.dice_wars.game.progression.Phase;
 import com.jack.dicewars.dice_wars.game.progression.Round;
@@ -69,8 +70,8 @@ public class Game {
         config.randomizePlayerOrder();
         round = new Round(config.activePlayers());
         roundNum = 1;
-        final List<TerritoryBorder> selectable = allSelectable();
-        for (TerritoryBorder s: selectable) {
+        final List<Selectable> selectable = allSelectable();
+        for (Selectable s: selectable) {
             s.setSelectable(true);
         }
     }
@@ -80,7 +81,7 @@ public class Game {
      * whose Turn it is in the Game, what Phase it is, and what has already been selected.
      * @param territory The territory that was clicked.
      */
-    public void requestSelection(TerritoryBorder territory) {
+    public void requestSelection(Selectable territory) {
         if (isSelectable(territory)) {
             // Invalidate selectable property TODO make efficient
             for (TerritoryBorder s: board.getBoard()) {
@@ -110,9 +111,9 @@ public class Game {
      * @param territory The territory requesting to be selected.
      * @return Whether the territory can be selected
      */
-    private boolean isSelectable(TerritoryBorder territory) {
+    private boolean isSelectable(Selectable territory) {
         // If it's not the clicker's turn, the clicker can't do anything
-        return myTurn() && board.passesFilter(territory, currentPhase().filters());
+        return board.passesFilter(territory, currentPhase().filters());
     }
 
     /**
@@ -124,8 +125,8 @@ public class Game {
             s.setSelectable(false);
         }
 
-        final List<TerritoryBorder> selectable = allSelectable();
-        for (TerritoryBorder s : selectable) {
+        final List<Selectable> selectable = allSelectable();
+        for (Selectable s : selectable) {
             s.setSelectable(true);
         }
     }
@@ -134,9 +135,9 @@ public class Game {
      *
      * @return Returns a list of all selectable Territories based on Filters of the current Phase's state.
      */
-    private List<TerritoryBorder> allSelectable() {
-        LinkedList<TerritoryBorder> boardCopy = new LinkedList<>();
-        for (TerritoryBorder territory : board.getBoard()) {
+    public List<Selectable> allSelectable() {
+        LinkedList<Selectable> boardCopy = new LinkedList<>();
+        for (Selectable territory : board.getBoard()) {
             if (board.passesFilter(territory, currentPhase().filters())) {
                 boardCopy.add(territory);
             }

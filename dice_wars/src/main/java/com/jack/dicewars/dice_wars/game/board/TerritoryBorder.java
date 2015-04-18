@@ -4,6 +4,7 @@ import com.jack.dicewars.dice_wars.TerritoryColor;
 import com.jack.dicewars.dice_wars.game.NullPlayer;
 import com.jack.dicewars.dice_wars.game.Player;
 import com.jack.dicewars.dice_wars.game.board.filter.Filterable;
+import com.jack.dicewars.dice_wars.game.board.filter.Selectable;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -15,7 +16,7 @@ import java.util.List;
  * A TerritoryBorders responsibilities revolve around how many other Territories (which actually means
  * TerritoryBorders, it is connected to.
  */
-public class TerritoryBorder implements Filterable {
+public class TerritoryBorder implements Selectable {
 
     /**
      * The exact number of Territories the internal Territory touches.
@@ -108,34 +109,22 @@ public class TerritoryBorder implements Filterable {
         internal.setValue(internal.getValue() + 1);
     }
 
-    /**
-     *
-     * @return The intra-phase progression state "Territory selected"
-     */
+    @Override
     public boolean isSelected() {
         return selected;
     }
 
-    /**
-     *
-     * @param state The new selectivity of this Territory.
-     */
+    @Override
     public void setSelected(boolean state) {
         this.selected = state;
     }
 
-    /**
-     *
-     * @return Information on this Territory's selectivity.
-     */
+    @Override
     public boolean isSelectable() {
         return selectable;
     }
 
-    /**
-     *
-     * @param state The new selectivity of this Territory.
-     */
+    @Override
     public void setSelectable(boolean state) {
         this.selectable = state;
     }

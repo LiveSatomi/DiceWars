@@ -72,7 +72,7 @@ public class GridTextBoardView extends AbstractBoardView {
                         // Handle changes in the Views
                         updateViews();
                         // Update the Primary Action button
-                        updateUserPrimaryAction();
+                        updatePrimaryAction();
                     }
                 });
 

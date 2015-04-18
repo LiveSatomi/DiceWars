@@ -1,6 +1,7 @@
 package com.jack.dicewars.dice_wars.game.progression;
 
 import com.jack.dicewars.dice_wars.game.Player;
+import com.jack.dicewars.dice_wars.game.board.filter.Selectable;
 import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
 import com.jack.dicewars.dice_wars.game.board.filter.ColorFilter;
 import com.jack.dicewars.dice_wars.game.board.filter.Filter;
@@ -42,8 +43,8 @@ public class ReinforcePhase extends AbstractPhase {
 
     @Override
     protected void consume() {
-        TerritoryBorder buffed = selected.remove(0);
+        Selectable buffed = selected.remove(0);
         buffed.setSelected(false);
-        buffed.incrementValue();
+        ((TerritoryBorder) buffed).incrementValue();
     }
 }

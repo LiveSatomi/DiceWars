@@ -1,7 +1,7 @@
 package com.jack.dicewars.dice_wars.game.progression;
 
 import com.jack.dicewars.dice_wars.game.Player;
-import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
+import com.jack.dicewars.dice_wars.game.board.filter.Selectable;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -13,13 +13,13 @@ public abstract class AbstractPhase implements Phase {
 
     protected Player player;
 
-    protected final List<TerritoryBorder> selected = new LinkedList<>();
+    protected final List<Selectable> selected = new LinkedList<>();
 
     protected boolean pendingAction;
     protected int territoryLimit;
 
     @Override
-    public void pushTerritory(TerritoryBorder territory) {
+    public void pushTerritory(Selectable territory) {
         // There are now Territories saved, pending for action until consumed
         pendingAction = true;
 
@@ -48,6 +48,7 @@ public abstract class AbstractPhase implements Phase {
 
     /**
      * Uses territories that have pushed, usually by selection, in such a way that is defined by the implementation.
+     * TODO add a class filter so that Selectables can be verified as TerritoryBorders during attack/reinforce phase
      */
     protected abstract void consume();
 
