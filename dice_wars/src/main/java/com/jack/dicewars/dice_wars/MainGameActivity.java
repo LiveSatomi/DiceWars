@@ -14,6 +14,7 @@ import com.jack.dicewars.dice_wars.ai.AbstractAi;
 import com.jack.dicewars.dice_wars.ai.SimpleAi;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Game;
+import com.jack.dicewars.dice_wars.game.Player;
 import com.jack.dicewars.dice_wars.game.board.filter.Selectable;
 import com.jack.dicewars.dice_wars.game.board.filter.Filterable;
 import com.jack.dicewars.dice_wars.setup.GameConfigActivity;
@@ -93,7 +94,6 @@ public class MainGameActivity extends Activity implements GameController {
     @Override
     public void onPhaseChange() {
         if (!game.myTurn()) {
-            Log.i("AI", "taking turn");
             // Get a new AI task (each is only valid to execute once)
             AsyncTask<AbstractAi, Filterable, Void> aiTask = generateAiTask();
             // Execute the AI's turn in the background
@@ -106,7 +106,7 @@ public class MainGameActivity extends Activity implements GameController {
         return new AsyncTask<AbstractAi, Filterable, Void>() {
             @Override
             protected Void doInBackground(AbstractAi... params) {
-                Log.i(Debug.ai.s, "Starting AI turn");
+                Log.i(Debug.ai.s, "Starting AI Phase");
                 final AbstractAi ai = params[0];
 
                 // TODO Abstract this flow into the AI class itself
@@ -114,7 +114,6 @@ public class MainGameActivity extends Activity implements GameController {
                     Selectable selection = ai.makeSelection();
                     publishProgress(new Selectable[]{selection});
                 }
-
                 return null;
             }
 
@@ -126,8 +125,6 @@ public class MainGameActivity extends Activity implements GameController {
 
             @Override
             protected void onPostExecute(Void blank) {
-                Log.i(Debug.ai.s, "AI work is done ");
-
                 while (!getString(game.getPrimaryActionId()).equals("End Phase")) {
                     game.doPrimaryAction();
                 }
@@ -136,6 +133,14 @@ public class MainGameActivity extends Activity implements GameController {
                 uiUpdate();
             }
         };
+    }
+
+    @Override
+    public void onGameEnd() {
+        String winnerName = game.currentPlayerName();
+        Intent resultsScreen = new Intent(this, ResultsActivity.class);
+        resultsScreen.putExtra("winner", winnerName);
+        startActivity(resultsScreen);
     }
 
 

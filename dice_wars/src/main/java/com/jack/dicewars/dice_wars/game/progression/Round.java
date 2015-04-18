@@ -41,7 +41,8 @@ public class Round {
     public Player currentPlayer() {
         return players.get(currentPlayerIndex);
     }
-
+//54213
+    //5 2 4 1 3 j  5 2 4 1 3 j
     /**
      *
      * @return True if there are more Players to be given Turns, false if each Player has had a Turn.
@@ -53,6 +54,12 @@ public class Round {
         } else {
             // The Turn ended
             currentPlayerIndex++;
+
+            // TODO enum player status (see player class)
+            while (currentPlayerIndex < players.size() && players.get(currentPlayerIndex).getStatus().equals(Player
+                    .STATUS_CLOSED)) {
+                currentPlayerIndex++;
+            }
 
             if (currentPlayerIndex < players.size()) {
                 // The Round has not ended
@@ -79,5 +86,23 @@ public class Round {
      */
     public void undoPhaseAction() {
         turn.undoPhaseAction();
+    }
+
+    /**
+     *
+     * @return True if the Round's list of Players has more than one Player that is not CLOSED, false otherwise.
+     */
+    public boolean gameHasEnded() {
+        boolean foundActive = false;
+        for (Player player : players) {
+            if (!player.getStatus().equals(Player.STATUS_CLOSED)) {
+                if (foundActive) {
+                    return false;
+                } else {
+                    foundActive = true;
+                }
+            }
+        }
+        return true;
     }
 }

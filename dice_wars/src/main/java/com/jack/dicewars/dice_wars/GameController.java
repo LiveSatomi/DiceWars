@@ -18,4 +18,9 @@ public interface GameController {
 
     // TODO abstract out AsyncTask
     AsyncTask<AbstractAi, Filterable, Void> generateAiTask();
+
+    /**
+     * Gathers statistics present at the end of the Game and sends program control to the Results Screen.
+     */
+    void onGameEnd();
 }

@@ -19,5 +19,6 @@
     <string name="phase_reinforce">Reinforce Phase</string>
     <string name="undo">Undo</string>
     <string name="end_phase">End Phase</string>
+    <string name="title_activity_results">Results</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.jack.dicewars.dice_wars.game;
 
+import android.util.Log;
 import com.jack.dicewars.dice_wars.GameController;
 import com.jack.dicewars.dice_wars.R;
 import com.jack.dicewars.dice_wars.TerritoryColor;
@@ -92,6 +93,10 @@ public class Game {
             currentPhase().pushTerritory(territory);
             updateSelectable();
             updateUserPrimaryAction();
+
+            if (round.gameHasEnded()) {
+                controller.onGameEnd();
+            }
         }
     }
 

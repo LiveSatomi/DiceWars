@@ -72,14 +72,15 @@ public class AttackPhase extends AbstractPhase {
         // Do the attack
         // TODO implement this if statement in a Territory function
         if (attacking.roll() > defending.roll()) {
+            Log.i(Debug.battle.s, "win");
             // Attacker wins, takes territory.
             defending.getOwner().loseOwnership(defending);
             // The attacker moves his dice to the losing territory, not necessarily the player's color.
             attacking.getOwner().claimOwnership(defending);
-            Log.i(Debug.battle.s, "win");
-            // Set values
+            // Set values of the newly owned Territories
             defending.setValue(attacking.getValue() - RESET_VALUE);
             attacking.setValue(RESET_VALUE);
+
         } else {
             Log.i(Debug.battle.s, "lose");
             // Defender wins, Attacker is knocked down to 1.

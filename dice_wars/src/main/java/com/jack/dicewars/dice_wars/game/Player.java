@@ -123,12 +123,14 @@ public class Player implements Parcelable {
     }
 
     /**
-     *
+     * Loses ownership of the passed Territory, if it is owned. This action may cause the Player to change its status
+     * to CLOSED if it lost ownership of its last Territory.
      * @param territory The Territory this Player will unregister from its cache.
      */
     public void loseOwnership(Territory territory) {
         territories.remove(territory);
         territory.setOwner(new NullPlayer());
+        updateStatus();
     }
 
     /**
@@ -153,5 +155,14 @@ public class Player implements Parcelable {
      */
     public int getMaxValue() {
         return maxValue;
+    }
+
+    /**
+     * Updates status to closed if this player doesn't own any Territories.
+     */
+    private void updateStatus() {
+        if (territories.isEmpty()) {
+            status = STATUS_CLOSED;
+        }
     }
 }

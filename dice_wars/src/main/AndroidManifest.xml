@@ -2,13 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jack.dicewars.dice_wars" >
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/launcher1"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".setup.TitleActivity"
+            android:name="com.jack.dicewars.dice_wars.setup.TitleActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,27 +19,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".setup.ModeSelectActivity"
+            android:name="com.jack.dicewars.dice_wars.setup.ModeSelectActivity"
             android:label="@string/title_activity_game_mode" >
         </activity>
         <activity
-            android:name=".setup.GameConfigActivity"
+            android:name="com.jack.dicewars.dice_wars.setup.GameConfigActivity"
             android:label="@string/title_activity_game_config" >
         </activity>
         <activity
-            android:name=".setup.HowToPlayActivity"
+            android:name="com.jack.dicewars.dice_wars.setup.HowToPlayActivity"
             android:label="@string/title_activity_how_to_play" >
         </activity>
         <activity
-            android:name=".setup.OptionsActivity"
+            android:name="com.jack.dicewars.dice_wars.setup.OptionsActivity"
             android:label="@string/title_activity_options" >
         </activity>
         <activity
-            android:name=".MainGameActivity"
+            android:name="com.jack.dicewars.dice_wars.MainGameActivity"
             android:label="@string/title_activity_main_game_activity" >
         </activity>
+        <activity
+            android:name="com.jack.dicewars.dice_wars.ResultsActivity"
+            android:label="@string/title_activity_results" >
+        </activity>
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
