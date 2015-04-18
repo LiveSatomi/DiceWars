@@ -41,8 +41,7 @@ public class Round {
     public Player currentPlayer() {
         return players.get(currentPlayerIndex);
     }
-//54213
-    //5 2 4 1 3 j  5 2 4 1 3 j
+
     /**
      *
      * @return True if there are more Players to be given Turns, false if each Player has had a Turn.

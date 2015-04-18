@@ -1,9 +1,8 @@
 package com.jack.dicewars.dice_wars.game.board.filter;
 
-import com.jack.dicewars.dice_wars.game.board.filter.Filterable;
-
 /**
- * Created by Jack Mueller on 4/18/15.
+ * This interface defines a Filterable that can also be selected. It follows the idea that something must be found
+ * before it can be selected.
  */
 public interface Selectable extends Filterable {
 

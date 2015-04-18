@@ -1,7 +1,7 @@
 package com.jack.dicewars.dice_wars.game.board.filter;
 
 /**
- * Created by Jack Mueller on 4/15/15.
+ * Implementation of Filter that accepts Filterables based on their value compared to target values.
  */
 public class ValueFilter implements Filter {
 

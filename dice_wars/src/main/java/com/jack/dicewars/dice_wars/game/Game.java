@@ -1,6 +1,5 @@
 package com.jack.dicewars.dice_wars.game;
 
-import android.util.Log;
 import com.jack.dicewars.dice_wars.GameController;
 import com.jack.dicewars.dice_wars.R;
 import com.jack.dicewars.dice_wars.TerritoryColor;
@@ -43,11 +42,13 @@ public class Game {
 
     private int primaryActionId;
 
+
     /**
      * Creates a Game, and determines what app mode this game will use, but does not create a board for the game, call
      * the start method before beginning a Game.
      *
      * @param config Defines all aspects of the Game that can change from one Game to another. Used for setup.
+     * @param controller The controller that will update the View by the status of this Game.
      */
     public Game(Configuration config, GameController controller) {
         this.config = config;

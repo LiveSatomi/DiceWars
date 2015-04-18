@@ -1,19 +1,25 @@
 package com.jack.dicewars.dice_wars.ai;
 
 import com.jack.dicewars.dice_wars.game.Game;
-import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
 import com.jack.dicewars.dice_wars.game.board.filter.Filterable;
 import com.jack.dicewars.dice_wars.game.board.filter.Selectable;
 
 import java.util.List;
 
 /**
- * Created by Jack Mueller on 4/18/15.
+ * This SimpleAi will take select the first Selectable it can get to and only attack if it has a higher attack value
+ * than it's opponent.
  */
 public class SimpleAi extends AbstractAi {
 
-    Selectable desired;
+    private Selectable desired;
+    private final int thinkingTime = 500;
 
+    /**
+     *
+     * @param game The Game this AI will analyze and make decisions on. The AI has access to make selections on
+     * Territories in the Game.
+     */
     public SimpleAi(Game game) {
         super(game);
         desired = null;
@@ -31,11 +37,11 @@ public class SimpleAi extends AbstractAi {
         return desired;
     }
 
-    //Side Effect
+    @Override
     public boolean desiredSelection() {
         // Waiting time
         try {
-            Thread.sleep(500);
+            Thread.sleep(thinkingTime);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

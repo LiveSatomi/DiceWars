@@ -5,18 +5,25 @@ import com.jack.dicewars.dice_wars.game.board.AbstractBoard;
 import com.jack.dicewars.dice_wars.game.board.filter.Selectable;
 
 /**
- * Created by Jack Mueller on 4/17/15.
+ * This superclass of DiceWars AI takes a Game to analyze and request selections from.
  */
 public abstract class AbstractAi implements DiceWarsAi {
-    Game game;
-    AbstractBoard board;
+    protected Game game;
+    protected AbstractBoard board;
 
+    /**
+     *
+     * @param game The Game this AI will analyze and make decisions on. The AI has access to make selections on
+     * Territories in the Game.
+     */
     public AbstractAi(Game game) {
         this.game = game;
         this.board = game.getBoard();
     }
 
+    @Override
     public abstract Selectable makeSelection();
 
+    @Override
     public abstract boolean desiredSelection();
 }

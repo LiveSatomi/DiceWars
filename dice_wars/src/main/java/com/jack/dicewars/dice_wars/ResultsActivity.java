@@ -1,24 +1,12 @@
 package com.jack.dicewars.dice_wars;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
-import com.jack.dicewars.dice_wars.ai.AbstractAi;
-import com.jack.dicewars.dice_wars.ai.SimpleAi;
-import com.jack.dicewars.dice_wars.game.Configuration;
-import com.jack.dicewars.dice_wars.game.Game;
-import com.jack.dicewars.dice_wars.game.board.filter.Filterable;
-import com.jack.dicewars.dice_wars.game.board.filter.Selectable;
-import com.jack.dicewars.dice_wars.setup.GameConfigActivity;
 
-
+/**
+ * This Activity displays statistics of the last Game to the user.
+ */
 public class ResultsActivity extends Activity {
 
 

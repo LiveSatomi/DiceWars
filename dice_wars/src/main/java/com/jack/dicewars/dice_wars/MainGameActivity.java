@@ -14,9 +14,7 @@ import com.jack.dicewars.dice_wars.ai.AbstractAi;
 import com.jack.dicewars.dice_wars.ai.SimpleAi;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Game;
-import com.jack.dicewars.dice_wars.game.Player;
 import com.jack.dicewars.dice_wars.game.board.filter.Selectable;
-import com.jack.dicewars.dice_wars.game.board.filter.Filterable;
 import com.jack.dicewars.dice_wars.setup.GameConfigActivity;
 
 /**
@@ -95,15 +93,15 @@ public class MainGameActivity extends Activity implements GameController {
     public void onPhaseChange() {
         if (!game.myTurn()) {
             // Get a new AI task (each is only valid to execute once)
-            AsyncTask<AbstractAi, Filterable, Void> aiTask = generateAiTask();
+            AsyncTask<AbstractAi, Selectable, Void> aiTask = generateAiTask();
             // Execute the AI's turn in the background
             aiTask.execute(new AbstractAi[]{new SimpleAi(game)});
         }
     }
 
     @Override
-    public AsyncTask<AbstractAi, Filterable, Void> generateAiTask() {
-        return new AsyncTask<AbstractAi, Filterable, Void>() {
+    public AsyncTask<AbstractAi, Selectable, Void> generateAiTask() {
+        return new AsyncTask<AbstractAi, Selectable, Void>() {
             @Override
             protected Void doInBackground(AbstractAi... params) {
                 Log.i(Debug.ai.s, "Starting AI Phase");
@@ -118,7 +116,7 @@ public class MainGameActivity extends Activity implements GameController {
             }
 
             @Override
-            protected void onProgressUpdate(Filterable... filterables) {
+            protected void onProgressUpdate(Selectable... selectables) {
                 // TODO have a more efficient selection of which views could have been affected.
                 uiUpdate();
             }
