@@ -1,4 +1,5 @@
 com.jack.dicewars.dice_wars
+com.jack.dicewars.dice_wars.ai
 com.jack.dicewars.dice_wars.game
 com.jack.dicewars.dice_wars.game.board
 com.jack.dicewars.dice_wars.game.board.filter
