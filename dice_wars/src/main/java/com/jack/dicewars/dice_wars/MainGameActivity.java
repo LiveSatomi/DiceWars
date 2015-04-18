@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.jack.dicewars.dice_wars.ai.SimpleAi;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Game;
 import com.jack.dicewars.dice_wars.setup.GameConfigActivity;
@@ -16,7 +18,7 @@ import com.jack.dicewars.dice_wars.setup.GameConfigActivity;
 /**
  * This activity will handle displaying the progression of a DiceWars game.
  */
-public class MainGameActivity extends Activity {
+public class MainGameActivity extends Activity implements GameController {
 
     /**
      * The root container for DiceWars game logic.
@@ -36,7 +38,7 @@ public class MainGameActivity extends Activity {
         setContentView(R.layout.a_main_game);
 
         Intent i = getIntent();
-        this.game = new Game(new Configuration(i));
+        this.game = new Game(new Configuration(i), this);
         game.start();
 
         // Choose the game mode to run
@@ -45,17 +47,21 @@ public class MainGameActivity extends Activity {
         } else {
             throw new EnumConstantNotPresentException(Debug.class, "App mode does not exist");
         }
-        boardView.apply((ViewGroup) findViewById(R.id.boardContainer));
 
-        updateLabels();
-        boardView.updateViews();
+        boardView.apply((ViewGroup) findViewById(R.id.boardContainer));
+        uiUpdate();
+
+        // Call a phase change to change into the first phase.
+        onPhaseChange();
     }
 
     /**
-     * Updates the view based on the state of {@game}.
+     * Updates the view based on the state of {@game}. This includes text labels and the Android View objects that
+     * are associated with model objects such as Territories.
      */
-    private void update() {
-        //is this a(n abstract) method of boardView? or is that just a part of the implementation of this method?
+    private void uiUpdate() {
+        boardView.updateViews();
+        updateLabels();
     }
 
     /**
@@ -64,7 +70,7 @@ public class MainGameActivity extends Activity {
     private void updateLabels() {
         ((TextView) findViewById(R.id.activePlayerName)).setText(game.currentPlayerName());
         ((TextView) findViewById(R.id.activePhase)).setText(game.currentPhase().toString());
-        ((TextView) findViewById(R.id.phaseEnd)).setText((game.getUserPrimaryActionId()));
+        ((TextView) findViewById(R.id.phaseEnd)).setText((game.getPrimaryActionId()));
     }
 
     /**
@@ -74,11 +80,41 @@ public class MainGameActivity extends Activity {
      */
     public void userPrimaryAction(View view) {
         //TODO guard against unauthorized players from making this button press have an effect.
+        // Update the Game when the button is clicked
         if (game.myTurn() || !game.myTurn()) {
-            game.doUserPrimaryAction();
-            boardView.updateViews();
-            updateLabels();
+            game.doPrimaryAction();
+            uiUpdate();
         }
+    }
+
+    @Override
+    public void onPhaseChange() {
+        if (!game.myTurn()) {
+            Log.i("AI", "taking turn");
+            // Get a new AI task (each is only valid to execute once)
+            AsyncTask<SimpleAi, Void, Void> aiTask = generateAiTask();
+            // Execute the AI's turn in the background
+            aiTask.execute(new SimpleAi[]{new SimpleAi(game)});
+        }
+    }
+
+    @Override
+    public AsyncTask<SimpleAi, Void, Void> generateAiTask() {
+        return new AsyncTask<SimpleAi, Void, Void>() {
+            @Override
+            protected Void doInBackground(SimpleAi... params) {
+                Log.i(Debug.ai.s, "Starting AI turn");
+                params[0].takeTurn();
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void blank) {
+                Log.i(Debug.ai.s, "AI work is done ");
+                game.doPrimaryAction();
+                uiUpdate();
+            }
+        };
     }
 
     @Override
@@ -113,4 +149,5 @@ public class MainGameActivity extends Activity {
         i.putExtras(GameConfigActivity.defaultExtras());
         finish();
     }
+
 }

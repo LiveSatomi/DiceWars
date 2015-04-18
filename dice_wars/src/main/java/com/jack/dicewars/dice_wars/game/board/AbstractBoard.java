@@ -140,7 +140,7 @@ public abstract class AbstractBoard {
      * @return The string resource id for what the current action's text should be for the game's primary button.
      */
     public int getUserPrimaryActionId() {
-        return game.getUserPrimaryActionId();
+        return game.getPrimaryActionId();
     }
 
 

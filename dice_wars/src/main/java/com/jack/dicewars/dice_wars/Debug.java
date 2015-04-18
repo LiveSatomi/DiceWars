@@ -16,6 +16,8 @@ public enum Debug {
     life ("life"),
     // for visibility on the results of battles
     battle ("battle"),
+    // for ai related tasks
+    ai ("AI"),
     //App mode flags
     gridText(1);
 

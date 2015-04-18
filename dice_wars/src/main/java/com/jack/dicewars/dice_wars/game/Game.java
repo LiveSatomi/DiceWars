@@ -1,5 +1,6 @@
 package com.jack.dicewars.dice_wars.game;
 
+import com.jack.dicewars.dice_wars.GameController;
 import com.jack.dicewars.dice_wars.R;
 import com.jack.dicewars.dice_wars.TerritoryColor;
 import com.jack.dicewars.dice_wars.Debug;
@@ -23,6 +24,8 @@ public class Game {
      * The constraints for this game defined by the user or group of users. @see Configuration
      */
     private Configuration config;
+
+    private GameController controller;
     /**
      * The root of the interactive part of the model.
      */
@@ -36,7 +39,7 @@ public class Game {
      */
     private int roundNum;
 
-    private int userPrimaryActionId;
+    private int primaryActionId;
 
     /**
      * Creates a Game, and determines what app mode this game will use, but does not create a board for the game, call
@@ -44,8 +47,9 @@ public class Game {
      *
      * @param config Defines all aspects of the Game that can change from one Game to another. Used for setup.
      */
-    public Game(Configuration config) {
+    public Game(Configuration config, GameController controller) {
         this.config = config;
+        this.controller = controller;
         if (getAppMode() == Debug.gridText.f) {
             board = new GridTextBoard(this, config);
         } else {
@@ -53,7 +57,7 @@ public class Game {
         }
         round = null;
         roundNum = 0;
-        userPrimaryActionId = R.string.end_phase;
+        primaryActionId = R.string.end_phase;
     }
 
     /**
@@ -95,9 +99,9 @@ public class Game {
      */
     private void updateUserPrimaryAction() {
         if (getPendingAction()) {
-            userPrimaryActionId = R.string.undo;
+            primaryActionId = R.string.undo;
         } else {
-            userPrimaryActionId = R.string.end_phase;
+            primaryActionId = R.string.end_phase;
         }
     }
 
@@ -164,7 +168,7 @@ public class Game {
     /**
      * Executes the process initiated by the user Primary Action based on the state of the Game.
      */
-    public void doUserPrimaryAction() {
+    public void doPrimaryAction() {
         boolean pending = getPendingAction();
         if (pending) {
             undoPhaseAction();
@@ -175,9 +179,9 @@ public class Game {
         }
 
         if (pending) {
-            userPrimaryActionId = R.string.undo;
+            primaryActionId = R.string.undo;
         } else {
-            userPrimaryActionId = R.string.end_phase;
+            primaryActionId = R.string.end_phase;
         }
 
         updateSelectable();
@@ -199,6 +203,7 @@ public class Game {
             round = new Round(config.activePlayers());
             roundNum++;
         }
+        controller.onPhaseChange();
     }
 
     /**
@@ -261,7 +266,7 @@ public class Game {
      *
      * @return The string resource id for what the current action's text should be for the game's primary button.
      */
-    public int getUserPrimaryActionId() {
-        return userPrimaryActionId;
+    public int getPrimaryActionId() {
+        return primaryActionId;
     }
 }
