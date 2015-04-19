@@ -123,7 +123,7 @@ public abstract class AbstractBoard {
 
     /**
      * Checks territory for the criteria defined in Map. Possible types criteria and the form of their value is
-     * defined by TODO define this thing.
+     * defined by the filters package.
      *
      * @param territory The territory being checked by filters
      * @param filters The criteria to check the territory by

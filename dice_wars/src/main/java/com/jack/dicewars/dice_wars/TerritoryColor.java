@@ -1,5 +1,6 @@
 package com.jack.dicewars.dice_wars;
 
+import android.graphics.Color;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -7,13 +8,13 @@ import android.os.Parcelable;
  * A Color acts as the Primary ID for a Player during a given Game.
  */
 public enum TerritoryColor implements Parcelable {
-    colorless("N", R.drawable.tc_colorless),
-    green("g", R.drawable.tc_green),
-    yellow("y", R.drawable.tc_yellow),
-    red("r", R.drawable.tc_red),
-    blue("b", R.drawable.tc_blue),
-    purple("p", R.drawable.tc_purple),
-    pink("i", R.drawable.tc_pink);
+    colorless("N", R.drawable.tc_colorless, Color.LTGRAY),
+    green("g", R.drawable.tc_green, Color.GREEN),
+    yellow("y", R.drawable.tc_yellow, Color.YELLOW),
+    red("r", R.drawable.tc_red, Color.RED),
+    blue("b", R.drawable.tc_blue, Color.BLUE),
+    purple("p", R.drawable.tc_purple, Color.parseColor("purple")),
+    pink("i", R.drawable.tc_pink, Color.MAGENTA);
 
     /**
      * A color code that represents the actual color while in Text Mode.
@@ -26,13 +27,19 @@ public enum TerritoryColor implements Parcelable {
     private int drawableId;
 
     /**
+     * A hexadecimal color, dominant in the corresponding drawable.
+     */
+    private int hexColor;
+
+    /**
      * A constructor to use colors in text mode.
      * @param text The one letter code that signifies the color.
      * @param id The id R.drawable saved for this TerritoryColor
      */
-    TerritoryColor(String text, int id) {
+    TerritoryColor(String text, int id, int hexColor) {
         code = text;
         drawableId = id;
+        this.hexColor = hexColor;
     }
 
     /**
@@ -57,6 +64,7 @@ public enum TerritoryColor implements Parcelable {
             TerritoryColor territoryColor = TerritoryColor.values()[in.readInt()];
             territoryColor.setCode(in.readString());
             territoryColor.setDrawableId(in.readInt());
+            territoryColor.setHexColor(in.readInt());
             return territoryColor;
         }
 
@@ -76,6 +84,7 @@ public enum TerritoryColor implements Parcelable {
         out.writeInt(ordinal());
         out.writeString(code);
         out.writeInt(drawableId);
+        out.writeInt(hexColor);
     }
 
     /**
@@ -92,5 +101,21 @@ public enum TerritoryColor implements Parcelable {
      */
     public void setDrawableId(int territoryId) {
         this.drawableId = territoryId;
+    }
+
+    /**
+     *
+     * @return The dominant color of this TerritoryColor's drawable in hex form.
+     */
+    public int getHexColor() {
+        return hexColor;
+    }
+
+    /**
+     *
+     * @param hexColor The dominant color of this TerritoryColor's drawable in hex form.
+     */
+    public void setHexColor(int hexColor) {
+        this.hexColor = hexColor;
     }
 }

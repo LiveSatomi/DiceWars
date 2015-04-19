@@ -72,6 +72,7 @@ public class MainGameActivity extends Activity implements GameController {
      */
     private void updateLabels() {
         ((TextView) findViewById(R.id.activePlayerName)).setText(game.currentPlayerName());
+        ((TextView) findViewById(R.id.activePlayerName)).setTextColor(game.currentPlayerColor().getHexColor());
         ((TextView) findViewById(R.id.activePhase)).setText(game.currentPhase().toString());
         ((TextView) findViewById(R.id.phaseEnd)).setText((game.getPrimaryActionId()));
     }

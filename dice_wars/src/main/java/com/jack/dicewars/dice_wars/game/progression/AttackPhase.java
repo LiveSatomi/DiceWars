@@ -3,11 +3,12 @@ package com.jack.dicewars.dice_wars.game.progression;
 import android.util.Log;
 import com.jack.dicewars.dice_wars.Debug;
 import com.jack.dicewars.dice_wars.game.Player;
+import com.jack.dicewars.dice_wars.game.board.Territory;
+import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
 import com.jack.dicewars.dice_wars.game.board.filter.AdjacentFilter;
 import com.jack.dicewars.dice_wars.game.board.filter.ColorFilter;
 import com.jack.dicewars.dice_wars.game.board.filter.Filter;
-import com.jack.dicewars.dice_wars.game.board.Territory;
-import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
+import com.jack.dicewars.dice_wars.game.board.filter.HostilityFilter;
 import com.jack.dicewars.dice_wars.game.board.filter.ValueFilter;
 
 import java.util.HashSet;
@@ -48,6 +49,8 @@ public class AttackPhase extends AbstractPhase {
             filters.add(new ColorFilter(player.getTerritoryColor(), true));
             // Pick anything that has more than one dice on it.
             filters.add(new ValueFilter(1, true));
+            // Pick anything that can attack something
+            filters.add(new HostilityFilter());
             return filters;
         } else if (selected.size() == 1) {
             // Attack anything that is not your own color
