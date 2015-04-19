@@ -14,6 +14,7 @@ import com.jack.dicewars.dice_wars.ai.AbstractAi;
 import com.jack.dicewars.dice_wars.ai.SimpleAi;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Game;
+import com.jack.dicewars.dice_wars.game.Results;
 import com.jack.dicewars.dice_wars.game.board.filter.Selectable;
 import com.jack.dicewars.dice_wars.setup.GameConfigActivity;
 
@@ -39,8 +40,15 @@ public class MainGameActivity extends Activity implements GameController {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_main_game);
 
-        Intent i = getIntent();
-        this.game = new Game(new Configuration(i), this);
+        Bundle configBundle = getIntent().getExtras();
+
+        // Restart bundle will not be null if the intent came from a user initiated restart.
+        final Bundle restartBundle = configBundle.getBundle(Configuration.RESTART);
+        if (restartBundle != null) {
+            configBundle = restartBundle;
+        }
+
+        this.game = new Game(new Configuration(configBundle), this);
         game.start();
 
         // Choose the game mode to run
@@ -111,7 +119,7 @@ public class MainGameActivity extends Activity implements GameController {
                 // TODO Abstract this flow into the AI class itself
                 while (ai.desiredSelection()) {
                     Selectable selection = ai.makeSelection();
-                    publishProgress(new Selectable[]{selection});
+                    publishProgress(selection);
                 }
                 return null;
             }
@@ -136,10 +144,21 @@ public class MainGameActivity extends Activity implements GameController {
 
     @Override
     public void onGameEnd() {
-        String winnerName = game.currentPlayerName();
         Intent resultsScreen = new Intent(this, ResultsActivity.class);
-        resultsScreen.putExtra("winner", winnerName);
+        resultsScreen = gatherResults(resultsScreen);
         startActivity(resultsScreen);
+    }
+
+    /**
+     * Places all relevant results in the supplied ResultsActivity Intent
+     * @param intent The intent that is going to the results Screen
+     * @return The updated intent will relevant results data stored as extras.
+     */
+    private Intent gatherResults(Intent intent) {
+        intent.putParcelableArrayListExtra(Results.CLOSED_PLAYERS, game.getClosedPlayers());
+        intent.putExtra(Results.ROUND_NUM, game.getRoundNum());
+        intent.putExtra(Results.ORIGINAL_CONFIG, getIntent().getExtras());
+        return intent;
     }
 
 

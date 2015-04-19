@@ -11,6 +11,7 @@ import com.jack.dicewars.dice_wars.game.board.TerritoryBorder;
 import com.jack.dicewars.dice_wars.game.progression.Phase;
 import com.jack.dicewars.dice_wars.game.progression.Round;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,7 +26,9 @@ public class Game {
      * The constraints for this game defined by the user or group of users. @see Configuration
      */
     private Configuration config;
-
+    /**
+     * Model's reference to the Controller/Listener to that it may fire events as the Model/Observable
+     */
     private GameController controller;
     /**
      * The root of the interactive part of the model.
@@ -39,8 +42,14 @@ public class Game {
      * The number of current Round being played.
      */
     private int roundNum;
-
+    /**
+     * The string resource ID for the description of the Primary Action the Player can take to advance the game.
+     */
     private int primaryActionId;
+    /**
+     * An array containing the Players that have been closed (lost) in the order that they were closed during this game.
+     */
+    private ArrayList<Player> closedPlayers;
 
 
     /**
@@ -61,6 +70,7 @@ public class Game {
         round = null;
         roundNum = 0;
         primaryActionId = R.string.end_phase;
+        closedPlayers = new ArrayList<>();
     }
 
     /**
@@ -95,7 +105,16 @@ public class Game {
             updateSelectable();
             updateUserPrimaryAction();
 
+            //Check if any more players have lost
+            for (Player player : config.getPlayers()) {
+                if (player.getStatus().equals(Player.STATUS_CLOSED) && !closedPlayers.contains(player)) {
+                    closedPlayers.add(0, player);
+                }
+            }
+
             if (round.gameHasEnded()) {
+                // Add the last player who "lost" (the winner)
+                closedPlayers.add(0, round.currentPlayer());
                 controller.onGameEnd();
             }
         }
@@ -275,5 +294,9 @@ public class Game {
      */
     public int getPrimaryActionId() {
         return primaryActionId;
+    }
+
+    public ArrayList<Player> getClosedPlayers() {
+        return closedPlayers;
     }
 }

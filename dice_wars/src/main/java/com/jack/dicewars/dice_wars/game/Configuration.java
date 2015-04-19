@@ -1,7 +1,9 @@
 package com.jack.dicewars.dice_wars.game;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import com.jack.dicewars.dice_wars.TerritoryColor;
 import com.jack.dicewars.dice_wars.Debug;
 import com.jack.dicewars.dice_wars.game.board.AbstractBoard;
@@ -20,9 +22,10 @@ public class Configuration {
     private static final int MAX_PLAYERS = 6;
 
     private static final String PLAYERS_KEY = "players";
-    private static final String COLORLESS_TERRITORY_KEY = "colorless_territory";
-    private static final String RANDOM_REINFORCE_KEY = "random_reinforce";
-    private static final String BOARD_SIZE_KEY = "board_size";
+    private static final String COLORLESS_TERRITORY_KEY = "colorlessTerritory";
+    private static final String RANDOM_REINFORCE_KEY = "randomReinforce";
+    private static final String BOARD_SIZE_KEY = "boardSize";
+    public static final String RESTART = "restart";
 
     private final Player[] players = new Player[MAX_PLAYERS];
     private boolean colorlessTerritory;
@@ -57,16 +60,16 @@ public class Configuration {
     /**
      * Defines a Configuration by the extras of the passed intent. Extra keys are defined at {@link #PLAYERS_KEY}.
      *
-     * @param intent The intent with extras fully defining this Configuration.
+     * @param bundle The intent with extras fully defining this Configuration. TODO update javadoc
      */
-    public Configuration(Intent intent) {
-        Parcelable[] parceledPlayers = intent.getParcelableArrayExtra(PLAYERS_KEY);
+    public Configuration(Bundle bundle) {
+        Parcelable[] parceledPlayers = bundle.getParcelableArray(PLAYERS_KEY);
         for (int i = 0; i < MAX_PLAYERS; i++) {
             getPlayers()[i] = ((Player) parceledPlayers[i]);
         }
-        colorlessTerritory = intent.getBooleanExtra(COLORLESS_TERRITORY_KEY, false);
-        randomReinforce = intent.getBooleanExtra(RANDOM_REINFORCE_KEY, false);
-        boardSize = intent.getIntExtra(BOARD_SIZE_KEY, AbstractBoard.BOARD_SIZE_SMALL);
+        colorlessTerritory = bundle.getBoolean(COLORLESS_TERRITORY_KEY, false);
+        randomReinforce = bundle.getBoolean(RANDOM_REINFORCE_KEY, false);
+        boardSize = bundle.getInt(BOARD_SIZE_KEY, AbstractBoard.BOARD_SIZE_SMALL);
     }
 
     /**

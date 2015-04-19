@@ -28,6 +28,10 @@ public class Player implements Parcelable {
     private String status;
     private TerritoryColor territoryColor;
     /**
+     * An index in the Results rankings that is requested from the Game once this Player's status is update to Closed.
+     */
+    private int place;
+    /**
      * The maximum value this Player's Territories' can normally have. (i.e. be reinforced to)
      * TODO this should eventually come from "TerritoryColor properties".
      */
