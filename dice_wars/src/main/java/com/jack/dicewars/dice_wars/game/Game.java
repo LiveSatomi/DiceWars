@@ -117,6 +117,11 @@ public class Game {
                 closedPlayers.add(0, round.currentPlayer());
                 controller.onGameEnd();
             }
+        } else if (territory.isSelected()) {
+            // TODO add call to is last selected here to make this a little "smarter"
+            undoPhaseAction();
+            updateSelectable();
+            updateUserPrimaryAction();
         }
     }
 
