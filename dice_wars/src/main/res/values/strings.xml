@@ -9,8 +9,10 @@
     <string name="title_activity_how_to_play">HowToPlayActivity</string>
     <string name="title_activity_options">OptionsActivity</string>
     <string name="title_activity_main_game_activity">MainGameActivity</string>
-    <string name="common_warning">Warning</string>
-    <string name="hardware_back_in_game">Going back could disrupt functionality.</string>
+    <string name="common_sure">Are you sure?</string>
+    <string name="hardware_back_in_game">Leave the game for now?</string>
+    <string name="common_yes">Yes</string>
+    <string name="common_no">No</string>
     <string name="common_continue">Continue</string>
     <string name="common_cancel">Cancel</string>
     <string name="config_name">Name</string>
@@ -20,5 +22,9 @@
     <string name="undo">Undo</string>
     <string name="end_phase">End Phase</string>
     <string name="title_activity_results">Results</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="bespokeStartState"><u>Start State</u></string>
+    <string name="bespokeBoardMode"><u>Board Mode</u></string>
+    <string name="common_confirm">Confirm</string>
 
 </resources>

@@ -52,7 +52,7 @@ public class MainGameActivity extends Activity implements GameController {
         game.start();
 
         // Choose the game mode to run
-        if (game.getAppMode() == Debug.gridText.f) {
+        if ((game.getAppMode() & Debug.gridText.f) == Debug.gridText.f) {
             boardView = new GridTextBoardView(game.getBoard(), this);
         } else {
             throw new EnumConstantNotPresentException(Debug.class, "App mode does not exist");
@@ -147,6 +147,9 @@ public class MainGameActivity extends Activity implements GameController {
         Intent resultsScreen = new Intent(this, ResultsActivity.class);
         resultsScreen = gatherResults(resultsScreen);
         startActivity(resultsScreen);
+        // Don't come back to the game once it's done.
+        // TODO pause so the user decides when to leave the game for good.
+        finish();
     }
 
     /**
@@ -166,16 +169,16 @@ public class MainGameActivity extends Activity implements GameController {
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-        builder.setMessage(R.string.hardware_back_in_game).setTitle(R.string.common_warning);
+        builder.setMessage(R.string.hardware_back_in_game).setTitle(R.string.common_sure);
 
-        builder.setMessage(R.string.hardware_back_in_game).setPositiveButton(R.string.common_continue, new
+        builder.setMessage(R.string.hardware_back_in_game).setPositiveButton(R.string.common_yes, new
                 DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Log.i(Debug.nav.s, "Go to Game Config");
-                goToGameConfig();
+                goToModeSelect();
             }
 
-        }).setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
+        }).setNegativeButton(R.string.common_no, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 Log.i(Debug.nav.s, "cancel");
             }
@@ -189,7 +192,7 @@ public class MainGameActivity extends Activity implements GameController {
      * Debug. This method should block the back button. Ends the game, and sends the intent for this game back to the
      * configuration activity.
      */
-    private void goToGameConfig() {
+    private void goToModeSelect() {
         Intent i = new Intent(this, GameConfigActivity.class);
         i.putExtras(GameConfigActivity.defaultExtras());
         finish();

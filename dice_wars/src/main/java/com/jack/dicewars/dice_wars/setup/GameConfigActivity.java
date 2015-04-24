@@ -1,8 +1,11 @@
 package com.jack.dicewars.dice_wars.setup;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,10 +19,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import com.jack.dicewars.dice_wars.TerritoryColor;
-import com.jack.dicewars.dice_wars.Debug;
-import com.jack.dicewars.dice_wars.MainGameActivity;
-import com.jack.dicewars.dice_wars.R;
+import com.jack.dicewars.dice_wars.*;
 import com.jack.dicewars.dice_wars.game.board.AbstractBoard;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Player;
@@ -34,9 +34,11 @@ import java.io.InputStreamReader;
 /**
  * Allows the user to set the names, colors, and number of players, board size, and other options.
  */
-public class GameConfigActivity extends Activity {
+public class GameConfigActivity extends Activity implements BespokeFragment.OnBespokeActionListener {
 
     public static final String EX_POSITION = "position";
+
+    private int bespokeFlags = Configuration.DEFAULT_MODE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,32 @@ public class GameConfigActivity extends Activity {
         if (getIntent().getExtras() == null) {
             getIntent().putExtras(defaultExtras());
         }
+
+        Fragment bespokeOptions = getFragmentManager().findFragmentByTag("bespoke");
+        FragmentManager fm = getFragmentManager();
+        fm.beginTransaction().hide(bespokeOptions).commit();
+
+        findViewById(R.id.configTitle).setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.i("active", "long");
+                // Initiate fragment for app mode result
+                Fragment bespokeOptions = getFragmentManager().findFragmentByTag("bespoke");
+                FragmentManager fm = getFragmentManager();
+                if (bespokeOptions.isHidden()) {
+                    fm.beginTransaction()
+                            .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                            .show(bespokeOptions)
+                            .commit();
+                } else {
+                    fm.beginTransaction()
+                            .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                            .hide(bespokeOptions)
+                            .commit();
+                }
+                return true;
+            }
+        });
 
     }
 
@@ -168,11 +196,14 @@ public class GameConfigActivity extends Activity {
         // Build the configuration from the options that are set
 
         Configuration config = constructConfiguration();
+        config.setAppMode(bespokeFlags);
 
         // Push the configuration along the link to the activity
         Intent mainGame = new Intent(this, MainGameActivity.class);
         mainGame = config.upload(mainGame);
         startActivity(mainGame);
+        // Don't return to the Config screen once the game starts.
+        finish();
     }
 
     /**
@@ -293,5 +324,15 @@ public class GameConfigActivity extends Activity {
                 randomReinforce, boardSize);
     }
 
+    @Override
+    public void onConfirmBespoke(View view) {
+        // TODO make this tag a string resource
+        BespokeFragment bespokeOptions = (BespokeFragment) getFragmentManager().findFragmentByTag("bespoke");
+        bespokeFlags = bespokeOptions.confirmBespoke();
 
+        getFragmentManager().beginTransaction()
+                .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                .hide(bespokeOptions)
+                .commit();
+    }
 }

@@ -72,6 +72,7 @@ public class ResultsActivity extends Activity {
         Intent restart = new Intent(this, MainGameActivity.class);
         restart.putExtra(Configuration.RESTART, getIntent().getExtras().getBundle(Results.ORIGINAL_CONFIG));
         startActivity(restart);
+        finish();
     }
 
     /**
@@ -80,6 +81,8 @@ public class ResultsActivity extends Activity {
      */
     public void finish(View view) {
         Intent modeSelect = new Intent(this, ModeSelectActivity.class);
+        modeSelect.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(modeSelect);
+        finish();
     }
 }

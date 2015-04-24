@@ -62,7 +62,7 @@ public class Game {
     public Game(Configuration config, GameController controller) {
         this.config = config;
         this.controller = controller;
-        if (getAppMode() == Debug.gridText.f) {
+        if ((getAppMode() & Debug.gridText.f) == Debug.gridText.f) {
             board = new GridTextBoard(this, config);
         } else {
             throw new EnumConstantNotPresentException(Debug.class, "App mode does not exist");

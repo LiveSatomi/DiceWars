@@ -18,8 +18,13 @@ public enum Debug {
     battle ("battle"),
     // for ai related tasks
     ai ("AI"),
-    //App mode flags
-    gridText(1);
+
+    // App mode flags
+    // Bits 0 through 2 are Board Mode
+    gridText(1),
+    //Bits 3 through 5 are Start State
+    // Most territories given to player 1
+    easyWin(1 << 3);
 
     /**
      * A string to search for in logcat.

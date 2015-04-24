@@ -1,13 +1,11 @@
 package com.jack.dicewars.dice_wars.game.board;
 
+import com.jack.dicewars.dice_wars.Debug;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Game;
 import com.jack.dicewars.dice_wars.game.Player;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * A implementation of AbstractBoard that is entirely functional, but exposes as much data as possible for debugging
@@ -122,16 +120,33 @@ public class GridTextBoard extends AbstractBoard {
         }
 
         Random rand = new Random();
-        while (perPlayer > 0) {
-            // Assign 1 territory to each player per while loop iteration
+        if ((config.getAppMode() & Debug.easyWin.f) == Debug.easyWin.f) {
+            // Give one Territory to all players and the rest to player 1 for an easy win to debug results/etc.
             for (int i = 0; i < activePlayers.size(); i++) {
-
                 int randomLoc = rand.nextInt(boardCopy.size());
                 TerritoryBorder current = boardCopy.remove(randomLoc);
                 Player player = activePlayers.get(i);
                 current.setOwnerOfInternal(player);
             }
-            perPlayer--;
+
+            // Give the rest of the Territories to Player 1
+            while (!boardCopy.isEmpty()) {
+                boardCopy.remove(0).setOwnerOfInternal(activePlayers.get(0));
+            }
+
+        } else {
+            // Production flow
+            while (perPlayer > 0) {
+                // Assign 1 territory to each player per while loop iteration
+                for (int i = 0; i < activePlayers.size(); i++) {
+
+                    int randomLoc = rand.nextInt(boardCopy.size());
+                    TerritoryBorder current = boardCopy.remove(randomLoc);
+                    Player player = activePlayers.get(i);
+                    current.setOwnerOfInternal(player);
+                }
+                perPlayer--;
+            }
         }
 
         // Give the left over territories to some players, this will not affect the number of dice they begin with.

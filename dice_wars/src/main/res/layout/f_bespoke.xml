@@ -1,0 +1,96 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.jack.dicewars.dice_wars.BespokeFragment"
+             android:gravity="center_horizontal"
+             android:background="@color/background_material_dark"
+        >
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="40dp"
+            >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Bespoke Options"
+                android:id="@+id/textView3"
+                android:layout_marginBottom="10dp"
+                android:layout_centerHorizontal="true"/>
+
+        <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radioGroupStart"
+                android:layout_alignParentStart="false"
+                android:layout_marginBottom="10dp"
+                android:layout_below="@+id/textView3"
+                android:layout_centerHorizontal="true">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/bespokeStartState"
+                    android:id="@+id/textView2"
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    />
+
+            <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Production"
+                    android:id="@+id/radioProdStart"
+                    android:checked="true"/>
+
+            <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Easy Win"
+                    android:id="@+id/radioEasyWin"/>
+        </RadioGroup>
+
+        <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/radioGroupStart"
+                android:id="@+id/radioGroupBoard"
+                android:layout_centerHorizontal="true">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="@string/bespokeBoardMode"
+                    android:id="@+id/textView"
+                    android:textAlignment="center"
+                    android:gravity="center"/>
+
+            <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Grid Text"
+                    android:id="@+id/radioGridTextBoard"
+                    android:checked="true"/>
+
+        </RadioGroup>
+
+        <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/common_confirm"
+                android:id="@+id/confirmBespoke"
+                android:layout_below="@+id/radioGroupBoard"
+                android:layout_centerHorizontal="true"
+                android:onClick="onConfirmBespoke"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

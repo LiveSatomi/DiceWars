@@ -25,13 +25,16 @@ public class Configuration {
     private static final String COLORLESS_TERRITORY_KEY = "colorlessTerritory";
     private static final String RANDOM_REINFORCE_KEY = "randomReinforce";
     private static final String BOARD_SIZE_KEY = "boardSize";
+    private static final java.lang.String APP_MODE_KEY = "appMode";
     public static final String RESTART = "restart";
+
+    public static final int DEFAULT_MODE = Debug.gridText.f;
 
     private final Player[] players = new Player[MAX_PLAYERS];
     private boolean colorlessTerritory;
     private boolean randomReinforce;
     private int boardSize;
-    private int appMode = Debug.gridText.f;
+    private int appMode;
 
     /**
      * Full constructor for a game Configuration. Forces all of the Configuration properties to be set to their
@@ -55,6 +58,7 @@ public class Configuration {
         colorlessTerritory = cT;
         randomReinforce = rR;
         boardSize = size;
+        appMode = DEFAULT_MODE;
     }
 
     /**
@@ -70,6 +74,7 @@ public class Configuration {
         colorlessTerritory = bundle.getBoolean(COLORLESS_TERRITORY_KEY, false);
         randomReinforce = bundle.getBoolean(RANDOM_REINFORCE_KEY, false);
         boardSize = bundle.getInt(BOARD_SIZE_KEY, AbstractBoard.BOARD_SIZE_SMALL);
+        appMode = bundle.getInt(APP_MODE_KEY, DEFAULT_MODE);
     }
 
     /**
@@ -85,6 +90,7 @@ public class Configuration {
         intent.putExtra(COLORLESS_TERRITORY_KEY, colorlessTerritory);
         intent.putExtra(RANDOM_REINFORCE_KEY, randomReinforce);
         intent.putExtra(BOARD_SIZE_KEY, getBoardSize());
+        intent.putExtra(APP_MODE_KEY, appMode);
         return intent;
     }
 
