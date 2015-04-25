@@ -3,7 +3,6 @@ package com.jack.dicewars.dice_wars.game;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 import com.jack.dicewars.dice_wars.TerritoryColor;
 import com.jack.dicewars.dice_wars.Debug;
 import com.jack.dicewars.dice_wars.game.board.AbstractBoard;

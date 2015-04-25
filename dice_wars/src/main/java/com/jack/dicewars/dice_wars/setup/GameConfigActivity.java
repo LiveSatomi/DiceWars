@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -19,7 +18,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import com.jack.dicewars.dice_wars.*;
+import com.jack.dicewars.dice_wars.BespokeFragment;
+import com.jack.dicewars.dice_wars.Debug;
+import com.jack.dicewars.dice_wars.MainGameActivity;
+import com.jack.dicewars.dice_wars.R;
+import com.jack.dicewars.dice_wars.TerritoryColor;
 import com.jack.dicewars.dice_wars.game.board.AbstractBoard;
 import com.jack.dicewars.dice_wars.game.Configuration;
 import com.jack.dicewars.dice_wars.game.Player;
@@ -51,7 +54,7 @@ public class GameConfigActivity extends Activity implements BespokeFragment.OnBe
             getIntent().putExtras(defaultExtras());
         }
 
-        Fragment bespokeOptions = getFragmentManager().findFragmentByTag("bespoke");
+        Fragment bespokeOptions = getFragmentManager().findFragmentByTag(getString(R.string.fragBespoke));
         FragmentManager fm = getFragmentManager();
         fm.beginTransaction().hide(bespokeOptions).commit();
 
@@ -60,7 +63,7 @@ public class GameConfigActivity extends Activity implements BespokeFragment.OnBe
             public boolean onLongClick(View v) {
                 Log.i("active", "long");
                 // Initiate fragment for app mode result
-                Fragment bespokeOptions = getFragmentManager().findFragmentByTag("bespoke");
+                Fragment bespokeOptions = getFragmentManager().findFragmentByTag(getString(R.string.fragBespoke));
                 FragmentManager fm = getFragmentManager();
                 if (bespokeOptions.isHidden()) {
                     fm.beginTransaction()
@@ -270,7 +273,7 @@ public class GameConfigActivity extends Activity implements BespokeFragment.OnBe
             Button playerStatus = (Button) viewingPlayerSlot.findViewById(R.id.config_status);
             playerStatus.setText(Player.STATUS_AI);
             // Color
-            String[] placeHolderColors = new String[]{"green", "yellow", "red", "blue", "purple", "pink"};
+            String[] placeHolderColors = new String[]{"green", "red", "blue", "yellow", "purple", "pink"};
             Button playerColor = (Button) viewingPlayerSlot.findViewById(R.id.config_color);
             playerColor.setText(placeHolderColors[i]);
         }
@@ -327,7 +330,8 @@ public class GameConfigActivity extends Activity implements BespokeFragment.OnBe
     @Override
     public void onConfirmBespoke(View view) {
         // TODO make this tag a string resource
-        BespokeFragment bespokeOptions = (BespokeFragment) getFragmentManager().findFragmentByTag("bespoke");
+        BespokeFragment bespokeOptions = (BespokeFragment) getFragmentManager()
+                .findFragmentByTag(getString(R.string.fragBespoke));
         bespokeFlags = bespokeOptions.confirmBespoke();
 
         getFragmentManager().beginTransaction()

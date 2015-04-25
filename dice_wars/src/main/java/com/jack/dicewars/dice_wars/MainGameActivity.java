@@ -153,7 +153,7 @@ public class MainGameActivity extends Activity implements GameController {
     }
 
     /**
-     * Places all relevant results in the supplied ResultsActivity Intent
+     * Places all relevant results in the supplied ResultsActivity Intent.
      * @param intent The intent that is going to the results Screen
      * @return The updated intent will relevant results data stored as extras.
      */

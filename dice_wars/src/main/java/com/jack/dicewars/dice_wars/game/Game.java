@@ -27,7 +27,7 @@ public class Game {
      */
     private Configuration config;
     /**
-     * Model's reference to the Controller/Listener to that it may fire events as the Model/Observable
+     * Model's reference to the Controller/Listener to that it may fire events as the Model/Observable.
      */
     private GameController controller;
     /**
@@ -301,6 +301,10 @@ public class Game {
         return primaryActionId;
     }
 
+    /**
+     *
+     * @return Returns all the players that have a "Closed" status, meaning they have already lost this Game.
+     */
     public ArrayList<Player> getClosedPlayers() {
         return closedPlayers;
     }

@@ -35,6 +35,7 @@ public enum TerritoryColor implements Parcelable {
      * A constructor to use colors in text mode.
      * @param text The one letter code that signifies the color.
      * @param id The id R.drawable saved for this TerritoryColor
+     * @param hexColor The visual color of this TerritoryColor saved as RRGGBB
      */
     TerritoryColor(String text, int id, int hexColor) {
         code = text;

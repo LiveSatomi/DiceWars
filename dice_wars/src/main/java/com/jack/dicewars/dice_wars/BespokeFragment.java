@@ -3,7 +3,6 @@ package com.jack.dicewars.dice_wars;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,7 @@ import android.widget.RadioGroup;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link DialogFragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link com.jack.dicewars.dice_wars.BespokeFragment.OnBespokeActionListener} interface
  * to handle interaction events.
@@ -33,6 +32,9 @@ public class BespokeFragment extends DialogFragment {
         return fragment;
     }
 
+    /**
+     * Empty constructor for Fragment.
+     */
     public BespokeFragment() {
         // Required empty public constructor
     }
@@ -49,6 +51,10 @@ public class BespokeFragment extends DialogFragment {
         return inflater.inflate(R.layout.f_bespoke, container, true);
     }
 
+    /**
+     *
+     * @return The flags defined by Debug indicated by the checked radio buttons.
+     */
     public int confirmBespoke() {
         int bespokeFlag = 0;
 
@@ -99,8 +105,11 @@ public class BespokeFragment extends DialogFragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnBespokeActionListener {
-        // TODO: Update argument type and name
-        public void onConfirmBespoke(View view);
+        /**
+         *
+         * @param view the button clicked to call this function.
+         */
+        void onConfirmBespoke(View view);
     }
 
 }

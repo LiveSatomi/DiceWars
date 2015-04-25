@@ -26,5 +26,6 @@
     <string name="bespokeStartState"><u>Start State</u></string>
     <string name="bespokeBoardMode"><u>Board Mode</u></string>
     <string name="common_confirm">Confirm</string>
+    <string name="fragBespoke">bespoke</string>
 
 </resources>
