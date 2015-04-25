@@ -10,7 +10,7 @@ import android.widget.RadioGroup;
 
 
 /**
- * A simple {@link DialogFragment} subclass.
+ * A simple DialogFragment subclass.
  * Activities that contain this fragment must implement the
  * {@link com.jack.dicewars.dice_wars.BespokeFragment.OnBespokeActionListener} interface
  * to handle interaction events.
